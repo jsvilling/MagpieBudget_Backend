@@ -9,10 +9,7 @@ import java.math.BigDecimal
 @Service
 class AccountService(private val messageBus: MessageBus) {
 
-    fun createAccount(values: Map<String, String>) {
-        // TODO Validate & Sanitize parameters
-        val balance = BigDecimal(values["balance"].toString())
-        val name = values["name"].toString()
+    fun createAccount(balance: BigDecimal, name: String) {
         val createAccountMessage = CreateAccountMessage(balance, name)
         messageBus.send(createAccountMessage)
     }
