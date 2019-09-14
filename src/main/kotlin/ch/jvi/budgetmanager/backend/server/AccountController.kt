@@ -8,8 +8,10 @@ import java.math.BigDecimal
 @RequestMapping("/api/accounts")
 class AccountController(private val accountService: AccountService) {
 
-    @PutMapping("/create")
-    fun createAccount(@RequestParam balance: BigDecimal, @RequestParam name: String)
-            = accountService.createAccount(balance, name)
+    @GetMapping("/{id}")
+    fun getAccount(@PathVariable id: String) = accountService.getAccount(id)
 
+    @PutMapping("/create")
+    fun createAccount(@RequestParam balance: BigDecimal, @RequestParam name: String) =
+        accountService.createAccount(balance, name)
 }
