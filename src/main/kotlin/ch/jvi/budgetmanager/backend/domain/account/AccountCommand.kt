@@ -1,6 +1,6 @@
 package ch.jvi.budgetmanager.backend.domain.account
 
-import ch.jvi.budgetmanager.backend.domain.Command
+import ch.jvi.budgetmanager.backend.domain.api.Command
 import java.math.BigDecimal
 import java.math.BigDecimal.ZERO
 
