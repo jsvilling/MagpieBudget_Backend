@@ -5,5 +5,5 @@ import java.math.BigDecimal
 import java.math.BigDecimal.ZERO
 
 sealed class AccountCommand : Command {
-    data class CreateAccountCommand(val balance: BigDecimal = ZERO, val name: String = "Anonymous Account")
+    data class CreateAccountCommand(val balance: BigDecimal = ZERO, val name: String = "Anonymous Account"): Command
 }
