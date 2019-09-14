@@ -1,17 +1,21 @@
 package ch.jvi.budgetmanager.backend.server
 
+import ch.jvi.budgetmanager.backend.core.AccountService
 import org.junit.Test
+import org.mockito.Mockito
 
 internal class AccountControllerTest {
 
-    val accountController = AccountController()
+    var accountService = Mockito.spy(AccountService())
+    var accountController = AccountController(accountService)
 
     @Test
     fun testCreateAccountCall() {
         // When
-        accountController.createAccount(emptyMap())
+        val payload: Map<String, String> = emptyMap()
+        accountController.createAccount(payload)
 
         // Then
-        // No Exception should be thrown
+        Mockito.verify(accountService, Mockito.times(1)).createAccount(payload)
     }
 }
