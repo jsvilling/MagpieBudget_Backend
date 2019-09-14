@@ -1,6 +1,6 @@
 package ch.jvi.budgetmanager.backend.domain.account
 
-import ch.jvi.budgetmanager.backend.domain.api.DomainEntity
+import ch.jvi.budgetmanager.backend.domain.DomainEntity
 import java.math.BigDecimal
 
 class Account : DomainEntity {

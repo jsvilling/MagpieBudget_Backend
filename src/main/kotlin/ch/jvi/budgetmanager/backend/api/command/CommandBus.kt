@@ -1,4 +1,4 @@
-package ch.jvi.budgetmanager.backend.domain.api
+package ch.jvi.budgetmanager.backend.api.command
 
 import ch.jvi.budgetmanager.domain.api.Command
 
