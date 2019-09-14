@@ -1,7 +1,7 @@
 package ch.jvi.budgetmanager.backend.core.message
 
 import ch.jvi.budgetmanager.core.api.Message
-import ch.jvi.budgetmanager.core.api.MessageBus
+import ch.jvi.budgetmanager.backend.api.message.MessageBus
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 

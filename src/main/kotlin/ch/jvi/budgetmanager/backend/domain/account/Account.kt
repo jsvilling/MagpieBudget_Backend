@@ -3,15 +3,10 @@ package ch.jvi.budgetmanager.backend.domain.account
 import ch.jvi.budgetmanager.backend.domain.DomainEntity
 import java.math.BigDecimal
 
-class Account : DomainEntity {
+class Account(creationCommand: CreateAccountCommand) : DomainEntity {
 
-    val id: String;
-    val balance: BigDecimal;
-    val name: String;
+    val id: String = creationCommand.id;
+    val balance: BigDecimal = creationCommand.balance;
+    val name: String = creationCommand.name
 
-    constructor(creationCommand: AccountCommand.CreateAccountCommand) {
-        this.id = creationCommand.id
-        this.balance = creationCommand.balance
-        this.name = creationCommand.name
-    }
 }

@@ -1,17 +1,18 @@
 package ch.jvi.budgetmanager.backend.server
 
+import ch.jvi.budgetmanager.backend.api.command.CommandStore
 import ch.jvi.budgetmanager.backend.core.AccountService
-import ch.jvi.budgetmanager.core.api.MessageBus
+import ch.jvi.budgetmanager.backend.api.message.MessageBus
 import org.junit.Test
 import org.mockito.Mockito.*
 import java.math.BigDecimal
-import org.mockito.Mockito as Mockito
 
 internal class AccountControllerTest {
 
-    var messageBus = mock(MessageBus::class.java)
-    var accountService = spy(AccountService(messageBus))
-    var accountController = AccountController(accountService)
+    val messageBus = mock(MessageBus::class.java)
+    val commandStore = mock(CommandStore::class.java)
+    val accountService = spy(AccountService(messageBus, commandStore))
+    val accountController = AccountController(accountService)
 
     @Test
     fun testGetAccount() {

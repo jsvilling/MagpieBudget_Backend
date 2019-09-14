@@ -9,7 +9,7 @@ class AccountCommandTest {
     @Test
     fun testCreationCommand_DefaultValues() {
         // Given
-        val createAccountCommand = AccountCommand.CreateAccountCommand()
+        val createAccountCommand = CreateAccountCommand()
         
         // When 
         val account = Account(createAccountCommand)

@@ -11,7 +11,7 @@ class AccountTest {
         // Given
         val balance = BigDecimal.valueOf(214.15)
         val name = "AccountName"
-        val createAccountCommand = AccountCommand.CreateAccountCommand(balance, name)
+        val createAccountCommand = CreateAccountCommand(balance, name)
 
         // When
         val account = Account(createAccountCommand)
