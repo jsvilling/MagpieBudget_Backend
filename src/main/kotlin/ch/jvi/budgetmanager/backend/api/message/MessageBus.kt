@@ -1,7 +1,5 @@
 package ch.jvi.budgetmanager.backend.api.message
 
-import ch.jvi.budgetmanager.core.api.Message
-
 /**
  * Interface for a MessageBus implementation
  *

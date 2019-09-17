@@ -5,9 +5,9 @@ import ch.jvi.budgetmanager.backend.core.message.CreateAccountMessage
 import ch.jvi.budgetmanager.backend.domain.account.Account
 import ch.jvi.budgetmanager.backend.domain.account.CreateAccountCommand
 import ch.jvi.budgetmanager.backend.api.message.MessageBus
+import ch.jvi.budgetmanager.backend.core.message.UpdateAccountMessage
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
-
 
 @Service
 class AccountService(private val messageBus: MessageBus, private val commandStore: CommandStore) {
@@ -21,4 +21,11 @@ class AccountService(private val messageBus: MessageBus, private val commandStor
         val createAccountMessage = CreateAccountMessage(balance, name)
         messageBus.send(createAccountMessage)
     }
+
+    fun updateAccount(id: String, balance: BigDecimal, name: String) {
+        val updateAccountMessage = UpdateAccountMessage(id, balance, name)
+        messageBus.send(updateAccountMessage)
+
+    }
+
 }

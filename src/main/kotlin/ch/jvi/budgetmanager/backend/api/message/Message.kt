@@ -1,4 +1,4 @@
-package ch.jvi.budgetmanager.core.api
+package ch.jvi.budgetmanager.backend.api.message
 
 /**
  * Marker interface for Messages to be sent over a Message Bus

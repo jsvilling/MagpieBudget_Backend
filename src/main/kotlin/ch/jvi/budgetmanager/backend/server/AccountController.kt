@@ -14,4 +14,8 @@ class AccountController(private val accountService: AccountService) {
     @PutMapping("/create")
     fun createAccount(@RequestParam balance: BigDecimal, @RequestParam name: String) =
         accountService.createAccount(balance, name)
+
+    @PostMapping("/{id}/update")
+    fun updateAccount(@PathVariable id: String, @RequestParam balance: BigDecimal, @RequestParam name: String)
+    = accountService.updateAccount(id, balance, name)
 }

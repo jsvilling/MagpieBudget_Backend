@@ -1,8 +1,8 @@
 package ch.jvi.budgetmanager.backend.server
 
 import ch.jvi.budgetmanager.backend.api.command.CommandStore
-import ch.jvi.budgetmanager.backend.core.AccountService
 import ch.jvi.budgetmanager.backend.api.message.MessageBus
+import ch.jvi.budgetmanager.backend.core.AccountService
 import org.junit.Test
 import org.mockito.Mockito.*
 import java.math.BigDecimal
@@ -30,12 +30,26 @@ internal class AccountControllerTest {
     fun testCreateAccount() {
         // Given
         val balance = BigDecimal.ONE
-        val name = "Name";
+        val name = "Name"
 
         // When
         accountController.createAccount(balance, name)
 
         // Then
         verify(accountService, times(1)).createAccount(balance, name)
+    }
+
+    @Test
+    fun testUpdateAccount() {
+        // Given
+        val id = "id"
+        val balance = BigDecimal.TEN
+        val name = "Name"
+
+        // When
+        accountController.updateAccount(id, balance, name)
+
+        // Then
+        verify(accountService, times(1)).updateAccount(id, balance, name)
     }
 }
