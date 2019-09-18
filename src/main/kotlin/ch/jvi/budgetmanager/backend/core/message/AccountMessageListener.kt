@@ -12,13 +12,13 @@ import org.springframework.stereotype.Component
 class AccountMessageListener(private val commandStore: CommandStore, private val commandBus: CommandBus) {
 
     @MessageListener
-    fun handle(createAccountMessage: CreateAccountMessage) {
+    fun handle(createAccountMessage: AccountMessage.CreateAccountMessage) {
         val createAccountCommand = convertToCreationCommand(createAccountMessage)
         commandStore.saveCreationCommand(createAccountCommand)
         commandBus.send(createAccountCommand)
     }
 
-    private fun convertToCreationCommand(createAccountMessage: CreateAccountMessage): CreationCommand {
+    private fun convertToCreationCommand(createAccountMessage: AccountMessage.CreateAccountMessage): CreationCommand {
         return CreateAccountCommand(
             balance = createAccountMessage.balance,
             name = createAccountMessage.name
@@ -26,13 +26,13 @@ class AccountMessageListener(private val commandStore: CommandStore, private val
     }
 
     @MessageListener
-    fun handle(updateAccountMessage: UpdateAccountMessage) {
+    fun handle(updateAccountMessage: AccountMessage.UpdateAccountMessage) {
         val updateAccountCommand = convertToUpdateCommand(updateAccountMessage)
         commandStore.save(updateAccountCommand)
         commandBus.send(updateAccountCommand)
     }
 
-    fun convertToUpdateCommand(updateAccountMessage: UpdateAccountMessage): UpdateAccountCommand {
+    fun convertToUpdateCommand(updateAccountMessage: AccountMessage.UpdateAccountMessage): UpdateAccountCommand {
         return UpdateAccountCommand(
             id = updateAccountMessage.id,
             balance = updateAccountMessage.balance,

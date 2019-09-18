@@ -19,7 +19,7 @@ internal class AccountMessageListenerTest {
         // Given
         val balance = BigDecimal.TEN
         val name = "NameName"
-        val receivedCreationMessage = CreateAccountMessage(balance, name)
+        val receivedCreationMessage = AccountMessage.CreateAccountMessage(balance, name)
         val expectedCreationCommand = CreateAccountCommand(balance, name)
 
         // When
@@ -36,7 +36,7 @@ internal class AccountMessageListenerTest {
         val id = "id"
         val balance = BigDecimal.TEN
         val name = "NameName"
-        val receivedUpdateMessage = UpdateAccountMessage(id, balance, name)
+        val receivedUpdateMessage = AccountMessage.UpdateAccountMessage(id, balance, name)
         val expectedUpdateCommand = UpdateAccountCommand(balance, name, id)
 
         // When
