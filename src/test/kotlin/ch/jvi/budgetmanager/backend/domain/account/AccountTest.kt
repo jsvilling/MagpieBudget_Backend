@@ -3,6 +3,7 @@ package ch.jvi.budgetmanager.backend.domain.account
 import org.junit.Test
 import java.math.BigDecimal
 import org.assertj.core.api.Assertions.assertThat as assertThat
+import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.*
 
 class AccountTest {
 

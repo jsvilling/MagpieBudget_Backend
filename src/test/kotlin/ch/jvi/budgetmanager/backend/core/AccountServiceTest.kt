@@ -4,7 +4,6 @@ import ch.jvi.budgetmanager.backend.api.command.CommandStore
 import ch.jvi.budgetmanager.backend.api.message.MessageBus
 import ch.jvi.budgetmanager.backend.core.message.CreateAccountMessage
 import ch.jvi.budgetmanager.backend.domain.account.Account
-import ch.jvi.budgetmanager.backend.domain.account.CreateAccountCommand
 import org.junit.Test
 import org.mockito.Mockito.*
 import java.math.BigDecimal

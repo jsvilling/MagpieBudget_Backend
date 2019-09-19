@@ -2,6 +2,7 @@ package ch.jvi.budgetmanager.backend.domain.account
 
 import ch.jvi.budgetmanager.backend.domain.DomainEntity
 import java.math.BigDecimal
+import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.*
 
 class Account(creationCommand: CreateAccountCommand) : DomainEntity {
 

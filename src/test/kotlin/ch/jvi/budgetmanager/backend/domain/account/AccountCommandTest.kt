@@ -1,4 +1,5 @@
 package ch.jvi.budgetmanager.backend.domain.account
+import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.*
 
 import org.junit.Test
 import org.assertj.core.api.Assertions.assertThat as assertThat

@@ -2,7 +2,6 @@ package ch.jvi.budgetmanager.backend.core
 
 import ch.jvi.budgetmanager.backend.api.command.CommandStore
 import ch.jvi.budgetmanager.backend.domain.account.Account
-import ch.jvi.budgetmanager.backend.domain.account.CreateAccountCommand
 import ch.jvi.budgetmanager.backend.api.message.MessageBus
 import ch.jvi.budgetmanager.backend.core.message.AccountMessage
 import org.springframework.stereotype.Service

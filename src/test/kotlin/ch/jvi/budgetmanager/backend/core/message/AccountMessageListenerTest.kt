@@ -2,8 +2,7 @@ package ch.jvi.budgetmanager.backend.core.message
 
 import ch.jvi.budgetmanager.backend.api.command.CommandBus
 import ch.jvi.budgetmanager.backend.api.command.CommandStore
-import ch.jvi.budgetmanager.backend.domain.account.CreateAccountCommand
-import ch.jvi.budgetmanager.backend.domain.account.UpdateAccountCommand
+import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.*
 import org.junit.Test
 import java.math.BigDecimal
 import org.mockito.Mockito.*
