@@ -28,7 +28,5 @@ class AccountService(private val messageBus: MessageBus, private val commandStor
     fun updateAccount(id: String, balance: BigDecimal, name: String) {
         val updateAccountMessage = AccountMessage.UpdateAccountMessage(id, balance, name)
         messageBus.send(updateAccountMessage)
-
     }
-
 }

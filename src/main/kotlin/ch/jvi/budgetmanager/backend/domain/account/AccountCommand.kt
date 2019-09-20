@@ -14,7 +14,7 @@ sealed class AccountCommand : Command {
 
     data class UpdateAccountCommand(
         val balance: BigDecimal = BigDecimal.ZERO,
-        val name: String = "Anonymous Account",
+        val name: String = "",
         override val id: String
     ) : AccountCommand()
 }

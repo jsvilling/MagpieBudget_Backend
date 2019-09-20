@@ -15,5 +15,6 @@ interface CommandStore {
     fun find(id: String): List<Command>
     fun findCreationCommand(id: String): CreationCommand
     fun save(command: Command)
+    fun saveAll(commands: List<Command>) = commands.forEach(this::save)
     fun saveCreationCommand(command: CreationCommand)
 }
