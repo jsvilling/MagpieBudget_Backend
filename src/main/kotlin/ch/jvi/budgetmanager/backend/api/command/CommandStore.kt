@@ -12,6 +12,7 @@ package ch.jvi.budgetmanager.backend.api.command
  *
  */
 interface CommandStore {
+    fun find(id: String): List<Command>
     fun findCreationCommand(id: String): CreationCommand
     fun save(command: Command)
     fun saveCreationCommand(command: CreationCommand)
