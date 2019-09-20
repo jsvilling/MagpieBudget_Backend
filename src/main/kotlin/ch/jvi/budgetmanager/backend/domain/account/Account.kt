@@ -20,9 +20,8 @@ class Account(creationCommand: CreateAccountCommand) : DomainEntity<AccountComma
         is UpdateAccountCommand -> apply(command)
     }
 
-    private fun apply(command: CreateAccountCommand): Nothing {
+    private fun apply(command: CreateAccountCommand): Nothing =
         throw IllegalArgumentException("Creation commands cannot be applied to existing account")
-    }
 
     private fun apply(command: UpdateAccountCommand) {
         this.balance = command.balance
