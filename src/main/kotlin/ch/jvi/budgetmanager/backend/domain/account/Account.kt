@@ -15,6 +15,8 @@ class Account(creationCommand: CreateAccountCommand) : DomainEntity {
     var name: String = creationCommand.name
         private set
 
+    fun applyAll(commands: List<AccountCommand>) = commands.forEach { apply(it) }
+
     fun apply(command: AccountCommand) = when (command) {
         is CreateAccountCommand -> apply(command)
         is UpdateAccountCommand -> apply(command)

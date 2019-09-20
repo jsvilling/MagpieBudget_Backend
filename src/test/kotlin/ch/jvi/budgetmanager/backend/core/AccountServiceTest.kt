@@ -2,8 +2,10 @@ package ch.jvi.budgetmanager.backend.core
 
 import ch.jvi.budgetmanager.backend.api.command.CommandStore
 import ch.jvi.budgetmanager.backend.api.message.MessageBus
-import ch.jvi.budgetmanager.backend.core.message.CreateAccountMessage
+import ch.jvi.budgetmanager.backend.core.message.AccountMessage.CreateAccountMessage
 import ch.jvi.budgetmanager.backend.domain.account.Account
+import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.CreateAccountCommand
+import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.UpdateAccountCommand
 import org.junit.Test
 import org.mockito.Mockito.*
 import java.math.BigDecimal
@@ -18,7 +20,7 @@ internal class AccountServiceTest {
 
 
     @Test
-    fun testGetAccount() {
+    fun testGetAccount_OnlyCreationCommand() {
         // Given
         val balance = BigDecimal.TEN
         val name = "name"
@@ -32,6 +34,26 @@ internal class AccountServiceTest {
         // Then
         verify(commandStore, times(1)).findCreationCommand(id)
         assertThat(account).isEqualToComparingFieldByField(Account(creationCommand))
+    }
+
+    @Test
+    fun testGetAccount_UpdateAccountApplied() {
+        // Given
+        val balance = BigDecimal.TEN
+        val name = "name"
+        val id = "id"
+        val newBalace = balance.add(BigDecimal.ONE)
+        val newName = "newnewnewname"
+        val creationCommand = CreateAccountCommand(balance, name, id)
+        val updateCommand = UpdateAccountCommand(newBalace, newName, id)
+        doReturn(creationCommand).`when`(commandStore).findCreationCommand(id)
+        doReturn(listOf(updateCommand)).`when`(commandStore).find(id)
+
+        // When
+        val account = accountService.getAccount(id)
+
+        // Then
+        assertThat(account).isEqualToComparingFieldByField(updateCommand)
     }
 
     @Test

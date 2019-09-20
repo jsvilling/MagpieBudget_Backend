@@ -4,6 +4,7 @@ import ch.jvi.budgetmanager.backend.api.command.CommandStore
 import ch.jvi.budgetmanager.backend.domain.account.Account
 import ch.jvi.budgetmanager.backend.api.message.MessageBus
 import ch.jvi.budgetmanager.backend.core.message.AccountMessage
+import ch.jvi.budgetmanager.backend.domain.account.AccountCommand
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.CreateAccountCommand
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
@@ -13,7 +14,10 @@ class AccountService(private val messageBus: MessageBus, private val commandStor
 
     fun getAccount(id: String): Account {
         val creationCommand: CreateAccountCommand = commandStore.findCreationCommand(id) as CreateAccountCommand
-        return Account(creationCommand)
+        val commands: List<AccountCommand> = commandStore.find(id) as List<AccountCommand>
+        val account = Account(creationCommand)
+        account.applyAll(commands)
+        return account
     }
 
     fun createAccount(balance: BigDecimal, name: String) {
