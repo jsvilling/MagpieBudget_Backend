@@ -1,4 +1,4 @@
-package ch.jvi.budgetmanager.backend.server
+package ch.jvi.budgetmanager.backend.server.controller
 
 import ch.jvi.budgetmanager.backend.core.AccountService
 import org.springframework.web.bind.annotation.*
