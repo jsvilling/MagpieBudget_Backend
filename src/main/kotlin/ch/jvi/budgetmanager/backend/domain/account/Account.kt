@@ -5,7 +5,7 @@ import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.CreateAccountC
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.UpdateAccountCommand
 import java.math.BigDecimal
 
-class Account(creationCommand: CreateAccountCommand) : DomainEntity {
+class Account(creationCommand: CreateAccountCommand) : DomainEntity<AccountCommand> {
 
     val id: String = creationCommand.id
 
@@ -15,9 +15,7 @@ class Account(creationCommand: CreateAccountCommand) : DomainEntity {
     var name: String = creationCommand.name
         private set
 
-    fun applyAll(commands: List<AccountCommand>) = commands.forEach { apply(it) }
-
-    fun apply(command: AccountCommand) = when (command) {
+    override fun apply(command: AccountCommand) = when (command) {
         is CreateAccountCommand -> apply(command)
         is UpdateAccountCommand -> apply(command)
     }
