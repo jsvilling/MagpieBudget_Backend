@@ -1,8 +1,7 @@
 package ch.jvi.budgetmanager.backend.domain.account
 
 import ch.jvi.budgetmanager.backend.domain.DomainEntity
-import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.CreateAccountCommand
-import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.UpdateAccountCommand
+import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.*
 import java.math.BigDecimal
 
 class Account(creationCommand: CreateAccountCommand) : DomainEntity<AccountCommand> {
@@ -18,6 +17,7 @@ class Account(creationCommand: CreateAccountCommand) : DomainEntity<AccountComma
     override fun apply(command: AccountCommand) = when (command) {
         is CreateAccountCommand -> apply(command)
         is UpdateAccountCommand -> apply(command)
+        is AdjustAccountBalanceCommand -> apply(command)
     }
 
     private fun apply(command: CreateAccountCommand): Nothing =
@@ -26,5 +26,9 @@ class Account(creationCommand: CreateAccountCommand) : DomainEntity<AccountComma
     private fun apply(command: UpdateAccountCommand) {
         this.balance = command.balance
         this.name = command.name
+    }
+
+    private fun apply(command: AdjustAccountBalanceCommand) {
+        this.balance += command.balanceChange
     }
 }

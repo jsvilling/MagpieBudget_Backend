@@ -28,17 +28,17 @@ class TransferMessageListener(private val commandBus: CommandBus, private val co
         )
     }
 
-    private fun converToUpdateRecipientAccountCommand(createTransferMessage: TransferMessage.CreateTransferMessage): AccountCommand.UpdateAccountCommand {
-        return AccountCommand.UpdateAccountCommand(
+    private fun converToUpdateRecipientAccountCommand(createTransferMessage: TransferMessage.CreateTransferMessage): AccountCommand.AdjustAccountBalanceCommand {
+        return AccountCommand.AdjustAccountBalanceCommand(
             id = createTransferMessage.recipientId,
-            balance = createTransferMessage.amount
+            balanceChange = createTransferMessage.amount
         )
     }
 
-    private fun converToUpdateSenderAccountCommand(createTransferMessage: TransferMessage.CreateTransferMessage): AccountCommand.UpdateAccountCommand {
-        return AccountCommand.UpdateAccountCommand(
-            id = createTransferMessage.recipientId,
-            balance = createTransferMessage.amount.negate()
+    private fun converToUpdateSenderAccountCommand(createTransferMessage: TransferMessage.CreateTransferMessage): AccountCommand.AdjustAccountBalanceCommand {
+        return AccountCommand.AdjustAccountBalanceCommand(
+            id = createTransferMessage.senderId,
+            balanceChange = createTransferMessage.amount.negate()
         )
     }
 

@@ -2,7 +2,7 @@ package ch.jvi.budgetmanager.backend.core
 
 import ch.jvi.budgetmanager.backend.api.command.CommandStore
 import ch.jvi.budgetmanager.backend.api.message.MessageBus
-import ch.jvi.budgetmanager.backend.core.message.TransferMessage
+import ch.jvi.budgetmanager.backend.core.message.TransferMessage.CreateTransferMessage
 import ch.jvi.budgetmanager.backend.core.message.TransferMessage.UpdateTransferMessage
 import ch.jvi.budgetmanager.backend.domain.transfer.Transfer
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.CreateTransferCommand
@@ -19,7 +19,7 @@ class TransferService(private val commandStore: CommandStore, private val messag
     }
 
     fun createTransfer(senderId: String, recipientId: String, amount: BigDecimal) {
-        val createTransferMessage = TransferMessage.CreateTransferMessage(recipientId, senderId, amount)
+        val createTransferMessage = CreateTransferMessage(recipientId = recipientId, senderId = senderId, amount = amount)
         messageBus.send(createTransferMessage)
     }
 

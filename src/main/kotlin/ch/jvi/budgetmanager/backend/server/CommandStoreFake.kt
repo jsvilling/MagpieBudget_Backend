@@ -23,11 +23,11 @@ class CommandStoreFake : CommandStore {
     }
 
     override fun findAccountCommands(id: String): List<AccountCommand> {
-        return commands.stream().filter {it is AccountCommand}.map { it as AccountCommand }.toList()
+        return commands.stream().filter {it is AccountCommand && it.id == id}.map { it as AccountCommand }.toList()
     }
 
     override fun findTransferCommands(id: String): List<TransferCommand> {
-        return commands.stream().filter {it is TransferCommand}.map { it as TransferCommand }.toList()
+        return commands.stream().filter {it is TransferCommand && it.id == id}.map { it as TransferCommand }.toList()
     }
 
     override fun findCreationCommand(id: String): CreationCommand {
