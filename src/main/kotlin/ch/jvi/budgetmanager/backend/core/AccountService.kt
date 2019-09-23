@@ -14,7 +14,7 @@ class AccountService(private val messageBus: MessageBus, private val commandStor
 
     fun getAccount(id: String): Account {
         val creationCommand: CreateAccountCommand = commandStore.findCreationCommand(id) as CreateAccountCommand
-        val commands: List<AccountCommand> = commandStore.find(id) as List<AccountCommand>
+        val commands: List<AccountCommand> = commandStore.findAccountCommands(id)
         val account = Account(creationCommand)
         account.applyAll(commands)
         return account

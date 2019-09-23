@@ -13,6 +13,7 @@ class TransferService(private val commandStore: CommandStore, private val messag
 
     fun getTransfer(id: String): Transfer {
         val createTransferCommand = commandStore.findCreationCommand(id) as CreateTransferCommand
+        val transferCommands = commandStore.findTransferCommands(id)
         return Transfer(createTransferCommand)
     }
 

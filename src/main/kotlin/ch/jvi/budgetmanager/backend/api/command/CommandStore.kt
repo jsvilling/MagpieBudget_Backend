@@ -1,5 +1,8 @@
 package ch.jvi.budgetmanager.backend.api.command
 
+import ch.jvi.budgetmanager.backend.domain.account.AccountCommand
+import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand
+
 /**
  * A CommandStore is used to persist and retrieve commands.
  *
@@ -13,6 +16,8 @@ package ch.jvi.budgetmanager.backend.api.command
  */
 interface CommandStore {
     fun find(id: String): List<Command>
+    fun findAccountCommands(id: String): List<AccountCommand>
+    fun findTransferCommands(id: String): List<TransferCommand>
     fun findCreationCommand(id: String): CreationCommand
     fun save(command: Command)
     fun saveAll(commands: List<Command>) = commands.forEach(this::save)
