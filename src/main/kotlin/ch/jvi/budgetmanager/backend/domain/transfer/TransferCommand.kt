@@ -12,4 +12,11 @@ sealed class TransferCommand : Command {
         val amount: BigDecimal,
         override val id: String = IDProvider.next()
     ) : TransferCommand(), CreationCommand
+
+    data class UpdateTransferCommand(
+        val recipientId: String,
+        val senderId: String,
+        val amount: BigDecimal,
+        override val id: String = IDProvider.next()
+    ) : TransferCommand()
 }

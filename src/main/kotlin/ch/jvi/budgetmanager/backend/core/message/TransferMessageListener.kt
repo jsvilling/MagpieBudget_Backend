@@ -23,7 +23,7 @@ class TransferMessageListener(private val commandBus: CommandBus, private val co
     private fun convertToCreateTransferCommand(createTransferMessage: TransferMessage.CreateTransferMessage): TransferCommand.CreateTransferCommand {
         return TransferCommand.CreateTransferCommand(
             recipientId = createTransferMessage.recipientId,
-            senderId =  createTransferMessage.senderId,
+            senderId = createTransferMessage.senderId,
             amount = createTransferMessage.amount
         )
     }
@@ -39,6 +39,22 @@ class TransferMessageListener(private val commandBus: CommandBus, private val co
         return AccountCommand.UpdateAccountCommand(
             id = createTransferMessage.recipientId,
             balance = createTransferMessage.amount.negate()
+        )
+    }
+
+    @MessageListener
+    fun handle(updateTransferMessage: TransferMessage.UpdateTransferMessage) {
+        val updateTransferCommand = convertToUpdateTransferCommand(updateTransferMessage)
+        commandBus.send(updateTransferCommand)
+        commandStore.save(updateTransferCommand)
+    }
+
+    private fun convertToUpdateTransferCommand(updateTransferMessage: TransferMessage.UpdateTransferMessage): TransferCommand.UpdateTransferCommand {
+        return TransferCommand.UpdateTransferCommand(
+            id = updateTransferMessage.id,
+            recipientId = updateTransferMessage.recipientId,
+            senderId = updateTransferMessage.senderId,
+            amount = updateTransferMessage.amount
         )
     }
 
