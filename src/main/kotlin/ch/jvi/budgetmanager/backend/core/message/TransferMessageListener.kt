@@ -2,8 +2,8 @@ package ch.jvi.budgetmanager.backend.core.message
 
 import ch.jvi.budgetmanager.backend.api.command.CommandBus
 import ch.jvi.budgetmanager.backend.api.command.CommandStore
-import ch.jvi.budgetmanager.backend.domain.account.AccountCommand
-import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand
+import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.*
+import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.*
 import ch.jvi.budgetmanager.core.api.MessageListener
 import org.springframework.stereotype.Component
 
@@ -20,23 +20,23 @@ class TransferMessageListener(private val commandBus: CommandBus, private val co
         commandStore.saveAll(listOf(updateRecipientCommand, updateSenderAccount))
     }
 
-    private fun convertToCreateTransferCommand(createTransferMessage: TransferMessage.CreateTransferMessage): TransferCommand.CreateTransferCommand {
-        return TransferCommand.CreateTransferCommand(
+    private fun convertToCreateTransferCommand(createTransferMessage: TransferMessage.CreateTransferMessage): CreateTransferCommand {
+        return CreateTransferCommand(
             recipientId = createTransferMessage.recipientId,
             senderId = createTransferMessage.senderId,
             amount = createTransferMessage.amount
         )
     }
 
-    private fun converToUpdateRecipientAccountCommand(createTransferMessage: TransferMessage.CreateTransferMessage): AccountCommand.AdjustAccountBalanceCommand {
-        return AccountCommand.AdjustAccountBalanceCommand(
+    private fun converToUpdateRecipientAccountCommand(createTransferMessage: TransferMessage.CreateTransferMessage): AdjustAccountBalanceCommand {
+        return AdjustAccountBalanceCommand(
             id = createTransferMessage.recipientId,
             balanceChange = createTransferMessage.amount
         )
     }
 
-    private fun converToUpdateSenderAccountCommand(createTransferMessage: TransferMessage.CreateTransferMessage): AccountCommand.AdjustAccountBalanceCommand {
-        return AccountCommand.AdjustAccountBalanceCommand(
+    private fun converToUpdateSenderAccountCommand(createTransferMessage: TransferMessage.CreateTransferMessage): AdjustAccountBalanceCommand {
+        return AdjustAccountBalanceCommand(
             id = createTransferMessage.senderId,
             balanceChange = createTransferMessage.amount.negate()
         )
@@ -49,8 +49,8 @@ class TransferMessageListener(private val commandBus: CommandBus, private val co
         commandStore.save(updateTransferCommand)
     }
 
-    private fun convertToUpdateTransferCommand(updateTransferMessage: TransferMessage.UpdateTransferMessage): TransferCommand.UpdateTransferCommand {
-        return TransferCommand.UpdateTransferCommand(
+    private fun convertToUpdateTransferCommand(updateTransferMessage: TransferMessage.UpdateTransferMessage): UpdateTransferCommand {
+        return UpdateTransferCommand(
             id = updateTransferMessage.id,
             recipientId = updateTransferMessage.recipientId,
             senderId = updateTransferMessage.senderId,
