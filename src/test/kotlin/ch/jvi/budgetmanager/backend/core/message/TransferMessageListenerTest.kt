@@ -2,6 +2,8 @@ package ch.jvi.budgetmanager.backend.core.message
 
 import ch.jvi.budgetmanager.backend.api.command.CommandBus
 import ch.jvi.budgetmanager.backend.api.command.CommandStore
+import ch.jvi.budgetmanager.backend.domain.account.AccountCommand
+import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.*
 import org.junit.Test
 import org.mockito.Mockito.*
 import java.math.BigDecimal
@@ -17,14 +19,18 @@ internal class TransferMessageListenerTest {
     fun testHandleCreateTransactionMessage() {
         // Given
         val recipientId = "0"
-        val senderId = "0"
+        val senderId = "1"
         val amount = BigDecimal.ONE
         val createTransferMessage = TransferMessage.CreateTransferMessage(recipientId, senderId, amount)
+        val createTransferCommand = CreateTransferCommand(recipientId, senderId, amount, "0")
+        val adjustRecipientCommand = AccountCommand.AdjustAccountBalanceCommand(amount, recipientId)
+        val adjustSenderCommand = AccountCommand.AdjustAccountBalanceCommand(amount.negate(), senderId)
 
         // When
         transferMessageListener.handle(createTransferMessage)
 
         // Then
-        // TODO: Assert correct commands were created persisted and sent over commandbus
+        verify(commandBus, times(1)).sendAll(listOf(createTransferCommand, adjustRecipientCommand, adjustSenderCommand))
+        verify(commandStore, times(1)).saveAll(listOf(adjustRecipientCommand, adjustSenderCommand))
     }
 }
