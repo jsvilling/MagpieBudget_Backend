@@ -91,9 +91,6 @@ internal class AccountIntegrationTest {
         }
     }
 
-
-
-    // TODO: Rename variables appropriately and structure test to be more readable
     @Test
     fun testAccountWithUpdatedTransactions() {
         // Given
@@ -105,14 +102,13 @@ internal class AccountIntegrationTest {
         val recipientName = "NewName"
         val balanceChange = BigDecimal.valueOf(5)
         val transferId = (idcounter + 2).toString()
-        val updatedBalanceChange = balanceChange.add(ONE)
+        val updatedBalanceChange = BigDecimal.valueOf(5)
 
         // When
         accountService.createAccount(initialSenderBalance, senderName)
         accountService.createAccount(initialRecipientBalance, recipientName)
         transferService.createTransfer(senderId, recipientId, balanceChange)
-        // Swap sender and receiver account and change balanve
-        transferService.updateTransfer(transferId, recipientId, senderId, updatedBalanceChange)
+        transferService.updateTransfer(transferId, senderId, recipientId, updatedBalanceChange)
 
         val account = accountService.getAccount(senderId)
         val otherAccount = accountService.getAccount(recipientId)
@@ -120,11 +116,11 @@ internal class AccountIntegrationTest {
         // Then
         assertThat(account).satisfies {
             assertThat(it.name).isEqualTo(senderName)
-            assertThat(it.balance).isEqualTo(initialSenderBalance.add(updatedBalanceChange))
+            assertThat(it.balance).isEqualTo(initialSenderBalance.subtract(updatedBalanceChange))
         }
         assertThat(otherAccount).satisfies {
             assertThat(it.name).isEqualTo(recipientName)
-            assertThat(it.balance).isEqualTo(initialRecipientBalance.subtract(updatedBalanceChange))
+            assertThat(it.balance).isEqualTo(initialRecipientBalance.add(updatedBalanceChange))
         }
     }
 
