@@ -19,19 +19,19 @@ class CommandStoreFake : CommandStore {
     private val commands: MutableSet<Command> = HashSet()
 
     override fun find(id: String): List<Command> {
-        return commands.stream().filter {it.id == id}.toList()
+        return commands.stream().filter {it.entityId == id}.toList()
     }
 
     override fun findAccountCommands(id: String): List<AccountCommand> {
-        return commands.stream().filter {it is AccountCommand && it.id == id}.map { it as AccountCommand }.toList()
+        return commands.stream().filter {it is AccountCommand && it.entityId == id}.map { it as AccountCommand }.toList()
     }
 
     override fun findTransferCommands(id: String): List<TransferCommand> {
-        return commands.stream().filter {it is TransferCommand && it.id == id}.map { it as TransferCommand }.toList()
+        return commands.stream().filter {it is TransferCommand && it.entityId == id}.map { it as TransferCommand }.toList()
     }
 
     override fun findCreationCommand(id: String): CreationCommand {
-        return creationCommands.stream().filter {it.id == id}.findFirst().orElseThrow()
+        return creationCommands.stream().filter {it.entityId == id}.findFirst().orElseThrow()
     }
 
     override fun save(command: Command) {

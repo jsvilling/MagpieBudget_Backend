@@ -34,7 +34,7 @@ class AccountMessageListener(private val commandStore: CommandStore, private val
 
     fun convertToUpdateCommand(updateAccountMessage: AccountMessage.UpdateAccountMessage): UpdateAccountCommand {
         return UpdateAccountCommand(
-            id = updateAccountMessage.id,
+            entityId = updateAccountMessage.id,
             balance = updateAccountMessage.balance,
             name = updateAccountMessage.name
         )

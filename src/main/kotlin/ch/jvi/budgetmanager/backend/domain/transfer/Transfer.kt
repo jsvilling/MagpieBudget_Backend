@@ -5,7 +5,7 @@ import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.*
 
 class Transfer(creationCommand: CreateTransferCommand) : DomainEntity<TransferCommand> {
 
-    val id = creationCommand.id
+    val id = creationCommand.entityId
     var recipientId = creationCommand.recipientId
     var senderId = creationCommand.senderId
     var amount = creationCommand.amount

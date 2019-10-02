@@ -6,7 +6,7 @@ import java.math.BigDecimal
 
 class Account(creationCommand: CreateAccountCommand) : DomainEntity<AccountCommand> {
 
-    val id: String = creationCommand.id
+    val id: String = creationCommand.entityId
 
     var balance: BigDecimal = creationCommand.balance
         private set
