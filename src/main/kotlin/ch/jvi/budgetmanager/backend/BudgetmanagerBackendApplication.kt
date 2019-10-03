@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class BudgetmanagetbackendApplication
+class BudgetmanagerBackendApplication
 
 fun main(args: Array<String>) {
-    runApplication<BudgetmanagetbackendApplication>(*args)
+    runApplication<BudgetmanagerBackendApplication>(*args)
 }
