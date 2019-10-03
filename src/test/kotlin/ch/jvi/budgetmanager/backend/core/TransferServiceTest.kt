@@ -1,6 +1,6 @@
 package ch.jvi.budgetmanager.backend.core
 
-import ch.jvi.budgetmanager.backend.api.command.CommandStore
+import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.api.message.MessageBus
 import ch.jvi.budgetmanager.backend.core.message.TransferMessage
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand

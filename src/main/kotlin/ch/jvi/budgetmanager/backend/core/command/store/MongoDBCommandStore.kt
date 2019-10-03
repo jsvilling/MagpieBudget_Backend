@@ -1,7 +1,7 @@
-package ch.jvi.budgetmanager.backend.core.command
+package ch.jvi.budgetmanager.backend.core.command.store
 
 import ch.jvi.budgetmanager.backend.api.command.Command
-import ch.jvi.budgetmanager.backend.api.command.CommandStore
+import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand
@@ -24,7 +24,7 @@ class MongoDBCommandStore(
     // TODO: Re-work repsository design to get rid of the nasty casts for entity specific commands.
 
     override fun find(entityId: String): List<Command> {
-        return updateCommandRepository.findAll().stream().map {it as AccountCommand }.toList()
+        return updateCommandRepository.findAll().stream().map { it as AccountCommand }.toList()
     }
 
     override fun findAccountCommands(entityId: String): List<AccountCommand> {

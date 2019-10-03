@@ -1,7 +1,8 @@
 package ch.jvi.budgetmanager.backend.domain.transfer
 
 import ch.jvi.budgetmanager.backend.domain.DomainEntity
-import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.*
+import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.CreateTransferCommand
+import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.UpdateTransferCommand
 
 class Transfer(creationCommand: CreateTransferCommand) : DomainEntity<TransferCommand> {
 
@@ -10,7 +11,7 @@ class Transfer(creationCommand: CreateTransferCommand) : DomainEntity<TransferCo
     var senderId = creationCommand.senderId
     var amount = creationCommand.amount
 
-    override fun apply(command: TransferCommand) = when(command) {
+    override fun apply(command: TransferCommand) = when (command) {
         is CreateTransferCommand -> apply(command)
         is UpdateTransferCommand -> apply(command)
     }

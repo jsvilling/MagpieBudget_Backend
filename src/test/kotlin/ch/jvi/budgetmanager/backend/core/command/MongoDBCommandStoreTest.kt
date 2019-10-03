@@ -2,11 +2,10 @@ package ch.jvi.budgetmanager.backend.core.command
 
 import ch.jvi.budgetmanager.backend.api.command.Command
 import ch.jvi.budgetmanager.backend.api.command.CreationCommand
+import ch.jvi.budgetmanager.backend.core.command.store.MongoDBCommandStore
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand
-import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand
 import ch.jvi.budgetmanager.backend.server.repository.CreationCommandRepository
 import ch.jvi.budgetmanager.backend.server.repository.UpdateCommandRepository
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.mockito.Mockito
@@ -18,7 +17,10 @@ internal class MongoDBCommandStoreTest {
 
     private val creationCommandRepository = Mockito.mock(CreationCommandRepository::class.java)
     private val updateCommandRepository = Mockito.mock(UpdateCommandRepository::class.java)
-    private val mongoDBCommandStore = MongoDBCommandStore(creationCommandRepository, updateCommandRepository)
+    private val mongoDBCommandStore = MongoDBCommandStore(
+        creationCommandRepository,
+        updateCommandRepository
+    )
 
     @Test
     fun find(id: String) {

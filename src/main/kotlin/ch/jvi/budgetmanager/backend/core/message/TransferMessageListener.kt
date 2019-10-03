@@ -1,9 +1,10 @@
 package ch.jvi.budgetmanager.backend.core.message
 
-import ch.jvi.budgetmanager.backend.api.command.CommandBus
-import ch.jvi.budgetmanager.backend.api.command.CommandStore
-import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.*
-import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.*
+import ch.jvi.budgetmanager.backend.api.command.bus.CommandBus
+import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
+import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.AdjustAccountBalanceCommand
+import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.CreateTransferCommand
+import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.UpdateTransferCommand
 import ch.jvi.budgetmanager.core.api.MessageListener
 import org.springframework.stereotype.Component
 

@@ -1,4 +1,6 @@
-package ch.jvi.budgetmanager.backend.api.command
+package ch.jvi.budgetmanager.backend.api.command.bus
+
+import ch.jvi.budgetmanager.backend.api.command.Command
 
 /**
  * Command Bus interface

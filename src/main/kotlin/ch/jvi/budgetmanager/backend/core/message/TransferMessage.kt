@@ -9,10 +9,11 @@ sealed class TransferMessage : Message {
         val senderId: String,
         val amount: BigDecimal
     ) : TransferMessage()
+
     data class UpdateTransferMessage(
         val id: String,
         val recipientId: String,
         val senderId: String,
         val amount: BigDecimal
-    ): TransferMessage()
+    ) : TransferMessage()
 }

@@ -1,7 +1,7 @@
 package ch.jvi.budgetmanager.backend.core.message
 
-import ch.jvi.budgetmanager.backend.api.command.CommandBus
-import ch.jvi.budgetmanager.backend.api.command.CommandStore
+import ch.jvi.budgetmanager.backend.api.command.bus.CommandBus
+import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.*
 import org.junit.Test
 import java.math.BigDecimal

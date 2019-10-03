@@ -1,6 +1,6 @@
 package ch.jvi.budgetmanager.backend.server
 
-import ch.jvi.budgetmanager.backend.api.command.CommandStore
+import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.api.message.MessageBus
 import ch.jvi.budgetmanager.backend.core.AccountService
 import ch.jvi.budgetmanager.backend.server.controller.AccountController
