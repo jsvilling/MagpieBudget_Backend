@@ -13,7 +13,7 @@ import kotlin.streams.toList
  * @author J. Villing
  */
 //@Service
-class CommandStoreFake : CommandStore {
+class InMemoryCommandStore : CommandStore {
     private val creationCommands: MutableSet<CreationCommand> = HashSet()
     private val commands: MutableSet<Command> = HashSet()
 
