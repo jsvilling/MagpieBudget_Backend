@@ -5,7 +5,6 @@ import ch.jvi.budgetmanager.backend.api.command.CommandStore
 import ch.jvi.budgetmanager.backend.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand
-import org.springframework.stereotype.Service
 import kotlin.streams.toList
 
 /**
@@ -13,25 +12,27 @@ import kotlin.streams.toList
  *
  * @author J. Villing
  */
-@Service
+//@Service
 class CommandStoreFake : CommandStore {
     private val creationCommands: MutableSet<CreationCommand> = HashSet()
     private val commands: MutableSet<Command> = HashSet()
 
     override fun find(id: String): List<Command> {
-        return commands.stream().filter {it.entityId == id}.toList()
+        return commands.stream().filter { it.entityId == id }.toList()
     }
 
     override fun findAccountCommands(id: String): List<AccountCommand> {
-        return commands.stream().filter {it is AccountCommand && it.entityId == id}.map { it as AccountCommand }.toList()
+        return commands.stream().filter { it is AccountCommand && it.entityId == id }.map { it as AccountCommand }
+            .toList()
     }
 
     override fun findTransferCommands(id: String): List<TransferCommand> {
-        return commands.stream().filter {it is TransferCommand && it.entityId == id}.map { it as TransferCommand }.toList()
+        return commands.stream().filter { it is TransferCommand && it.entityId == id }.map { it as TransferCommand }
+            .toList()
     }
 
     override fun findCreationCommand(id: String): CreationCommand {
-        return creationCommands.stream().filter {it.entityId == id}.findFirst().orElseThrow()
+        return creationCommands.stream().filter { it.entityId == id }.findFirst().orElseThrow()
     }
 
     override fun save(command: Command) {
