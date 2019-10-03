@@ -9,13 +9,17 @@ import java.math.BigDecimal
 class TransferController(private val transferService: TransferService) {
 
     @GetMapping("/{id}")
-    fun getTransfer(@PathVariable id: String) = transferService::getTransfer
+    fun getTransfer(@PathVariable id: String) {
+        transferService.getTransfer(id)
+    }
 
     @PutMapping("/create")
-    fun createTransfer(@RequestParam senderId: String, @RequestParam recipientId: String, @RequestParam amount: BigDecimal) =
-        transferService::createTransfer
+    fun createTransfer(@RequestParam senderId: String, @RequestParam recipientId: String, @RequestParam amount: BigDecimal) {
+        transferService.createTransfer(senderId, recipientId, amount)
+    }
 
     @PostMapping("/{id}/update")
-    fun updateTransfer(@PathVariable id: String, @RequestParam senderId: String, @RequestParam recipientId: String, @RequestParam amount: BigDecimal) =
-        transferService::updateTransfer
+    fun updateTransfer(@PathVariable id: String, @RequestParam senderId: String, @RequestParam recipientId: String, @RequestParam amount: BigDecimal) {
+        transferService.updateTransfer(id, senderId, recipientId, amount)
+    }
 }
