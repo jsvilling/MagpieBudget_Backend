@@ -9,7 +9,10 @@ import ch.jvi.budgetmanager.core.api.MessageListener
 import org.springframework.stereotype.Component
 
 @Component
-class AccountMessageListener(private val commandStore: CommandStore, private val commandBus: CommandBus) {
+class AccountMessageListener(
+    private val commandStore: CommandStore,
+    private val commandBus: CommandBus
+) {
 
     @MessageListener
     fun handle(createAccountMessage: AccountMessage.CreateAccountMessage) {
