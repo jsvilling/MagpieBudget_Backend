@@ -3,17 +3,20 @@ package ch.jvi.budgetmanager.backend.integration
 import ch.jvi.budgetmanager.backend.core.AccountService
 import ch.jvi.budgetmanager.backend.core.TransferService
 import ch.jvi.budgetmanager.backend.domain.IDProvider.idcounter
+import ch.jvi.budgetmanager.backend.integration.config.IntegrationTestConfiguration
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
 import java.math.BigDecimal
 import java.math.BigDecimal.ONE
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
+@ContextConfiguration(classes = [IntegrationTestConfiguration::class])
 internal class AccountIntegrationTest {
 
     @Autowired
