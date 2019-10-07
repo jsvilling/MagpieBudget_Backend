@@ -24,7 +24,7 @@ internal class AccountControllerTest {
         accountController.getAccount(id)
 
         // Then
-        verify(accountService, times(1)).getAccount(id)
+        verify(accountService, times(1)).find(id)
     }
 
     @Test

@@ -20,22 +20,23 @@ class InMemoryCommandStore : CommandStore {
     private val creationCommands: MutableSet<CreationCommand> = HashSet()
     private val commands: MutableSet<Command> = HashSet()
 
-    override fun find(id: String): List<Command> {
-        return commands.stream().filter { it.entityId == id }.toList()
+    override fun find(entityId: String): List<Command> {
+        return commands.stream().filter { it.entityId == entityId }.toList()
     }
 
-    override fun findAccountCommands(id: String): List<AccountCommand> {
-        return commands.stream().filter { it is AccountCommand && it.entityId == id }.map { it as AccountCommand }
+    override fun findAccountCommands(entityId: String): List<AccountCommand> {
+        return commands.stream().filter { it is AccountCommand && it.entityId == entityId }.map { it as AccountCommand }
             .toList()
     }
 
-    override fun findTransferCommands(id: String): List<TransferCommand> {
-        return commands.stream().filter { it is TransferCommand && it.entityId == id }.map { it as TransferCommand }
+    override fun findTransferCommands(entityId: String): List<TransferCommand> {
+        return commands.stream().filter { it is TransferCommand && it.entityId == entityId }
+            .map { it as TransferCommand }
             .toList()
     }
 
-    override fun findCreationCommand(id: String): CreationCommand {
-        return creationCommands.stream().filter { it.entityId == id }.findFirst().orElseThrow()
+    override fun findCreationCommand(entityId: String): CreationCommand {
+        return creationCommands.stream().filter { it.entityId == entityId }.findFirst().orElseThrow()
     }
 
     override fun save(command: Command) {

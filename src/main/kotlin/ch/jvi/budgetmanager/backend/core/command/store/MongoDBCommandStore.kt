@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 import kotlin.streams.toList
 
 /**
- *  CommandStore Implementation using MongoDB repositories.
+ * CommandStore Implementation using MongoDB repositories.
  *
  * @author J. Villing
  */

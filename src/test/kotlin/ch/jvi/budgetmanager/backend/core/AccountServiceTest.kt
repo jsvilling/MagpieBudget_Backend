@@ -29,7 +29,7 @@ internal class AccountServiceTest {
         doReturn(creationCommand).`when`(commandStore).findCreationCommand(id)
 
         // When
-        val account = accountService.getAccount(id)
+        val account = accountService.find(id)
 
         // Then
         verify(commandStore, times(1)).findCreationCommand(id)
@@ -50,7 +50,7 @@ internal class AccountServiceTest {
         doReturn(listOf(updateCommand)).`when`(commandStore).find(id)
 
         // When
-        val account = accountService.getAccount(id)
+        val account = accountService.find(id)
 
         // Then
         assertThat(account).isEqualToComparingFieldByField(updateCommand)

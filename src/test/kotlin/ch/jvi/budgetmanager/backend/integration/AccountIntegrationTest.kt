@@ -33,7 +33,7 @@ internal class AccountIntegrationTest {
 
         // When
         accountService.createAccount(balance, name)
-        val account = accountService.getAccount(id)
+        val account = accountService.find(id)
 
         // Then
         assertThat(account).satisfies {
@@ -54,7 +54,7 @@ internal class AccountIntegrationTest {
         // When
         accountService.createAccount(balance, name)
         accountService.updateAccount(id, newBalance, newName)
-        val account = accountService.getAccount(id)
+        val account = accountService.find(id)
 
         // Then
         assertThat(account).satisfies {
@@ -79,8 +79,8 @@ internal class AccountIntegrationTest {
         accountService.createAccount(initialRecipientBalance, recipientName)
         transferService.createTransfer(senderId, recipientId, balanceChange)
 
-        val account = accountService.getAccount(senderId)
-        val otherAccount = accountService.getAccount(recipientId)
+        val account = accountService.find(senderId)
+        val otherAccount = accountService.find(recipientId)
 
         // Then
         assertThat(account).satisfies {
@@ -112,8 +112,8 @@ internal class AccountIntegrationTest {
         transferService.createTransfer(senderId, recipientId, balanceChange)
         transferService.updateTransfer(transferId, senderId, recipientId, updatedBalanceChange)
 
-        val account = accountService.getAccount(senderId)
-        val otherAccount = accountService.getAccount(recipientId)
+        val account = accountService.find(senderId)
+        val otherAccount = accountService.find(recipientId)
 
         // Then
         assertThat(account).satisfies {

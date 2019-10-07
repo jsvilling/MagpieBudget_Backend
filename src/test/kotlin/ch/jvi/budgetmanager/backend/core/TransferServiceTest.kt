@@ -26,7 +26,7 @@ internal class TransferServiceTest {
         Mockito.`when`(commandStore.findCreationCommand(id)).thenReturn(creationCommand)
 
         // When
-        val transfer = transferService.getTransfer(id)
+        val transfer = transferService.find(id)
 
         // Then
         verify(commandStore, times(1)).findCreationCommand(id)
