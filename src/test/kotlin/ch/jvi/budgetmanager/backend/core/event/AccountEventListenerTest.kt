@@ -1,24 +1,25 @@
-package ch.jvi.budgetmanager.backend.core.message
+package ch.jvi.budgetmanager.backend.core.event
 
 import ch.jvi.budgetmanager.backend.api.command.bus.CommandBus
 import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
-import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.*
+import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.CreateAccountCommand
+import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.UpdateAccountCommand
 import org.junit.Test
-import java.math.BigDecimal
 import org.mockito.Mockito.*
+import java.math.BigDecimal
 
-internal class AccountMessageListenerTest {
+internal class AccountEventListenerTest {
 
     private val commandStore =mock(CommandStore::class.java)
     private val commandBus = mock(CommandBus::class.java)
-    private val accountMessageListener = AccountMessageListener(commandStore, commandBus)
+    private val accountMessageListener = AccountEventListener(commandStore, commandBus)
 
     @Test
     fun testHandleCreateAccountMessage() {
         // Given
         val balance = BigDecimal.TEN
         val name = "NameName"
-        val receivedCreationMessage = AccountMessage.CreateAccountMessage(balance, name)
+        val receivedCreationMessage = AccountEvent.CreateAccountEvent(balance, name)
         val expectedCreationCommand = CreateAccountCommand(balance, name)
 
         // When
@@ -35,7 +36,7 @@ internal class AccountMessageListenerTest {
         val id = "id"
         val balance = BigDecimal.TEN
         val name = "NameName"
-        val receivedUpdateMessage = AccountMessage.UpdateAccountMessage(id, balance, name)
+        val receivedUpdateMessage = AccountEvent.UpdateAccountEvent(id, balance, name)
         val expectedUpdateCommand = UpdateAccountCommand(balance, name, id)
 
         // When

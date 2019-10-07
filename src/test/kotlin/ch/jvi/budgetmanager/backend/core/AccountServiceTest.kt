@@ -1,20 +1,20 @@
 package ch.jvi.budgetmanager.backend.core
 
 import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
-import ch.jvi.budgetmanager.backend.api.message.MessageBus
-import ch.jvi.budgetmanager.backend.core.message.AccountMessage.CreateAccountMessage
+import ch.jvi.budgetmanager.backend.api.event.EventBus
+import ch.jvi.budgetmanager.backend.core.event.AccountEvent.CreateAccountEvent
 import ch.jvi.budgetmanager.backend.domain.account.Account
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.CreateAccountCommand
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.UpdateAccountCommand
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.mockito.Mockito.*
 import java.math.BigDecimal
-import org.assertj.core.api.Assertions.assertThat as assertThat
 
 
 internal class AccountServiceTest {
 
-    private val messageBus = mock(MessageBus::class.java)
+    private val messageBus = mock(EventBus::class.java)
     private val commandStore = mock(CommandStore::class.java)
     private val accountService = AccountService(messageBus, commandStore)
 
@@ -61,7 +61,7 @@ internal class AccountServiceTest {
         // Given
         val balance = BigDecimal.TEN
         val name = "name"
-        val creationMessage = CreateAccountMessage(balance, name)
+        val creationMessage = CreateAccountEvent(balance, name)
 
         // When
         accountService.createAccount(balance, name)

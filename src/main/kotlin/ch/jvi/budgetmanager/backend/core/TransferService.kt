@@ -1,16 +1,16 @@
 package ch.jvi.budgetmanager.backend.core
 
 import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
-import ch.jvi.budgetmanager.backend.api.message.MessageBus
-import ch.jvi.budgetmanager.backend.core.message.TransferMessage.CreateTransferMessage
-import ch.jvi.budgetmanager.backend.core.message.TransferMessage.UpdateTransferMessage
+import ch.jvi.budgetmanager.backend.api.event.EventBus
+import ch.jvi.budgetmanager.backend.core.event.TransferEvent.CreateTransferEvent
+import ch.jvi.budgetmanager.backend.core.event.TransferEvent.UpdateTransferEvent
 import ch.jvi.budgetmanager.backend.domain.transfer.Transfer
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.CreateTransferCommand
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
 @Service
-class TransferService(private val commandStore: CommandStore, private val messageBus: MessageBus) {
+class TransferService(private val commandStore: CommandStore, private val eventBus: EventBus) {
 
     fun getTransfer(id: String): Transfer {
         val createTransferCommand = commandStore.findCreationCommand(id) as CreateTransferCommand
@@ -20,13 +20,13 @@ class TransferService(private val commandStore: CommandStore, private val messag
 
     fun createTransfer(senderId: String, recipientId: String, amount: BigDecimal) {
         val createTransferMessage =
-            CreateTransferMessage(recipientId = recipientId, senderId = senderId, amount = amount)
-        messageBus.send(createTransferMessage)
+            CreateTransferEvent(recipientId = recipientId, senderId = senderId, amount = amount)
+        eventBus.send(createTransferMessage)
     }
 
     fun updateTransfer(id: String, senderId: String, recipientId: String, amount: BigDecimal) {
-        val updateTransferMessage = UpdateTransferMessage(id, recipientId, senderId, amount)
-        messageBus.send(updateTransferMessage)
+        val updateTransferMessage = UpdateTransferEvent(id, recipientId, senderId, amount)
+        eventBus.send(updateTransferMessage)
     }
 
 }

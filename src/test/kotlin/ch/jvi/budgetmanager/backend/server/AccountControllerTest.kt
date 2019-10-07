@@ -1,7 +1,7 @@
 package ch.jvi.budgetmanager.backend.server
 
 import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
-import ch.jvi.budgetmanager.backend.api.message.MessageBus
+import ch.jvi.budgetmanager.backend.api.event.EventBus
 import ch.jvi.budgetmanager.backend.core.AccountService
 import ch.jvi.budgetmanager.backend.server.controller.AccountController
 import org.junit.Test
@@ -10,7 +10,7 @@ import java.math.BigDecimal
 
 internal class AccountControllerTest {
 
-    val messageBus = mock(MessageBus::class.java)
+    val messageBus = mock(EventBus::class.java)
     val commandStore = mock(CommandStore::class.java)
     val accountService = spy(AccountService(messageBus, commandStore))
     val accountController = AccountController(accountService)

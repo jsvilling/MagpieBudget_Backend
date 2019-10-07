@@ -4,7 +4,7 @@ import org.springframework.context.event.EventListener
 import org.springframework.scheduling.annotation.Async
 
 /**
- * Annotation for a MessageListener.
+ * Annotation for a EventListener.
  *
  * @author J. Villing
  */
@@ -12,4 +12,4 @@ import org.springframework.scheduling.annotation.Async
 @Retention(AnnotationRetention.RUNTIME)
 @EventListener
 @Async
-annotation class MessageListener
+annotation class EventListener

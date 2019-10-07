@@ -1,18 +1,18 @@
-package ch.jvi.budgetmanager.backend.core.message
+package ch.jvi.budgetmanager.backend.core.event
 
 import ch.jvi.budgetmanager.backend.api.command.bus.CommandBus
 import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.AdjustAccountBalanceCommand
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.CreateTransferCommand
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.UpdateTransferCommand
-import ch.jvi.budgetmanager.core.api.MessageListener
+import ch.jvi.budgetmanager.core.api.EventListener
 import org.springframework.stereotype.Component
 
 @Component
-class TransferMessageListener(private val commandBus: CommandBus, private val commandStore: CommandStore) {
+class TransferEventListener(private val commandBus: CommandBus, private val commandStore: CommandStore) {
 
-    @MessageListener
-    fun handle(createTransferMessage: TransferMessage.CreateTransferMessage) {
+    @EventListener
+    fun handle(createTransferMessage: TransferEvent.CreateTransferEvent) {
         val createTransferCommand = convertToCreateTransferCommand(createTransferMessage)
         val updateRecipientCommand = converToUpdateRecipientAccountCommand(createTransferMessage)
         val updateSenderAccount = converToUpdateSenderAccountCommand(createTransferMessage)
@@ -21,7 +21,7 @@ class TransferMessageListener(private val commandBus: CommandBus, private val co
         commandStore.saveAll(listOf(updateRecipientCommand, updateSenderAccount))
     }
 
-    private fun convertToCreateTransferCommand(createTransferMessage: TransferMessage.CreateTransferMessage): CreateTransferCommand {
+    private fun convertToCreateTransferCommand(createTransferMessage: TransferEvent.CreateTransferEvent): CreateTransferCommand {
         return CreateTransferCommand(
             recipientId = createTransferMessage.recipientId,
             senderId = createTransferMessage.senderId,
@@ -29,28 +29,28 @@ class TransferMessageListener(private val commandBus: CommandBus, private val co
         )
     }
 
-    private fun converToUpdateRecipientAccountCommand(createTransferMessage: TransferMessage.CreateTransferMessage): AdjustAccountBalanceCommand {
+    private fun converToUpdateRecipientAccountCommand(createTransferMessage: TransferEvent.CreateTransferEvent): AdjustAccountBalanceCommand {
         return AdjustAccountBalanceCommand(
             entityId = createTransferMessage.recipientId,
             balanceChange = createTransferMessage.amount
         )
     }
 
-    private fun converToUpdateSenderAccountCommand(createTransferMessage: TransferMessage.CreateTransferMessage): AdjustAccountBalanceCommand {
+    private fun converToUpdateSenderAccountCommand(createTransferMessage: TransferEvent.CreateTransferEvent): AdjustAccountBalanceCommand {
         return AdjustAccountBalanceCommand(
             entityId = createTransferMessage.senderId,
             balanceChange = createTransferMessage.amount.negate()
         )
     }
 
-    @MessageListener
-    fun handle(updateTransferMessage: TransferMessage.UpdateTransferMessage) {
+    @EventListener
+    fun handle(updateTransferMessage: TransferEvent.UpdateTransferEvent) {
         val updateTransferCommand = convertToUpdateTransferCommand(updateTransferMessage)
         commandBus.send(updateTransferCommand)
         commandStore.save(updateTransferCommand)
     }
 
-    private fun convertToUpdateTransferCommand(updateTransferMessage: TransferMessage.UpdateTransferMessage): UpdateTransferCommand {
+    private fun convertToUpdateTransferCommand(updateTransferMessage: TransferEvent.UpdateTransferEvent): UpdateTransferCommand {
         return UpdateTransferCommand(
             entityId = updateTransferMessage.id,
             recipientId = updateTransferMessage.recipientId,
