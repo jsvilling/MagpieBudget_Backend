@@ -3,6 +3,7 @@ package ch.jvi.budgetmanager.backend.core
 import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.api.event.EventBus
 import ch.jvi.budgetmanager.backend.core.event.TransferEvent
+import ch.jvi.budgetmanager.backend.core.service.TransferService
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test

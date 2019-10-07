@@ -3,6 +3,7 @@ package ch.jvi.budgetmanager.backend.core
 import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.api.event.EventBus
 import ch.jvi.budgetmanager.backend.core.event.AccountEvent.CreateAccountEvent
+import ch.jvi.budgetmanager.backend.core.service.AccountService
 import ch.jvi.budgetmanager.backend.domain.account.Account
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.CreateAccountCommand
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.UpdateAccountCommand

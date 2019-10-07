@@ -1,4 +1,4 @@
-package ch.jvi.budgetmanager.backend.core
+package ch.jvi.budgetmanager.backend.core.service
 
 import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.api.event.EventBus
