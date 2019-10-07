@@ -3,7 +3,7 @@ package ch.jvi.budgetmanager.backend.domain
 import ch.jvi.budgetmanager.backend.api.command.Command
 
 /**
- * Marker interface for all domain entities
+ * Interface for all domain entities
  *
  * @author J. Villing
  */
