@@ -2,6 +2,7 @@ package ch.jvi.budgetmanager.backend.core
 
 import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.api.event.EventBus
+import ch.jvi.budgetmanager.backend.api.service.EntityService
 import ch.jvi.budgetmanager.backend.core.event.TransferEvent.CreateTransferEvent
 import ch.jvi.budgetmanager.backend.core.event.TransferEvent.UpdateTransferEvent
 import ch.jvi.budgetmanager.backend.domain.transfer.Transfer
@@ -10,11 +11,15 @@ import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
 @Service
-class TransferService(private val commandStore: CommandStore, private val eventBus: EventBus) {
+class TransferService(
+    private val commandStore: CommandStore,
+    private val eventBus: EventBus
+) :
+    EntityService<Transfer> {
 
-    fun getTransfer(id: String): Transfer {
-        val createTransferCommand = commandStore.findCreationCommand(id) as CreateTransferCommand
-        val transferCommands = commandStore.findTransferCommands(id)
+    override fun find(entity: String): Transfer {
+        val createTransferCommand = commandStore.findCreationCommand(entity) as CreateTransferCommand
+        val transferCommands = commandStore.findTransferCommands(entity)
         return Transfer(createTransferCommand)
     }
 

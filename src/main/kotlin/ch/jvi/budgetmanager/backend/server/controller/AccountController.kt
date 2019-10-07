@@ -11,7 +11,7 @@ class AccountController(private val accountService: AccountService) {
 
     @GetMapping("/{id}")
     fun getAccount(@PathVariable id: String): Account {
-        return accountService.getAccount(id)
+        return accountService.find(id)
     }
 
     @PutMapping("/create")
