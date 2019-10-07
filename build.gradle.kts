@@ -16,8 +16,6 @@ repositories {
     mavenCentral()
 }
 
-//extra["snippetsDir"] = file("build/generated-snippets")
-
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -35,13 +33,4 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "1.8"
     }
-}
-
-tasks.test {
-//    outputs.dir(snippetsDir)
-}
-
-tasks.asciidoctor {
-//    inputs.dir(snippetsDir)
-//    dependsOn(test)
 }
