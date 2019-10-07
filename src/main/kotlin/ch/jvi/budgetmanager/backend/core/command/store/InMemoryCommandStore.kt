@@ -1,10 +1,12 @@
 package ch.jvi.budgetmanager.backend.core.command.store
 
 import ch.jvi.budgetmanager.backend.api.command.Command
-import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.api.command.CreationCommand
+import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand
+import org.springframework.context.annotation.Profile
+import org.springframework.stereotype.Service
 import kotlin.streams.toList
 
 /**
@@ -12,7 +14,8 @@ import kotlin.streams.toList
  *
  * @author J. Villing
  */
-//@Service
+@Service
+@Profile("integrationTest")
 class InMemoryCommandStore : CommandStore {
     private val creationCommands: MutableSet<CreationCommand> = HashSet()
     private val commands: MutableSet<Command> = HashSet()

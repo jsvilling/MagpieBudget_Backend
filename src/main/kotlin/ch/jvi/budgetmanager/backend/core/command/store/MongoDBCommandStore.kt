@@ -1,12 +1,13 @@
 package ch.jvi.budgetmanager.backend.core.command.store
 
 import ch.jvi.budgetmanager.backend.api.command.Command
-import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.api.command.CreationCommand
+import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand
 import ch.jvi.budgetmanager.backend.server.repository.CreationCommandRepository
 import ch.jvi.budgetmanager.backend.server.repository.UpdateCommandRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 import kotlin.streams.toList
 
@@ -16,6 +17,7 @@ import kotlin.streams.toList
  * @author J. Villing
  */
 @Service
+@Profile("production")
 class MongoDBCommandStore(
     private val creationCommandRepository: CreationCommandRepository,
     private val updateCommandRepository: UpdateCommandRepository
