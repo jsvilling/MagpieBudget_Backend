@@ -17,18 +17,28 @@ class TransferService(
 ) :
     EntityService<Transfer> {
 
+    /**
+     * @return The transfer with the requested ID
+     * @throws IllegalArgumentException if no Entity with the given ID is found.
+     */
     override fun find(entity: String): Transfer {
         val createTransferCommand = commandStore.findCreationCommand(entity) as CreateTransferCommand
         val transferCommands = commandStore.findTransferCommands(entity)
         return Transfer(createTransferCommand)
     }
 
+    /**
+     * Creates and sends a CreateTransferEvent with the given data.
+     */
     fun createTransfer(senderId: String, recipientId: String, amount: BigDecimal) {
         val createTransferMessage =
             CreateTransferEvent(recipientId = recipientId, senderId = senderId, amount = amount)
         eventBus.send(createTransferMessage)
     }
 
+    /**
+     * Creates and sends a UpdateTransferEvent with the given Data.
+     */
     fun updateTransfer(id: String, senderId: String, recipientId: String, amount: BigDecimal) {
         val updateTransferMessage = UpdateTransferEvent(id, recipientId, senderId, amount)
         eventBus.send(updateTransferMessage)

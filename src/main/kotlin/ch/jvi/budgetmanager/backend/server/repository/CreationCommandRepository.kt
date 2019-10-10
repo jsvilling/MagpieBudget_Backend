@@ -4,5 +4,10 @@ import ch.jvi.budgetmanager.backend.api.command.CreationCommand
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
 
+/**
+ * Repository for CreationCommands
+ *
+ * @author J. Villing
+ */
 @Repository
 interface CreationCommandRepository : MongoRepository<CreationCommand, String>

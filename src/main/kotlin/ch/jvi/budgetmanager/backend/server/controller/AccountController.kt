@@ -5,6 +5,11 @@ import ch.jvi.budgetmanager.backend.domain.account.Account
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
 
+/**
+ * Rest Controller for all Account related operations.
+ *
+ * @author J. Villing
+ */
 @RestController
 @RequestMapping("/api/accounts")
 class AccountController(private val accountService: AccountService) {

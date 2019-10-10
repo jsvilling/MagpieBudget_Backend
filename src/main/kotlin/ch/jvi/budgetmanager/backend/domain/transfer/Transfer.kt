@@ -4,6 +4,12 @@ import ch.jvi.budgetmanager.backend.domain.DomainEntity
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.CreateTransferCommand
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.UpdateTransferCommand
 
+
+/**
+ * Domain Entity representing the transfer of an amount from one account to another
+ *
+ * @author J. Villing
+ */
 class Transfer(creationCommand: CreateTransferCommand) : DomainEntity<TransferCommand> {
 
     val id = creationCommand.entityId

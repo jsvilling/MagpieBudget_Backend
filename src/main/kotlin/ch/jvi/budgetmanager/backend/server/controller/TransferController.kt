@@ -4,6 +4,11 @@ import ch.jvi.budgetmanager.backend.core.service.TransferService
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
 
+/**
+ * Rest Controller for all Transfer related operations.
+ *
+ * @author J. Villing
+ */
 @RestController
 @RequestMapping("/api/transfers")
 class TransferController(private val transferService: TransferService) {

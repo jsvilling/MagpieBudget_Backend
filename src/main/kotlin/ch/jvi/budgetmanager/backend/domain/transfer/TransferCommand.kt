@@ -5,8 +5,16 @@ import ch.jvi.budgetmanager.backend.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.domain.IDProvider
 import java.math.BigDecimal
 
+/**
+ * This sealed class contains all commands for creating and updating a Transfer.
+ *
+ * @author J. Villing
+ */
 sealed class TransferCommand : Command {
 
+    /**
+     * Is used to create a Transfer
+     */
     data class CreateTransferCommand(
         val recipientId: String,
         val senderId: String,
@@ -15,6 +23,9 @@ sealed class TransferCommand : Command {
         override val commandId: String = IDProvider.next()
     ) : TransferCommand(), CreationCommand
 
+    /**
+     * Is used to reset sender, recipient and amount of a transfer.
+     */
     data class UpdateTransferCommand(
         val recipientId: String,
         val senderId: String,
