@@ -4,6 +4,15 @@ import ch.jvi.budgetmanager.backend.domain.DomainEntity
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.*
 import java.math.BigDecimal
 
+/**
+ * Domain Entity representing an account.
+ *
+ * A account represents any digital or physical entity that has a monetary value assigned. Examples may be a
+ * bank account, a persons wallet or stock portfolio.
+ *
+ * @author J. Villing
+ *
+ */
 class Account(creationCommand: CreateAccountCommand) : DomainEntity<AccountCommand> {
 
     val id: String = creationCommand.entityId
@@ -14,6 +23,9 @@ class Account(creationCommand: CreateAccountCommand) : DomainEntity<AccountComma
     var name: String = creationCommand.name
         private set
 
+    /**
+     * @see DomainEntity.apply
+     */
     override fun apply(command: AccountCommand) = when (command) {
         is CreateAccountCommand -> apply(command)
         is UpdateAccountCommand -> apply(command)
