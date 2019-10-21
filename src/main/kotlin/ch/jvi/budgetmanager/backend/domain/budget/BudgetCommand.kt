@@ -11,9 +11,16 @@ import java.math.BigDecimal.ZERO
 @Document(collection = "command")
 sealed class BudgetCommand : Command {
     data class CreateBudgetCommand(
+        val name: String,
         val target: BigDecimal,
         val balance: BigDecimal = ZERO,
         override val entityId: String = IDProvider.next(),
         @Id override val commandId: String = IDProvider.next()
     ) : BudgetCommand(), CreationCommand
+
+    data class AdjustBudgetBalanceCommand(
+        val amount: BigDecimal,
+        override val entityId: String = IDProvider.next(),
+        @Id override val commandId: String = IDProvider.next()
+    ) : BudgetCommand()
 }

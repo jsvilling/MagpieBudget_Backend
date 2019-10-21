@@ -7,7 +7,8 @@ sealed class TransferEvent : Event {
     data class CreateTransferEvent(
         val recipientId: String,
         val senderId: String,
-        val amount: BigDecimal
+        val amount: BigDecimal,
+        val budgetId: String
     ) : TransferEvent()
 
     data class UpdateTransferEvent(

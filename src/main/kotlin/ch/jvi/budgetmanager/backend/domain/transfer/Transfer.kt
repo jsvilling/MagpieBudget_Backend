@@ -13,9 +13,17 @@ import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.UpdateTransf
 class Transfer(creationCommand: CreateTransferCommand) : DomainEntity<TransferCommand> {
 
     val id = creationCommand.entityId
+
     var recipientId = creationCommand.recipientId
+        private set
+
     var senderId = creationCommand.senderId
+        private set
+
     var amount = creationCommand.amount
+        private set
+
+    var budgetId = creationCommand.budgetId
 
     override fun apply(command: TransferCommand) = when (command) {
         is CreateTransferCommand -> apply(command)

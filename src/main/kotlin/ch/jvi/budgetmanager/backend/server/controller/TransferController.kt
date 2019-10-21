@@ -19,8 +19,8 @@ class TransferController(private val transferService: TransferService) {
     }
 
     @PutMapping("/create")
-    fun createTransfer(@RequestParam senderId: String, @RequestParam recipientId: String, @RequestParam amount: BigDecimal) {
-        transferService.createTransfer(senderId, recipientId, amount)
+    fun createTransfer(@RequestParam senderId: String, @RequestParam recipientId: String, @RequestParam amount: BigDecimal, @RequestParam budgetId: String) {
+        transferService.createTransfer(senderId, recipientId, amount, budgetId)
     }
 
     @PostMapping("/{id}/update")

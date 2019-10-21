@@ -2,7 +2,10 @@ package ch.jvi.budgetmanager.backend.core.event
 
 import ch.jvi.budgetmanager.backend.api.command.bus.CommandBus
 import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
+import ch.jvi.budgetmanager.backend.core.event.TransferEvent.CreateTransferEvent
+import ch.jvi.budgetmanager.backend.core.event.TransferEvent.UpdateTransferEvent
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.AdjustAccountBalanceCommand
+import ch.jvi.budgetmanager.backend.domain.budget.BudgetCommand.AdjustBudgetBalanceCommand
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.CreateTransferCommand
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.UpdateTransferCommand
 import ch.jvi.budgetmanager.core.api.EventListener
@@ -12,50 +15,66 @@ import org.springframework.stereotype.Component
 class TransferEventListener(private val commandBus: CommandBus, private val commandStore: CommandStore) {
 
     @EventListener
-    fun handle(createTransferMessage: TransferEvent.CreateTransferEvent) {
-        val createTransferCommand = convertToCreateTransferCommand(createTransferMessage)
-        val updateRecipientCommand = converToUpdateRecipientAccountCommand(createTransferMessage)
-        val updateSenderAccount = converToUpdateSenderAccountCommand(createTransferMessage)
-        commandBus.sendAll(listOf(createTransferCommand, updateRecipientCommand, updateSenderAccount))
+    fun handle(createTransferEvent: CreateTransferEvent) {
+        val createTransferCommand = convertToCreateTransferCommand(createTransferEvent)
+        val updateRecipientCommand = converToUpdateRecipientAccountCommand(createTransferEvent)
+        val updateSenderAccount = converToUpdateSenderAccountCommand(createTransferEvent)
+        val updateBudgetCommand = convertToAdjustBudgetBalanceCommand(createTransferEvent)
+        commandBus.sendAll(
+            listOf(
+                createTransferCommand,
+                updateRecipientCommand,
+                updateSenderAccount,
+                updateBudgetCommand
+            )
+        )
         commandStore.saveCreationCommand(createTransferCommand)
-        commandStore.saveAll(listOf(updateRecipientCommand, updateSenderAccount))
+        commandStore.saveAll(listOf(updateRecipientCommand, updateSenderAccount, updateBudgetCommand))
     }
 
-    private fun convertToCreateTransferCommand(createTransferMessage: TransferEvent.CreateTransferEvent): CreateTransferCommand {
+    private fun convertToCreateTransferCommand(createTransferMessage: CreateTransferEvent): CreateTransferCommand {
         return CreateTransferCommand(
             recipientId = createTransferMessage.recipientId,
             senderId = createTransferMessage.senderId,
-            amount = createTransferMessage.amount
+            amount = createTransferMessage.amount,
+            budgetId = createTransferMessage.budgetId
         )
     }
 
-    private fun converToUpdateRecipientAccountCommand(createTransferMessage: TransferEvent.CreateTransferEvent): AdjustAccountBalanceCommand {
+    private fun converToUpdateRecipientAccountCommand(event: CreateTransferEvent): AdjustAccountBalanceCommand {
         return AdjustAccountBalanceCommand(
-            entityId = createTransferMessage.recipientId,
-            balanceChange = createTransferMessage.amount
+            entityId = event.recipientId,
+            balanceChange = event.amount
         )
     }
 
-    private fun converToUpdateSenderAccountCommand(createTransferMessage: TransferEvent.CreateTransferEvent): AdjustAccountBalanceCommand {
+    private fun converToUpdateSenderAccountCommand(event: CreateTransferEvent): AdjustAccountBalanceCommand {
         return AdjustAccountBalanceCommand(
-            entityId = createTransferMessage.senderId,
-            balanceChange = createTransferMessage.amount.negate()
+            entityId = event.senderId,
+            balanceChange = event.amount.negate()
+        )
+    }
+
+    private fun convertToAdjustBudgetBalanceCommand(event: CreateTransferEvent): AdjustBudgetBalanceCommand {
+        return AdjustBudgetBalanceCommand(
+            amount = event.amount,
+            entityId = event.budgetId
         )
     }
 
     @EventListener
-    fun handle(updateTransferMessage: TransferEvent.UpdateTransferEvent) {
+    fun handle(updateTransferMessage: UpdateTransferEvent) {
         val updateTransferCommand = convertToUpdateTransferCommand(updateTransferMessage)
         commandBus.send(updateTransferCommand)
         commandStore.save(updateTransferCommand)
     }
 
-    private fun convertToUpdateTransferCommand(updateTransferMessage: TransferEvent.UpdateTransferEvent): UpdateTransferCommand {
+    private fun convertToUpdateTransferCommand(event: UpdateTransferEvent): UpdateTransferCommand {
         return UpdateTransferCommand(
-            entityId = updateTransferMessage.id,
-            recipientId = updateTransferMessage.recipientId,
-            senderId = updateTransferMessage.senderId,
-            amount = updateTransferMessage.amount
+            entityId = event.id,
+            recipientId = event.recipientId,
+            senderId = event.senderId,
+            amount = event.amount
         )
     }
 
