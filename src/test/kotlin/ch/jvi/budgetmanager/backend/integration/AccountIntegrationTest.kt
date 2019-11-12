@@ -1,6 +1,7 @@
 package ch.jvi.budgetmanager.backend.integration
 
 import ch.jvi.budgetmanager.backend.core.service.AccountService
+import ch.jvi.budgetmanager.backend.core.service.BudgetService
 import ch.jvi.budgetmanager.backend.core.service.TransferService
 import ch.jvi.budgetmanager.backend.domain.IDProvider.idcounter
 import org.assertj.core.api.Assertions.assertThat
@@ -12,6 +13,7 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
 import java.math.BigDecimal
 import java.math.BigDecimal.ONE
+import java.math.BigDecimal.ZERO
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
@@ -23,6 +25,9 @@ internal class AccountIntegrationTest {
 
     @Autowired
     lateinit var transferService: TransferService
+
+    @Autowired
+    lateinit var budgetService: BudgetService
 
     @Test
     fun testAccountCreation() {
@@ -69,15 +74,19 @@ internal class AccountIntegrationTest {
         val senderId = idcounter.toString()
         val initialSenderBalance = BigDecimal.TEN
         val senderName = "Name"
-        val recipientId = (idcounter + 1).toString()
+        val recipientId = (idcounter + 2).toString()
         val initialRecipientBalance = BigDecimal.TEN
         val recipientName = "NewName"
         val balanceChange = BigDecimal.valueOf(5)
+        val budgetName = "budget"
+        val budgetTarget = BigDecimal("100")
+        val budgetBalance = ZERO
 
         // When
         accountService.createAccount(initialSenderBalance, senderName)
         accountService.createAccount(initialRecipientBalance, recipientName)
-        transferService.createTransfer(senderId, recipientId, balanceChange)
+        budgetService.createBudget(budgetName, budgetTarget, budgetBalance)
+        transferService.createTransfer(senderId, recipientId, balanceChange, (idcounter - 1).toString())
 
         val account = accountService.find(senderId)
         val otherAccount = accountService.find(recipientId)
@@ -99,17 +108,21 @@ internal class AccountIntegrationTest {
         val senderId = idcounter.toString()
         val initialSenderBalance = BigDecimal.TEN
         val senderName = "Name"
-        val recipientId = (idcounter + 1).toString()
+        val recipientId = (idcounter + 2).toString()
         val initialRecipientBalance = BigDecimal.TEN
         val recipientName = "NewName"
         val balanceChange = BigDecimal.valueOf(5)
         val transferId = (idcounter + 2).toString()
         val updatedBalanceChange = BigDecimal.valueOf(5)
+        val budgetName = "budget"
+        val budgetTarget = BigDecimal("100")
+        val budgetBalance = ZERO
 
         // When
         accountService.createAccount(initialSenderBalance, senderName)
         accountService.createAccount(initialRecipientBalance, recipientName)
-        transferService.createTransfer(senderId, recipientId, balanceChange)
+        budgetService.createBudget(budgetName, budgetTarget, budgetBalance)
+        transferService.createTransfer(senderId, recipientId, balanceChange, (idcounter - 1).toString())
         transferService.updateTransfer(transferId, senderId, recipientId, updatedBalanceChange)
 
         val account = accountService.find(senderId)

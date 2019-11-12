@@ -17,7 +17,7 @@ class BudgetService(private val eventBus: EventBus, private val commandStore: Co
         return Budget(creationCommand)
     }
 
-    fun create(name: String, target: BigDecimal, balance: BigDecimal) {
+    fun createBudget(name: String, target: BigDecimal, balance: BigDecimal) {
         val createBudgetEvent = BudgetEvent.CreateBudgetEvent(name, target, balance)
         eventBus.send(createBudgetEvent)
     }

@@ -42,10 +42,11 @@ internal class TransferServiceTest {
         val recipientId = "reciient"
         val senderId = "sender"
         val amount = BigDecimal.TEN
-        val creationCommand = TransferEvent.CreateTransferEvent(recipientId, senderId, amount)
+        val budgetId = "123"
+        val creationCommand = TransferEvent.CreateTransferEvent(recipientId, senderId, amount, budgetId)
 
         // When
-        transferService.createTransfer(senderId, recipientId, amount)
+        transferService.createTransfer(senderId, recipientId, amount, budgetId)
 
         // Then
         verify(messageBus, times(1)).send(creationCommand)

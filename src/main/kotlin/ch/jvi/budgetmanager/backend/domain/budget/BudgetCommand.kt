@@ -20,7 +20,7 @@ sealed class BudgetCommand : Command {
 
     data class AdjustBudgetBalanceCommand(
         val amount: BigDecimal,
-        override val entityId: String = IDProvider.next(),
+        override val entityId: String,
         @Id override val commandId: String = IDProvider.next()
     ) : BudgetCommand()
 }

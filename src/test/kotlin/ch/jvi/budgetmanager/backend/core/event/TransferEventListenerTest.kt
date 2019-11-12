@@ -21,7 +21,8 @@ internal class TransferEventListenerTest {
         val recipientId = "0"
         val senderId = "1"
         val amount = BigDecimal.ONE
-        val createTransferMessage = TransferEvent.CreateTransferEvent(recipientId, senderId, amount)
+        val budgetId = "2"
+        val createTransferMessage = TransferEvent.CreateTransferEvent(recipientId, senderId, amount, budgetId)
         val createTransferCommand = CreateTransferCommand(recipientId, senderId, amount, "0")
         val adjustRecipientCommand = AccountCommand.AdjustAccountBalanceCommand(amount, recipientId)
         val adjustSenderCommand = AccountCommand.AdjustAccountBalanceCommand(amount.negate(), senderId)

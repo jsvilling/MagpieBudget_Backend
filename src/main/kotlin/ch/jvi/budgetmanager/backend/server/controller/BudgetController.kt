@@ -19,6 +19,6 @@ class BudgetController(private val budgetService: BudgetService) {
 
     @PostMapping("create")
     fun createBudget(@RequestParam name: String, @RequestParam target: BigDecimal, @RequestParam balance: BigDecimal) {
-        budgetService.create(name, target, balance)
+        budgetService.createBudget(name, target, balance)
     }
 }
