@@ -18,4 +18,8 @@ object IDProvider {
     fun peekNext(): String {
         return idcounter.toString()
     }
+
+    fun peekPrevious(): String {
+        return (idcounter - 1).toString()
+    }
 }
