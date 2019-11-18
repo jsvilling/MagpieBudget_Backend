@@ -13,12 +13,12 @@ import java.math.BigDecimal
 class BudgetController(private val budgetService: BudgetService) {
 
     @GetMapping("{id}")
-    fun getBudget(@PathVariable id: String): Budget {
+    fun get(@PathVariable id: String): Budget {
         return budgetService.find(id)
     }
 
     @PostMapping("create")
-    fun createBudget(@RequestParam name: String, @RequestParam target: BigDecimal, @RequestParam balance: BigDecimal) {
+    fun create(@RequestParam name: String, @RequestParam target: BigDecimal, @RequestParam balance: BigDecimal) {
         budgetService.createBudget(name, target, balance)
     }
 }

@@ -21,7 +21,7 @@ internal class AccountControllerTest {
         val id = "someId"
 
         // When
-        accountController.getAccount(id)
+        accountController.get(id)
 
         // Then
         verify(accountService, times(1)).find(id)
@@ -34,7 +34,7 @@ internal class AccountControllerTest {
         val name = "Name"
 
         // When
-        accountController.createAccount(balance, name)
+        accountController.create(balance, name)
 
         // Then
         verify(accountService, times(1)).createAccount(balance, name)
@@ -48,7 +48,7 @@ internal class AccountControllerTest {
         val name = "Name"
 
         // When
-        accountController.updateAccount(id, balance, name)
+        accountController.update(id, balance, name)
 
         // Then
         verify(accountService, times(1)).updateAccount(id, balance, name)
