@@ -39,6 +39,10 @@ class InMemoryCommandStore : CommandStore {
         return creationCommands.stream().filter { it.entityId == entityId }.findFirst().orElseThrow()
     }
 
+    override fun findCreationCommands(predicate: (CreationCommand) -> Boolean): List<CreationCommand> {
+        return creationCommands.stream().filter(predicate).toList();
+    }
+
     override fun save(command: Command) {
         commands.add(command)
     }

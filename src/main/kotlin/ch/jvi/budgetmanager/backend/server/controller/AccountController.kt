@@ -14,17 +14,22 @@ import java.math.BigDecimal
 @RequestMapping("/api/accounts")
 class AccountController(private val accountService: AccountService) {
 
+    @GetMapping
+    fun get(): List<Account> {
+        return accountService.findAll();
+    }
+
     @GetMapping("/{id}")
     fun get(@PathVariable id: String): Account {
         return accountService.find(id)
     }
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     fun create(@RequestParam balance: BigDecimal, @RequestParam name: String) {
         accountService.createAccount(balance, name)
     }
 
-    @PostMapping("/{id}/update")
+    @PutMapping("/{id}/update")
     fun update(@PathVariable id: String, @RequestParam balance: BigDecimal, @RequestParam name: String) {
         accountService.updateAccount(id, balance, name)
     }

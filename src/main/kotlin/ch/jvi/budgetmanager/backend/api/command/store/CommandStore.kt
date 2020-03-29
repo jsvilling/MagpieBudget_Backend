@@ -49,6 +49,11 @@ interface CommandStore {
     fun findCreationCommand(entityId: String): CreationCommand
 
     /**
+     * @return All creation commands that fit the given filter.
+     */
+    fun findCreationCommands(predicate: (CreationCommand) -> Boolean): List<CreationCommand>
+
+    /**
      * Persists the given command.
      */
     fun save(command: Command)

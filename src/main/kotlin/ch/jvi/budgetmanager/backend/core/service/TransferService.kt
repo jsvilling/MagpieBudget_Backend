@@ -44,4 +44,8 @@ class TransferService(
         eventBus.send(updateTransferMessage)
     }
 
+    override fun findAll(): List<Transfer> {
+        TODO("Not yet implemented")
+    }
+
 }

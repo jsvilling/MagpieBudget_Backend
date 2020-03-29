@@ -15,4 +15,6 @@ interface EntityService<out E> {
      * @return The entity with the given entityId
      */
     fun find(entityId: String): E
+
+    fun findAll(): List<E>
 }

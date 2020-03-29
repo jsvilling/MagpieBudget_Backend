@@ -21,4 +21,8 @@ class BudgetService(private val eventBus: EventBus, private val commandStore: Co
         val createBudgetEvent = BudgetEvent.CreateBudgetEvent(name, target, balance)
         eventBus.send(createBudgetEvent)
     }
+
+    override fun findAll(): List<Budget> {
+        TODO("Not yet implemented")
+    }
 }

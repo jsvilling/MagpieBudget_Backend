@@ -38,7 +38,12 @@ class MongoDBCommandStore(
     }
 
     override fun findCreationCommand(entityId: String): CreationCommand {
-        return creationCommandRepository.findAll().stream().filter { it.entityId == entityId }.findFirst().orElseThrow() as AccountCommand.CreateAccountCommand
+        return creationCommandRepository.findAll().stream().filter { it.entityId == entityId }.findFirst()
+            .orElseThrow() as AccountCommand.CreateAccountCommand
+    }
+
+    override fun findCreationCommands(predicate: (CreationCommand) -> Boolean): List<CreationCommand> {
+        return creationCommandRepository.findAll().stream().filter(predicate).toList()
     }
 
     override fun save(command: Command) {

@@ -1,5 +1,6 @@
 package ch.jvi.budgetmanager.backend.core.service
 
+import ch.jvi.budgetmanager.backend.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.api.event.EventBus
 import ch.jvi.budgetmanager.backend.api.service.EntityService
@@ -31,6 +32,15 @@ class AccountService(
         val account = Account(creationCommand)
         account.applyAll(commands)
         return account
+    }
+
+    override fun findAll(): List<Account> {
+        return commandStore.findCreationCommands(this::isAccountCreationCommand)
+            .map { Account(it as CreateAccountCommand) }
+    }
+
+    fun isAccountCreationCommand(command: CreationCommand): Boolean {
+        return command is CreateAccountCommand
     }
 
     /**
