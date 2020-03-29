@@ -28,15 +28,20 @@ class AccountService(
      */
     override fun find(entityId: String): Account {
         val creationCommand: CreateAccountCommand = commandStore.findCreationCommand(entityId) as CreateAccountCommand
-        val commands: List<AccountCommand> = commandStore.findAccountCommands(entityId)
         val account = Account(creationCommand)
-        account.applyAll(commands)
-        return account
+        return applyCommands(account)
     }
 
     override fun findAll(): List<Account> {
         return commandStore.findCreationCommands(this::isAccountCreationCommand)
             .map { Account(it as CreateAccountCommand) }
+            .map { applyCommands(it) }
+    }
+
+    private fun applyCommands(account: Account): Account {
+        val commands: List<AccountCommand> = commandStore.findAccountCommands(account.id)
+        account.applyAll(commands)
+        return account
     }
 
     fun isAccountCreationCommand(command: CreationCommand): Boolean {

@@ -26,7 +26,10 @@ class MongoDBCommandStore(
     // TODO: Re-work repsository design to get rid of the nasty casts for entity specific commands.
 
     override fun find(entityId: String): List<Command> {
-        return updateCommandRepository.findAll().stream().map { it as AccountCommand }.toList()
+        return updateCommandRepository.findAll().stream()
+            .map { it as AccountCommand }
+            .filter { it.entityId == entityId }
+            .toList()
     }
 
     override fun findAccountCommands(entityId: String): List<AccountCommand> {
