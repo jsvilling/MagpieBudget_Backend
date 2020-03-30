@@ -41,6 +41,6 @@ class Account(val creationCommand: CreateAccountCommand) : DomainEntity<AccountC
     }
 
     private fun apply(command: AdjustAccountBalanceCommand) {
-        this.balance += command.balanceChange
+        this.balance = balance.add(command.balanceChange);
     }
 }

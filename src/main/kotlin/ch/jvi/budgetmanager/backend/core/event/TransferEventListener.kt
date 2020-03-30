@@ -63,18 +63,51 @@ class TransferEventListener(private val commandBus: CommandBus, private val comm
     }
 
     @EventListener
-    fun handle(updateTransferMessage: UpdateTransferEvent) {
-        val updateTransferCommand = convertToUpdateTransferCommand(updateTransferMessage)
-        commandBus.send(updateTransferCommand)
-        commandStore.save(updateTransferCommand)
+    fun handle(updateTransferEvent: UpdateTransferEvent) {
+        val updateTransferCommand = convertToUpdateTransferCommand(updateTransferEvent)
+
+        // Update Old Recipient
+        val updateOldRecipientCommand = AdjustAccountBalanceCommand(
+            entityId = updateTransferEvent.oldRecipientId,
+            balanceChange = updateTransferEvent.oldAmount.negate()
+        )
+
+        // Update Old Sender
+        val updateOldSenderCommand = AdjustAccountBalanceCommand(
+            entityId = updateTransferEvent.oldSenderId,
+            balanceChange = updateTransferEvent.oldAmount
+        )
+
+        // Update new Recipient
+        val updateNewRecipientCommand = AdjustAccountBalanceCommand(
+            entityId = updateTransferEvent.newRecipientId,
+            balanceChange = updateTransferEvent.newAmount
+        )
+
+        // Update new Sender
+        val updateNewSenderCommand = AdjustAccountBalanceCommand(
+            entityId = updateTransferEvent.newSenderId,
+            balanceChange = updateTransferEvent.newAmount.negate()
+        )
+
+        val updateCommands = listOf(
+            updateTransferCommand,
+            updateOldRecipientCommand,
+            updateOldSenderCommand,
+            updateNewRecipientCommand,
+            updateNewSenderCommand
+        )
+
+        commandBus.sendAll(updateCommands)
+        commandStore.saveAll(updateCommands)
     }
 
     private fun convertToUpdateTransferCommand(event: UpdateTransferEvent): UpdateTransferCommand {
         return UpdateTransferCommand(
-            entityId = event.id,
-            recipientId = event.recipientId,
-            senderId = event.senderId,
-            amount = event.amount
+            entityId = event.transferId,
+            recipientId = event.newRecipientId,
+            senderId = event.newSenderId,
+            amount = event.newAmount
         )
     }
 

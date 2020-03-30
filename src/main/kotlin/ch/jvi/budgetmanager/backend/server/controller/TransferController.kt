@@ -1,5 +1,6 @@
 package ch.jvi.budgetmanager.backend.server.controller
 
+import ch.jvi.budgetmanager.backend.core.event.TransferEvent.UpdateTransferEvent
 import ch.jvi.budgetmanager.backend.core.service.TransferService
 import ch.jvi.budgetmanager.backend.domain.transfer.Transfer
 import org.springframework.web.bind.annotation.*
@@ -40,7 +41,7 @@ class TransferController(private val transferService: TransferService) {
     }
 
     @PutMapping("/{id}/update")
-    fun update(@PathVariable id: String, @RequestParam senderId: String, @RequestParam recipientId: String, @RequestParam amount: BigDecimal) {
-        transferService.updateTransfer(id, senderId, recipientId, amount)
+    fun update(@RequestBody updateTransferEvent: UpdateTransferEvent) {
+        transferService.updateTransfer(updateTransferEvent)
     }
 }

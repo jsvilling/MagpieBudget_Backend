@@ -12,9 +12,12 @@ sealed class TransferEvent : Event {
     ) : TransferEvent()
 
     data class UpdateTransferEvent(
-        val id: String,
-        val recipientId: String,
-        val senderId: String,
-        val amount: BigDecimal
+        val transferId: String,
+        val oldSenderId: String,
+        val oldRecipientId: String,
+        val oldAmount: BigDecimal,
+        val newSenderId: String,
+        val newRecipientId: String,
+        val newAmount: BigDecimal
     ) : TransferEvent()
 }

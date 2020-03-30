@@ -64,9 +64,8 @@ class TransferService(
     /**
      * Creates and sends a UpdateTransferEvent with the given Data.
      */
-    fun updateTransfer(id: String, senderId: String, recipientId: String, amount: BigDecimal) {
-        val updateTransferMessage = UpdateTransferEvent(id, recipientId, senderId, amount)
-        eventBus.send(updateTransferMessage)
+    fun updateTransfer(updateTransferEvent: UpdateTransferEvent) {
+        eventBus.send(updateTransferEvent)
     }
 
 }

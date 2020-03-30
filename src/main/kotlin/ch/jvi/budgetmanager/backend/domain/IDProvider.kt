@@ -9,7 +9,7 @@ package ch.jvi.budgetmanager.backend.domain
  */
 object IDProvider {
 
-    var idcounter = 355
+    var idcounter = 1500
 
     fun next(): String {
         return idcounter++.toString()
