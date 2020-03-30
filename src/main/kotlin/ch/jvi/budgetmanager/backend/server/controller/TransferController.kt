@@ -20,8 +20,8 @@ class TransferController(private val transferService: TransferService) {
     }
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: String) {
-        transferService.find(id)
+    fun get(@PathVariable id: String): Transfer {
+        return transferService.find(id)
     }
 
     @PostMapping("/create")
