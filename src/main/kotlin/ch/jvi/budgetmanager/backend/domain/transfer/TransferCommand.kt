@@ -18,6 +18,7 @@ sealed class TransferCommand : Command {
      */
     data class CreateTransferCommand(
         val recipientId: String,
+        val name: String,
         val senderId: String,
         val amount: BigDecimal,
         val budgetId: String,
@@ -29,6 +30,7 @@ sealed class TransferCommand : Command {
      * Is used to reset sender, recipient and amount of a transfer.
      */
     data class UpdateTransferCommand(
+        val name: String,
         val recipientId: String,
         val senderId: String,
         val amount: BigDecimal,

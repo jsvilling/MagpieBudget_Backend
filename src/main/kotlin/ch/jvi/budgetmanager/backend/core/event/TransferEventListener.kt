@@ -32,12 +32,13 @@ class TransferEventListener(private val commandBus: CommandBus, private val comm
         commandStore.saveAll(listOf(updateRecipientCommand, updateSenderAccount, updateBudgetCommand))
     }
 
-    private fun convertToCreateTransferCommand(createTransferMessage: CreateTransferEvent): CreateTransferCommand {
+    private fun convertToCreateTransferCommand(event: CreateTransferEvent): CreateTransferCommand {
         return CreateTransferCommand(
-            recipientId = createTransferMessage.recipientId,
-            senderId = createTransferMessage.senderId,
-            amount = createTransferMessage.amount,
-            budgetId = createTransferMessage.budgetId
+            name = event.name,
+            recipientId = event.recipientId,
+            senderId = event.senderId,
+            amount = event.amount,
+            budgetId = event.budgetId
         )
     }
 
@@ -107,7 +108,8 @@ class TransferEventListener(private val commandBus: CommandBus, private val comm
             entityId = event.transferId,
             recipientId = event.newRecipientId,
             senderId = event.newSenderId,
-            amount = event.newAmount
+            amount = event.newAmount,
+            name = event.newName
         )
     }
 

@@ -14,6 +14,9 @@ class Transfer(creationCommand: CreateTransferCommand) : DomainEntity<TransferCo
 
     val id = creationCommand.entityId
 
+    var name = creationCommand.name
+        private set
+
     var recipientId = creationCommand.recipientId
         private set
 
@@ -34,6 +37,7 @@ class Transfer(creationCommand: CreateTransferCommand) : DomainEntity<TransferCo
         throw IllegalArgumentException("Creation commands cannot be applied to existing account")
 
     private fun apply(command: UpdateTransferCommand) {
+        name = command.name
         recipientId = command.recipientId
         senderId = command.senderId
         amount = command.amount
