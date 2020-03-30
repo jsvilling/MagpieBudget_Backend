@@ -27,22 +27,21 @@ class MongoDBCommandStore(
 
     override fun find(entityId: String): List<Command> {
         return updateCommandRepository.findAll().stream()
-            .map { it as AccountCommand }
             .filter { it.entityId == entityId }
             .toList()
     }
 
     override fun findAccountCommands(entityId: String): List<AccountCommand> {
-        return find(entityId) as List<AccountCommand>
+        return find(entityId).filterIsInstance<AccountCommand>()
     }
 
     override fun findTransferCommands(entityId: String): List<TransferCommand> {
-        return find(entityId) as List<TransferCommand>
+        return find(entityId).filterIsInstance<TransferCommand>()
     }
 
     override fun findCreationCommand(entityId: String): CreationCommand {
-        return creationCommandRepository.findAll().stream().filter { it.entityId == entityId }.findFirst()
-            .orElseThrow() as AccountCommand.CreateAccountCommand
+        return creationCommandRepository.findAll().stream().filter { it.entityId == entityId }
+            .findFirst().orElseThrow()
     }
 
     override fun findCreationCommands(predicate: (CreationCommand) -> Boolean): List<CreationCommand> {
