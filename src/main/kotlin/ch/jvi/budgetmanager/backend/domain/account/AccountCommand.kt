@@ -41,6 +41,6 @@ sealed class AccountCommand : Command {
     data class AdjustAccountBalanceCommand(
         val balanceChange: BigDecimal,
         override val entityId: String,
-        override val commandId: String = IDProvider.next()
+        @Id override val commandId: String = IDProvider.next()
     ) : AccountCommand()
 }

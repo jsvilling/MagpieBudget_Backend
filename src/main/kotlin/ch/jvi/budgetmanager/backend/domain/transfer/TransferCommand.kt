@@ -3,6 +3,7 @@ package ch.jvi.budgetmanager.backend.domain.transfer
 import ch.jvi.budgetmanager.backend.api.command.Command
 import ch.jvi.budgetmanager.backend.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.domain.IDProvider
+import org.springframework.data.annotation.Id
 import java.math.BigDecimal
 
 /**
@@ -21,7 +22,7 @@ sealed class TransferCommand : Command {
         val amount: BigDecimal,
         val budgetId: String,
         override val entityId: String = IDProvider.next(),
-        override val commandId: String = IDProvider.next()
+        @Id override val commandId: String = IDProvider.next()
     ) : TransferCommand(), CreationCommand
 
     /**
@@ -32,6 +33,6 @@ sealed class TransferCommand : Command {
         val senderId: String,
         val amount: BigDecimal,
         override val entityId: String = IDProvider.next(),
-        override val commandId: String = IDProvider.next()
+        @Id override val commandId: String = IDProvider.next()
     ) : TransferCommand()
 }
