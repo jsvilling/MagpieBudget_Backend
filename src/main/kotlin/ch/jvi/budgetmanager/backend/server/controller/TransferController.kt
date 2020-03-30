@@ -24,6 +24,11 @@ class TransferController(private val transferService: TransferService) {
         return transferService.find(id)
     }
 
+    @GetMapping("/forAccount/{id}")
+    fun getForAccount(@PathVariable id: String): List<Transfer> {
+        return transferService.findAllForAccount(id);
+    }
+
     @PostMapping("/create")
     fun create(
         @RequestParam senderId: String,

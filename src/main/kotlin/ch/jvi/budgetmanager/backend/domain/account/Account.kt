@@ -13,7 +13,7 @@ import java.math.BigDecimal
  * @author J. Villing
  *
  */
-class Account(creationCommand: CreateAccountCommand) : DomainEntity<AccountCommand> {
+class Account(val creationCommand: CreateAccountCommand) : DomainEntity<AccountCommand> {
 
     val id: String = creationCommand.entityId
 

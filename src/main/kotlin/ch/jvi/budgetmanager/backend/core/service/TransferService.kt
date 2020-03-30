@@ -23,8 +23,8 @@ class TransferService(
      * @return The transfer with the requested ID
      * @throws IllegalArgumentException if no Entity with the given ID is found.
      */
-    override fun find(entity: String): Transfer {
-        val createTransferCommand = commandStore.findCreationCommand(entity) as CreateTransferCommand
+    override fun find(entityId: String): Transfer {
+        val createTransferCommand = commandStore.findCreationCommand(entityId) as CreateTransferCommand
         val transfer = Transfer(createTransferCommand)
         return applyCommands(transfer)
     }
@@ -32,6 +32,13 @@ class TransferService(
     override fun findAll(): List<Transfer> {
         return commandStore.findCreationCommands(this::isTransferCreationCommand)
             .map { Transfer(it as CreateTransferCommand) }
+            .map { applyCommands(it) }
+    }
+
+    fun findAllForAccount(accountId: String): List<Transfer> {
+        return commandStore.findCreationCommands(this::isTransferCreationCommand)
+            .map { Transfer(it as CreateTransferCommand) }
+            .filter { it.recipientId == accountId || it.senderId == accountId }
             .map { applyCommands(it) }
     }
 
