@@ -68,7 +68,7 @@ class TransferService(
     }
 
     /**
-     * Creates and sends a UpdateTransferEvent with the given Data.
+     * Sends an UpdateTransferEvent with the given Data.
      */
     fun updateTransfer(updateTransferEvent: UpdateTransferEvent) {
         eventBus.send(updateTransferEvent)

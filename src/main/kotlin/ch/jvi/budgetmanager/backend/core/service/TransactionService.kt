@@ -8,9 +8,7 @@ import ch.jvi.budgetmanager.backend.core.event.TransactionEvent.CreateTransactio
 import ch.jvi.budgetmanager.backend.domain.transaction.Transaction
 import ch.jvi.budgetmanager.backend.domain.transaction.TransactionCommand
 import ch.jvi.budgetmanager.backend.domain.transaction.TransactionCommand.CreateTransactionCommand
-import ch.jvi.budgetmanager.backend.domain.transaction.TransactionType
 import org.springframework.stereotype.Service
-import java.math.BigDecimal
 
 @Service
 class TransactionService(
@@ -40,12 +38,7 @@ class TransactionService(
         return Transaction
     }
 
-    fun createTransaction(name: String, amount: BigDecimal, type: TransactionType) {
-        val createTransactionEvent = CreateTransactionEvent(
-            name = name,
-            amount = amount,
-            type = type
-        )
+    fun createTransaction(createTransactionEvent: CreateTransactionEvent) {
         eventBus.send(createTransactionEvent);
     }
 

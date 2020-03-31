@@ -1,10 +1,9 @@
 package ch.jvi.budgetmanager.backend.server.controller
 
+import ch.jvi.budgetmanager.backend.core.event.TransactionEvent.CreateTransactionEvent
 import ch.jvi.budgetmanager.backend.core.service.TransactionService
 import ch.jvi.budgetmanager.backend.domain.transaction.Transaction
-import ch.jvi.budgetmanager.backend.domain.transaction.TransactionType
 import org.springframework.web.bind.annotation.*
-import java.math.BigDecimal
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -23,7 +22,7 @@ class TransactionController(
     }
 
     @PostMapping
-    fun create(@RequestParam name: String, @RequestParam amount: BigDecimal, @RequestParam type: TransactionType) {
-        transactionService.createTransaction(name, amount, type)
+    fun create(@RequestBody createTransactionEvent: CreateTransactionEvent) {
+        transactionService.createTransaction(createTransactionEvent)
     }
 }
