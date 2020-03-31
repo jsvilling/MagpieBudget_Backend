@@ -5,6 +5,7 @@ import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.api.event.EventBus
 import ch.jvi.budgetmanager.backend.api.service.EntityService
 import ch.jvi.budgetmanager.backend.core.event.TransactionEvent.CreateTransactionEvent
+import ch.jvi.budgetmanager.backend.core.event.TransactionEvent.UpdateTransactionEvent
 import ch.jvi.budgetmanager.backend.domain.transaction.Transaction
 import ch.jvi.budgetmanager.backend.domain.transaction.TransactionCommand
 import ch.jvi.budgetmanager.backend.domain.transaction.TransactionCommand.CreateTransactionCommand
@@ -40,6 +41,10 @@ class TransactionService(
 
     fun createTransaction(createTransactionEvent: CreateTransactionEvent) {
         eventBus.send(createTransactionEvent);
+    }
+
+    fun updateTransaction(updateTransactionEvent: UpdateTransactionEvent) {
+        eventBus.send(updateTransactionEvent);
     }
 
 }

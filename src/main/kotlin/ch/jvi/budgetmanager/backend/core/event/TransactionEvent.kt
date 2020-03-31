@@ -13,4 +13,16 @@ sealed class TransactionEvent : Event {
         val type: TransactionType
     ) : TransactionEvent()
 
+    data class UpdateTransactionEvent(
+        val transactionId: String,
+        val newName: String,
+        val oldName: String,
+        val newAmount: BigDecimal,
+        val oldAmount: BigDecimal,
+        val newAccountId: String,
+        val oldAccountId: String,
+        val newType: TransactionType,
+        val oldType: TransactionType
+    ) : TransactionEvent()
+
 }
