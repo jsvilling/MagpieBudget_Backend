@@ -3,6 +3,7 @@ package ch.jvi.budgetmanager.backend.api.command.store
 import ch.jvi.budgetmanager.backend.api.command.Command
 import ch.jvi.budgetmanager.backend.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand
+import ch.jvi.budgetmanager.backend.domain.budget.BudgetCommand
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand
 
 /**
@@ -42,6 +43,11 @@ interface CommandStore {
      * @return All update commands that belong to the transfer with the given entityId
      */
     fun findTransferCommands(entityId: String): List<TransferCommand>
+
+    /**
+     * @return All update commands that belong to the budget with the given entityId
+     */
+    fun findBudgetCommands(entityId: String): List<BudgetCommand>
 
     /**
      * @return The creation command that belongs to the entity with the given entityId

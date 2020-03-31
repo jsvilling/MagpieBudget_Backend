@@ -17,6 +17,11 @@ class BudgetController(private val budgetService: BudgetService) {
         return budgetService.find(id)
     }
 
+    @GetMapping()
+    fun getAll(): List<Budget> {
+        return budgetService.findAll();
+    }
+
     @PostMapping("create")
     fun create(@RequestParam name: String, @RequestParam target: BigDecimal, @RequestParam balance: BigDecimal) {
         budgetService.createBudget(name, target, balance)
