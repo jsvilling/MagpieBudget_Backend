@@ -13,6 +13,7 @@ sealed class TransactionCommand : Command {
     data class CreateTransactionCommand(
         val name: String,
         val amount: BigDecimal,
+        val accountId: String,
         val type: TransactionType,
         override val entityId: String = IDProvider.next(),
         @Id override val commandId: String = IDProvider.next()

@@ -17,6 +17,7 @@ class TransactionEventListener(
         val createTransactionCommand = CreateTransactionCommand(
             name = createTransactionEvent.name,
             amount = createTransactionEvent.amount,
+            accountId = createTransactionEvent.accountId,
             type = createTransactionEvent.type
         )
         commandBus.send(createTransactionCommand)

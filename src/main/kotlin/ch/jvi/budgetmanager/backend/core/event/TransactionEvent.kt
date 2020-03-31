@@ -9,6 +9,7 @@ sealed class TransactionEvent : Event {
     data class CreateTransactionEvent(
         val name: String,
         val amount: BigDecimal,
+        val accountId: String,
         val type: TransactionType
     ) : TransactionEvent()
 

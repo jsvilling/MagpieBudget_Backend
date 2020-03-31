@@ -20,6 +20,9 @@ class Transaction(creationCommand: CreateTransactionCommand) : DomainEntity<Tran
     var amount = creationCommand.amount
         private set
 
+    var accountId = creationCommand.accountId
+        private set
+
     var type = creationCommand.type
         private set
 
