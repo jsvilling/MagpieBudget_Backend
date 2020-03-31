@@ -56,7 +56,7 @@ class TransferService(
      * Creates and sends a CreateTransferEvent with the given data.
      */
     fun createTransfer(senderId: String, name: String, recipientId: String, amount: BigDecimal, budgetId: String) {
-        val createTransferMessage =
+        val createTransferEvent =
             CreateTransferEvent(
                 recipientId = recipientId,
                 name = name,
@@ -64,7 +64,7 @@ class TransferService(
                 amount = amount,
                 budgetId = budgetId
             )
-        eventBus.send(createTransferMessage)
+        eventBus.send(createTransferEvent)
     }
 
     /**

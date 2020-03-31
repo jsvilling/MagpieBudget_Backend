@@ -4,10 +4,13 @@ import ch.jvi.budgetmanager.backend.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.api.event.EventBus
 import ch.jvi.budgetmanager.backend.api.service.EntityService
+import ch.jvi.budgetmanager.backend.core.event.TransactionEvent.CreateTransactionEvent
 import ch.jvi.budgetmanager.backend.domain.transaction.Transaction
 import ch.jvi.budgetmanager.backend.domain.transaction.TransactionCommand
 import ch.jvi.budgetmanager.backend.domain.transaction.TransactionCommand.CreateTransactionCommand
+import ch.jvi.budgetmanager.backend.domain.transaction.TransactionType
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
 
 @Service
 class TransactionService(
@@ -35,6 +38,15 @@ class TransactionService(
         val commands: List<TransactionCommand> = commandStore.findTransactionCommands(Transaction.id)
         Transaction.applyAll(commands)
         return Transaction
+    }
+
+    fun createTransaction(name: String, amount: BigDecimal, type: TransactionType) {
+        val createTransactionEvent = CreateTransactionEvent(
+            name = name,
+            amount = amount,
+            type = type
+        )
+        eventBus.send(createTransactionEvent);
     }
 
 }
