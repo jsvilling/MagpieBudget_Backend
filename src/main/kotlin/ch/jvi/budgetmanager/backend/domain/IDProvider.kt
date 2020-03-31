@@ -1,5 +1,7 @@
 package ch.jvi.budgetmanager.backend.domain
 
+import java.util.*
+
 /**
  * This companion object is used to provide unique IDs for Domain Entities.
  *
@@ -9,17 +11,13 @@ package ch.jvi.budgetmanager.backend.domain
  */
 object IDProvider {
 
+    var next = UUID.randomUUID().toString();
+
     var idcounter = 1500
 
     fun next(): String {
-        return idcounter++.toString()
-    }
-
-    fun peekNext(): String {
-        return idcounter.toString()
-    }
-
-    fun peekPrevious(): String {
-        return (idcounter - 1).toString()
+        val id = next
+        next = UUID.randomUUID().toString()
+        return id;
     }
 }
