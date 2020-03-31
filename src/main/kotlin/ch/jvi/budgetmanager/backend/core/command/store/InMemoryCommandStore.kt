@@ -5,6 +5,7 @@ import ch.jvi.budgetmanager.backend.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand
 import ch.jvi.budgetmanager.backend.domain.budget.BudgetCommand
+import ch.jvi.budgetmanager.backend.domain.transaction.TransactionCommand
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
@@ -38,6 +39,10 @@ class InMemoryCommandStore : CommandStore {
 
     override fun findBudgetCommands(entityId: String): List<BudgetCommand> {
         return find(entityId).filterIsInstance<BudgetCommand>()
+    }
+
+    override fun findTransactionCommands(entityId: String): List<TransactionCommand> {
+        return find(entityId).filterIsInstance<TransactionCommand>()
     }
 
     override fun findCreationCommand(entityId: String): CreationCommand {
