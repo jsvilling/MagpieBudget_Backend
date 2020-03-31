@@ -38,8 +38,8 @@ class TransferService(
     fun findAllForAccount(accountId: String): List<Transfer> {
         return commandStore.findCreationCommands(this::isTransferCreationCommand)
             .map { Transfer(it as CreateTransferCommand) }
-            .filter { it.recipientId == accountId || it.senderId == accountId }
             .map { applyCommands(it) }
+            .filter { it.recipientId == accountId || it.senderId == accountId }
     }
 
     private fun isTransferCreationCommand(command: CreationCommand): Boolean {

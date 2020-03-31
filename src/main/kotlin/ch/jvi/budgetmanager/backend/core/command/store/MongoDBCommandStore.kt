@@ -4,6 +4,7 @@ import ch.jvi.budgetmanager.backend.api.command.Command
 import ch.jvi.budgetmanager.backend.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand
+import ch.jvi.budgetmanager.backend.domain.budget.BudgetCommand
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand
 import ch.jvi.budgetmanager.backend.server.repository.CreationCommandRepository
 import ch.jvi.budgetmanager.backend.server.repository.UpdateCommandRepository
@@ -37,6 +38,10 @@ class MongoDBCommandStore(
 
     override fun findTransferCommands(entityId: String): List<TransferCommand> {
         return find(entityId).filterIsInstance<TransferCommand>()
+    }
+
+    override fun findBudgetCommands(entityId: String): List<BudgetCommand> {
+        return find(entityId).filterIsInstance<BudgetCommand>()
     }
 
     override fun findCreationCommand(entityId: String): CreationCommand {
