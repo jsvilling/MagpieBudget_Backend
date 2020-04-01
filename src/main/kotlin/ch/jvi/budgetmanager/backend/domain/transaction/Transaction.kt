@@ -29,7 +29,7 @@ class Transaction(creationCommand: CreateTransactionCommand) : DomainEntity<Tran
 
     override fun apply(command: TransactionCommand) = when (command) {
         is CreateTransactionCommand -> apply(command)
-        is UpdateTransactionCommand -> TODO()
+        is UpdateTransactionCommand -> apply(command)
     }
 
     private fun apply(command: CreateTransactionCommand): Nothing =
