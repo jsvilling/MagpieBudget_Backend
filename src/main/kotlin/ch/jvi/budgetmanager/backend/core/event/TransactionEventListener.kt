@@ -46,9 +46,10 @@ class TransactionEventListener(
             type = updateTransactionEvent.newType
         )
 
+        val balanceChangeOld = getUpdateAmount(updateTransactionEvent.oldAmount, updateTransactionEvent.oldType)
         val adjustOldAccountBalanceCommand = AdjustAccountBalanceCommand(
             entityId = updateTransactionEvent.oldAccountId,
-            balanceChange = updateTransactionEvent.oldAmount.negate()
+            balanceChange = balanceChangeOld.negate()
         )
 
         val adjustNewAccountBalanceCommand = AdjustAccountBalanceCommand(
