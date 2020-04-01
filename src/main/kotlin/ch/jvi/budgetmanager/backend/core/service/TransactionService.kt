@@ -29,6 +29,13 @@ class TransactionService(
             .map { applyCommands(it) }
     }
 
+    fun findAllForAccount(accountId: String): List<Transaction> {
+        return commandStore.findCreationCommands(this::isTransactionCreationCommand)
+            .map { Transaction(it as CreateTransactionCommand) }
+            .map { applyCommands(it) }
+            .filter { it.accountId == accountId }
+    }
+
     private fun isTransactionCreationCommand(command: CreationCommand): Boolean {
         return command is CreateTransactionCommand
     }

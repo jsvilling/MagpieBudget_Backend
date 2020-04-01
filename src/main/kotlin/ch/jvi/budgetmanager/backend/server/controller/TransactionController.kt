@@ -22,6 +22,11 @@ class TransactionController(
         return transactionService.findAll()
     }
 
+    @GetMapping("/forAccount/{id}")
+    fun getForAccount(@PathVariable id: String): List<Transaction> {
+        return transactionService.findAllForAccount(id)
+    }
+
     @PostMapping
     fun create(@RequestBody createTransactionEvent: CreateTransactionEvent) {
         transactionService.createTransaction(createTransactionEvent)
