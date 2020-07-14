@@ -23,7 +23,8 @@ internal class TransferServiceTest {
     fun testGetTransfer() {
         // Given
         val id = "someId"
-        val creationCommand = TransferCommand.CreateTransferCommand("reciient", "sender", BigDecimal.TEN, id)
+        val creationCommand =
+            TransferCommand.CreateTransferCommand("reciient", "sender", "senderId", BigDecimal.TEN, id)
         Mockito.`when`(commandStore.findCreationCommand(id)).thenReturn(creationCommand)
 
         // When
@@ -43,10 +44,10 @@ internal class TransferServiceTest {
         val senderId = "sender"
         val amount = BigDecimal.TEN
         val budgetId = "123"
-        val creationCommand = TransferEvent.CreateTransferEvent(recipientId, senderId, amount, budgetId)
+        val creationCommand = TransferEvent.CreateTransferEvent("name", recipientId, senderId, amount, budgetId)
 
         // When
-        transferService.createTransfer(senderId, recipientId, amount, budgetId)
+        transferService.createTransfer(senderId, "name", recipientId, amount, budgetId)
 
         // Then
         verify(messageBus, times(1)).send(creationCommand)
@@ -59,12 +60,15 @@ internal class TransferServiceTest {
         val recipientId = "reciient"
         val senderId = "sender"
         val amount = BigDecimal.TEN
-        val updateCommand = TransferEvent.UpdateTransferEvent(id, recipientId, senderId, amount)
+        val updateTransferEvent = TransferEvent.UpdateTransferEvent(
+            id, "", "",
+            BigDecimal.ZERO, recipientId, senderId, amount, senderId
+        )
 
         // When
-        transferService.updateTransfer(id, senderId, recipientId, amount)
+        transferService.updateTransfer(updateTransferEvent)
 
         // Then
-        verify(messageBus, times(1)).send(updateCommand)
+        verify(messageBus, times(1)).send(updateTransferEvent)
     }
 }

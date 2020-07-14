@@ -1,5 +1,6 @@
 package ch.jvi.budgetmanager.backend.integration
 
+import ch.jvi.budgetmanager.backend.core.event.TransferEvent
 import ch.jvi.budgetmanager.backend.core.service.AccountService
 import ch.jvi.budgetmanager.backend.core.service.BudgetService
 import ch.jvi.budgetmanager.backend.core.service.TransferService
@@ -86,7 +87,7 @@ internal class AccountIntegrationTest {
         accountService.createAccount(initialSenderBalance, senderName)
         accountService.createAccount(initialRecipientBalance, recipientName)
         budgetService.createBudget(budgetName, budgetTarget, budgetBalance)
-        transferService.createTransfer(senderId, recipientId, balanceChange, (idcounter - 1).toString())
+        transferService.createTransfer(senderId, "name", recipientId, balanceChange, (idcounter - 1).toString())
 
         val account = accountService.find(senderId)
         val otherAccount = accountService.find(recipientId)
@@ -118,12 +119,17 @@ internal class AccountIntegrationTest {
         val budgetTarget = BigDecimal("100")
         val budgetBalance = ZERO
 
+        val updateTransferEvent = TransferEvent.UpdateTransferEvent(
+            "", "", "",
+            ZERO, recipientId, senderId, ZERO, senderId
+        )
+
         // When
         accountService.createAccount(initialSenderBalance, senderName)
         accountService.createAccount(initialRecipientBalance, recipientName)
         budgetService.createBudget(budgetName, budgetTarget, budgetBalance)
-        transferService.createTransfer(senderId, recipientId, balanceChange, (idcounter - 1).toString())
-        transferService.updateTransfer(transferId, senderId, recipientId, updatedBalanceChange)
+        transferService.createTransfer(senderId, "name", recipientId, balanceChange, (idcounter - 1).toString())
+        transferService.updateTransfer(updateTransferEvent)
 
         val account = accountService.find(senderId)
         val otherAccount = accountService.find(recipientId)

@@ -32,7 +32,7 @@ internal class BudgetTest {
         // Given
         val balanceChange = TEN
         val budget = Budget(creationCommand)
-        val adjustBudgetBalanceCommand = AdjustBudgetBalanceCommand(balanceChange, IDProvider.peekNext())
+        val adjustBudgetBalanceCommand = AdjustBudgetBalanceCommand(balanceChange, IDProvider.next)
 
         // When
         budget.apply(adjustBudgetBalanceCommand)
