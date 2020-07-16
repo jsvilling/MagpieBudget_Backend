@@ -5,7 +5,6 @@ import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.core.event.TransferEvent.CreateTransferEvent
 import ch.jvi.budgetmanager.backend.core.event.TransferEvent.UpdateTransferEvent
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.AdjustAccountBalanceCommand
-import ch.jvi.budgetmanager.backend.domain.budget.BudgetCommand.AdjustBudgetBalanceCommand
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.CreateTransferCommand
 import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.UpdateTransferCommand
 import ch.jvi.budgetmanager.core.api.EventListener
@@ -19,17 +18,15 @@ class TransferEventListener(private val commandBus: CommandBus, private val comm
         val createTransferCommand = convertToCreateTransferCommand(createTransferEvent)
         val updateRecipientCommand = converToUpdateRecipientAccountCommand(createTransferEvent)
         val updateSenderAccount = converToUpdateSenderAccountCommand(createTransferEvent)
-        val updateBudgetCommand = convertToAdjustBudgetBalanceCommand(createTransferEvent)
         commandBus.sendAll(
             listOf(
                 createTransferCommand,
                 updateRecipientCommand,
-                updateSenderAccount,
-                updateBudgetCommand
+                updateSenderAccount
             )
         )
         commandStore.saveCreationCommand(createTransferCommand)
-        commandStore.saveAll(listOf(updateRecipientCommand, updateSenderAccount, updateBudgetCommand))
+        commandStore.saveAll(listOf(updateRecipientCommand, updateSenderAccount))
     }
 
     private fun convertToCreateTransferCommand(event: CreateTransferEvent): CreateTransferCommand {
@@ -53,13 +50,6 @@ class TransferEventListener(private val commandBus: CommandBus, private val comm
         return AdjustAccountBalanceCommand(
             entityId = event.senderId,
             balanceChange = event.amount.negate()
-        )
-    }
-
-    private fun convertToAdjustBudgetBalanceCommand(event: CreateTransferEvent): AdjustBudgetBalanceCommand {
-        return AdjustBudgetBalanceCommand(
-            amount = event.amount,
-            entityId = event.budgetId
         )
     }
 

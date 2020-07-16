@@ -2,7 +2,6 @@ package ch.jvi.budgetmanager.backend.integration
 
 import ch.jvi.budgetmanager.backend.core.event.TransferEvent
 import ch.jvi.budgetmanager.backend.core.service.AccountService
-import ch.jvi.budgetmanager.backend.core.service.BudgetService
 import ch.jvi.budgetmanager.backend.core.service.TransferService
 import ch.jvi.budgetmanager.backend.domain.IDProvider.idcounter
 import org.assertj.core.api.Assertions.assertThat
@@ -26,9 +25,6 @@ internal class AccountIntegrationTest {
 
     @Autowired
     lateinit var transferService: TransferService
-
-    @Autowired
-    lateinit var budgetService: BudgetService
 
     @Test
     fun testAccountCreation() {
@@ -79,14 +75,10 @@ internal class AccountIntegrationTest {
         val initialRecipientBalance = BigDecimal.TEN
         val recipientName = "NewName"
         val balanceChange = BigDecimal.valueOf(5)
-        val budgetName = "budget"
-        val budgetTarget = BigDecimal("100")
-        val budgetBalance = ZERO
 
         // When
         accountService.createAccount(initialSenderBalance, senderName)
         accountService.createAccount(initialRecipientBalance, recipientName)
-        budgetService.createBudget(budgetName, budgetTarget, budgetBalance)
         transferService.createTransfer(senderId, "name", recipientId, balanceChange, (idcounter - 1).toString())
 
         val account = accountService.find(senderId)
@@ -113,11 +105,7 @@ internal class AccountIntegrationTest {
         val initialRecipientBalance = BigDecimal.TEN
         val recipientName = "NewName"
         val balanceChange = BigDecimal.valueOf(5)
-        val transferId = (idcounter + 2).toString()
         val updatedBalanceChange = BigDecimal.valueOf(5)
-        val budgetName = "budget"
-        val budgetTarget = BigDecimal("100")
-        val budgetBalance = ZERO
 
         val updateTransferEvent = TransferEvent.UpdateTransferEvent(
             "", "", "",
@@ -127,7 +115,6 @@ internal class AccountIntegrationTest {
         // When
         accountService.createAccount(initialSenderBalance, senderName)
         accountService.createAccount(initialRecipientBalance, recipientName)
-        budgetService.createBudget(budgetName, budgetTarget, budgetBalance)
         transferService.createTransfer(senderId, "name", recipientId, balanceChange, (idcounter - 1).toString())
         transferService.updateTransfer(updateTransferEvent)
 
