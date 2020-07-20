@@ -1,7 +1,5 @@
 package ch.jvi.budgetmanager.backend.core.command
 
-import ch.jvi.budgetmanager.backend.api.command.Command
-import ch.jvi.budgetmanager.backend.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.core.command.store.MongoDBCommandStore
 import ch.jvi.budgetmanager.backend.domain.account.AccountCommand
 import ch.jvi.budgetmanager.backend.server.repository.CreationCommandRepository
@@ -23,31 +21,7 @@ internal class MongoDBCommandStoreTest {
     )
 
     @Test
-    fun find(id: String) {
-        // Given
-        val entityId = "123"
-
-        // When
-        mongoDBCommandStore.find(entityId)
-
-        // Then
-        verify(creationCommandRepository, times(1)).findAll()
-    }
-
-    @Test
-    fun findAccountCommands(id: String) {
-        // Given
-        val entityId = "123"
-
-        // When
-        mongoDBCommandStore.find(entityId)
-
-        // Then
-        verify(creationCommandRepository, times(1)).findAll()
-    }
-
-    @Test
-    fun findTransferCommands(id: String) {
+    fun find() {
         // Given
         val entityId = "123"
 
@@ -59,11 +33,35 @@ internal class MongoDBCommandStoreTest {
     }
 
     @Test
-    fun findCreationCommand(id: String) {
+    fun findAccountCommands() {
         // Given
         val entityId = "123"
+
+        // When
+        mongoDBCommandStore.find(entityId)
+
+        // Then
+        verify(updateCommandRepository, times(1)).findAll()
+    }
+
+    @Test
+    fun findTransferCommands() {
+        // Given
+        val entityId = "123"
+
+        // When
+        mongoDBCommandStore.find(entityId)
+
+        // Then
+        verify(updateCommandRepository, times(1)).findAll()
+    }
+
+    @Test
+    fun findCreationCommand() {
+        // Given
         val creationCommand = AccountCommand.CreateAccountCommand()
-        Mockito.doReturn(listOf(creationCommand)).`when`(creationCommandRepository.findAll())
+        val entityId = creationCommand.entityId
+        Mockito.doReturn(listOf(creationCommand)).`when`(creationCommandRepository).findAll()
 
         // When
         val actualCommand = mongoDBCommandStore.findCreationCommand(entityId)
@@ -74,7 +72,7 @@ internal class MongoDBCommandStoreTest {
     }
 
     @Test
-    fun save(command: Command) {
+    fun save() {
         // Given
         val entityId = "123"
         val updateCommand = AccountCommand.UpdateAccountCommand(BigDecimal.ONE, "Name", entityId)
@@ -87,7 +85,7 @@ internal class MongoDBCommandStoreTest {
     }
 
     @Test
-    fun saveCreationCommand(command: CreationCommand) {
+    fun saveCreationCommand() {
         // Given
         val creationCommand = AccountCommand.CreateAccountCommand()
 
