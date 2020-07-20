@@ -26,8 +26,6 @@ class Transfer(creationCommand: CreateTransferCommand) : DomainEntity<TransferCo
     var amount = creationCommand.amount
         private set
 
-    var budgetId = creationCommand.budgetId
-
     override fun apply(command: TransferCommand) = when (command) {
         is CreateTransferCommand -> apply(command)
         is UpdateTransferCommand -> apply(command)

@@ -34,8 +34,7 @@ class TransferEventListener(private val commandBus: CommandBus, private val comm
             name = event.name,
             recipientId = event.recipientId,
             senderId = event.senderId,
-            amount = event.amount,
-            budgetId = event.budgetId
+            amount = event.amount
         )
     }
 

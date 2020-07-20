@@ -3,7 +3,7 @@ package ch.jvi.budgetmanager.backend.integration
 import ch.jvi.budgetmanager.backend.core.event.TransferEvent
 import ch.jvi.budgetmanager.backend.core.service.AccountService
 import ch.jvi.budgetmanager.backend.core.service.TransferService
-import ch.jvi.budgetmanager.backend.domain.IDProvider.idcounter
+import ch.jvi.budgetmanager.backend.domain.IDProvider.nextId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
-import java.math.BigDecimal
-import java.math.BigDecimal.ONE
-import java.math.BigDecimal.ZERO
+import java.math.BigDecimal.*
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
@@ -29,8 +27,8 @@ internal class AccountIntegrationTest {
     @Test
     fun testAccountCreation() {
         // Given
-        val id = idcounter.toString()
-        val balance = BigDecimal.TEN
+        val id = nextId
+        val balance = TEN
         val name = "Name"
 
         // When
@@ -47,8 +45,8 @@ internal class AccountIntegrationTest {
     @Test
     fun testAccountUpdate() {
         // Given
-        val id = idcounter.toString()
-        val balance = BigDecimal.TEN
+        val id = nextId
+        val balance = TEN
         val name = "Name"
         val newBalance = balance.add(ONE)
         val newName = "NewName"
@@ -68,29 +66,33 @@ internal class AccountIntegrationTest {
     @Test
     fun testAccountWithTransactions() {
         // Given
-        val senderId = idcounter.toString()
-        val initialSenderBalance = BigDecimal.TEN
-        val senderName = "Name"
-        val recipientId = (idcounter + 2).toString()
-        val initialRecipientBalance = BigDecimal.TEN
-        val recipientName = "NewName"
-        val balanceChange = BigDecimal.valueOf(5)
+        // Create Sender Account
+        val senderId = nextId
+        val initialSenderBalance = TEN
+        val senderAccountName = "Name"
+        accountService.createAccount(initialSenderBalance, senderAccountName)
+
+        // Create Recipient Account
+        val recipientId = nextId
+        val recipientAccountName = "NewName"
+        val initialRecipientBalance = TEN
+        accountService.createAccount(initialRecipientBalance, recipientAccountName)
+
+        // Create Transfer Update
+        val balanceChange = valueOf(5)
+        transferService.createTransfer(senderId, "name", recipientId, balanceChange)
 
         // When
-        accountService.createAccount(initialSenderBalance, senderName)
-        accountService.createAccount(initialRecipientBalance, recipientName)
-        transferService.createTransfer(senderId, "name", recipientId, balanceChange, (idcounter - 1).toString())
-
         val account = accountService.find(senderId)
         val otherAccount = accountService.find(recipientId)
 
         // Then
         assertThat(account).satisfies {
-            assertThat(it.name).isEqualTo(senderName)
+            assertThat(it.name).isEqualTo(senderAccountName)
             assertThat(it.balance).isEqualTo(initialSenderBalance.subtract(balanceChange))
         }
         assertThat(otherAccount).satisfies {
-            assertThat(it.name).isEqualTo(recipientName)
+            assertThat(it.name).isEqualTo(recipientAccountName)
             assertThat(it.balance).isEqualTo(initialRecipientBalance.add(balanceChange))
         }
     }
@@ -98,24 +100,29 @@ internal class AccountIntegrationTest {
     @Test
     fun testAccountWithUpdatedTransactions() {
         // Given
-        val senderId = idcounter.toString()
-        val initialSenderBalance = BigDecimal.TEN
-        val senderName = "Name"
-        val recipientId = (idcounter + 2).toString()
-        val initialRecipientBalance = BigDecimal.TEN
-        val recipientName = "NewName"
-        val balanceChange = BigDecimal.valueOf(5)
-        val updatedBalanceChange = BigDecimal.valueOf(5)
+        // Create Sender Account
+        val senderId = nextId
+        val initialSenderBalance = TEN
+        val senderAccountName = "Name"
+        accountService.createAccount(initialSenderBalance, senderAccountName)
 
+        // Create Recipient Account
+        val recipientId = nextId
+        val recipientAccountName = "NewName"
+        val initialRecipientBalance = TEN
+        accountService.createAccount(initialRecipientBalance, recipientAccountName)
+
+        // Create Transfer
+        val balanceChange = valueOf(5)
+        val transferId = nextId
+        transferService.createTransfer(senderId, "name", recipientId, balanceChange)
+
+
+        // Upate Transfer - Switching recipient & sender
         val updateTransferEvent = TransferEvent.UpdateTransferEvent(
-            "", "", "",
+            transferId, senderId, recipientId,
             ZERO, recipientId, senderId, ZERO, senderId
         )
-
-        // When
-        accountService.createAccount(initialSenderBalance, senderName)
-        accountService.createAccount(initialRecipientBalance, recipientName)
-        transferService.createTransfer(senderId, "name", recipientId, balanceChange, (idcounter - 1).toString())
         transferService.updateTransfer(updateTransferEvent)
 
         val account = accountService.find(senderId)
@@ -123,12 +130,12 @@ internal class AccountIntegrationTest {
 
         // Then
         assertThat(account).satisfies {
-            assertThat(it.name).isEqualTo(senderName)
-            assertThat(it.balance).isEqualTo(initialSenderBalance.subtract(updatedBalanceChange))
+            assertThat(it.name).isEqualTo(senderAccountName)
+            assertThat(it.balance).isEqualTo(initialSenderBalance.subtract(balanceChange))
         }
         assertThat(otherAccount).satisfies {
-            assertThat(it.name).isEqualTo(recipientName)
-            assertThat(it.balance).isEqualTo(initialRecipientBalance.add(updatedBalanceChange))
+            assertThat(it.name).isEqualTo(recipientAccountName)
+            assertThat(it.balance).isEqualTo(initialRecipientBalance.add(balanceChange))
         }
     }
 

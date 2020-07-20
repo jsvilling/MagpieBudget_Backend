@@ -37,15 +37,13 @@ internal class TransferServiceTest {
     @Test
     fun testCreateTransfer() {
         // Given
-        val id = "1"
         val recipientId = "reciient"
         val senderId = "sender"
         val amount = TEN
-        val budgetId = "123"
-        val creationCommand = CreateTransferEvent("name", recipientId, senderId, amount, budgetId)
+        val creationCommand = CreateTransferEvent("name", recipientId, senderId, amount)
 
         // When
-        transferService.createTransfer(senderId, "name", recipientId, amount, budgetId)
+        transferService.createTransfer(senderId, "name", recipientId, amount)
 
         // Then
         verify(messageBus, times(1)).send(creationCommand)

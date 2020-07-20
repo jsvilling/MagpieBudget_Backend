@@ -21,7 +21,6 @@ sealed class TransferCommand : Command {
         val name: String,
         val senderId: String,
         val amount: BigDecimal,
-        val budgetId: String,
         override val entityId: String = IDProvider.next(),
         @Id override val commandId: String = IDProvider.next()
     ) : TransferCommand(), CreationCommand

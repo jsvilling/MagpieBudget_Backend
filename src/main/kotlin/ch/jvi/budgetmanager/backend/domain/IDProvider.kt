@@ -11,13 +11,11 @@ import java.util.*
  */
 object IDProvider {
 
-    var next = UUID.randomUUID().toString();
-
-    var idcounter = 1500
+    var nextId = UUID.randomUUID().toString();
 
     fun next(): String {
-        val id = next
-        next = UUID.randomUUID().toString()
+        val id = nextId
+        nextId = UUID.randomUUID().toString()
         return id;
     }
 }
