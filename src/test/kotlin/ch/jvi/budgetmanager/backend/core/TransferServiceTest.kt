@@ -2,20 +2,20 @@ package ch.jvi.budgetmanager.backend.core
 
 import ch.jvi.budgetmanager.backend.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.api.event.EventBus
-import ch.jvi.budgetmanager.backend.core.event.TransferEvent
+import ch.jvi.budgetmanager.backend.core.event.TransferEvent.CreateTransferEvent
+import ch.jvi.budgetmanager.backend.core.event.TransferEvent.UpdateTransferEvent
 import ch.jvi.budgetmanager.backend.core.service.TransferService
-import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand
+import ch.jvi.budgetmanager.backend.domain.transfer.TransferCommand.CreateTransferCommand
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-import org.mockito.Mockito
-import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
-import java.math.BigDecimal
+import org.mockito.Mockito.*
+import java.math.BigDecimal.TEN
+import java.math.BigDecimal.ZERO
 
 internal class TransferServiceTest {
 
-    val commandStore = Mockito.mock(CommandStore::class.java)
-    val messageBus = Mockito.mock(EventBus::class.java)
+    val commandStore = mock(CommandStore::class.java)
+    val messageBus = mock(EventBus::class.java)
 
     private val transferService = TransferService(commandStore, messageBus)
 
@@ -23,17 +23,15 @@ internal class TransferServiceTest {
     fun testGetTransfer() {
         // Given
         val id = "someId"
-        val creationCommand =
-            TransferCommand.CreateTransferCommand("reciient", "sender", "senderId", BigDecimal.TEN, id)
-        Mockito.`when`(commandStore.findCreationCommand(id)).thenReturn(creationCommand)
+        val creationCommand = CreateTransferCommand("reciient", "sender", "senderId", TEN, id)
+        `when`(commandStore.findCreationCommand(id)).thenReturn(creationCommand)
 
         // When
         val transfer = transferService.find(id)
 
         // Then
         verify(commandStore, times(1)).findCreationCommand(id)
-        verify(commandStore, times(1)).findTransferCommands(id)
-        assertThat(transfer).isEqualToComparingFieldByField(creationCommand)
+        assertThat(transfer).isEqualToIgnoringGivenFields(creationCommand, "id", "creationCommand")
     }
 
     @Test
@@ -42,9 +40,9 @@ internal class TransferServiceTest {
         val id = "1"
         val recipientId = "reciient"
         val senderId = "sender"
-        val amount = BigDecimal.TEN
+        val amount = TEN
         val budgetId = "123"
-        val creationCommand = TransferEvent.CreateTransferEvent("name", recipientId, senderId, amount, budgetId)
+        val creationCommand = CreateTransferEvent("name", recipientId, senderId, amount, budgetId)
 
         // When
         transferService.createTransfer(senderId, "name", recipientId, amount, budgetId)
@@ -59,11 +57,9 @@ internal class TransferServiceTest {
         val id = "1"
         val recipientId = "reciient"
         val senderId = "sender"
-        val amount = BigDecimal.TEN
-        val updateTransferEvent = TransferEvent.UpdateTransferEvent(
-            id, "", "",
-            BigDecimal.ZERO, recipientId, senderId, amount, senderId
-        )
+        val amount = TEN
+        val updateTransferEvent =
+            UpdateTransferEvent(id, "", "", ZERO, recipientId, senderId, amount, senderId)
 
         // When
         transferService.updateTransfer(updateTransferEvent)
