@@ -1,17 +1,18 @@
 package ch.jvi.budgetmanager.backend.domain.account
 
-import ch.jvi.budgetmanager.backend.domain.IDProvider
+import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.math.BigDecimal
-import org.assertj.core.api.Assertions.assertThat as assertThat
-import ch.jvi.budgetmanager.backend.domain.account.AccountCommand.*
+import java.math.BigDecimal.TEN
+import java.math.BigDecimal.valueOf
 
 class AccountTest {
 
     @Test
     fun testCreateAccount() {
         // Given
-        val balance = BigDecimal.valueOf(214.15)
+        val balance = valueOf(214.15)
         val name = "AccountName"
         val createAccountCommand = CreateAccountCommand(balance, name)
 
@@ -26,15 +27,15 @@ class AccountTest {
     @Test
     fun testUpdateAccount() {
         // Given
-        val balance = BigDecimal.valueOf(214.15)
+        val balance = valueOf(214.15)
         val name = "AccountName"
         val newName = "NewName"
-        val newBalance = BigDecimal.TEN
+        val newBalance = TEN
         val createAccountCommand = CreateAccountCommand(balance, name)
         val account = Account(createAccountCommand)
 
         // When
-        val updateAccountCommand = UpdateAccountCommand(balance, name, IDProvider.idcounter.toString());
+        val updateAccountCommand = UpdateAccountCommand(newBalance, newName, createAccountCommand.entityId);
         account.apply(updateAccountCommand)
 
         // Then
@@ -45,10 +46,10 @@ class AccountTest {
     @Test
     fun testAdjustAccountBalance() {
         // Given
-        val senderBalance = BigDecimal.valueOf(214.15)
+        val senderBalance = valueOf(214.15)
         val senderName = "AccountName"
         val createSendeAccountCommand = CreateAccountCommand(senderBalance, senderName)
-        val recipientBalance = BigDecimal.TEN
+        val recipientBalance = TEN
         val recipientName = "Recipient"
         val createRecipientCommand = CreateAccountCommand(recipientBalance, recipientName)
         val sender = Account(createSendeAccountCommand)

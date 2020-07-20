@@ -19,6 +19,6 @@ internal class TransferTest {
         val transfer = Transfer(createTransferCommand)
 
         // Then
-        assertThat(transfer).isEqualToComparingFieldByField(createTransferCommand)
+        assertThat(transfer).isEqualToIgnoringGivenFields(createTransferCommand, "id", "creationCommand")
     }
 }
