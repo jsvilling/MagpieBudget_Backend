@@ -12,13 +12,11 @@ import org.junit.Test
 import org.mockito.Mockito.*
 import java.math.BigDecimal
 
-
 internal class AccountServiceTest {
 
     private val messageBus = mock(EventBus::class.java)
     private val commandStore = mock(CommandStore::class.java)
     private val accountService = AccountService(messageBus, commandStore)
-
 
     @Test
     fun testGetAccount_OnlyCreationCommand() {
@@ -48,13 +46,13 @@ internal class AccountServiceTest {
         val creationCommand = CreateAccountCommand(balance, name, id)
         val updateCommand = UpdateAccountCommand(newBalace, newName, id)
         doReturn(creationCommand).`when`(commandStore).findCreationCommand(id)
-        doReturn(listOf(updateCommand)).`when`(commandStore).find(id)
+        doReturn(listOf(updateCommand)).`when`(commandStore).findAccountCommands(id)
 
         // When
         val account = accountService.find(id)
 
         // Then
-        assertThat(account).isEqualToComparingFieldByField(updateCommand)
+        assertThat(account).isEqualToIgnoringGivenFields(updateCommand, "id", "creationCommand")
     }
 
     @Test
