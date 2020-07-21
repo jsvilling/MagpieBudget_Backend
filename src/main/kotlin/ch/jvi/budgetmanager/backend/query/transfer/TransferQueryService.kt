@@ -35,7 +35,7 @@ class TransferQueryService(
                 it.senderId,
                 accountQueryService.findAccountName(it.senderId),
                 it.recipientId,
-                accountQueryService.findAccountName(it.senderId)
+                accountQueryService.findAccountName(it.recipientId)
             )
         }
     }

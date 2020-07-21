@@ -27,6 +27,6 @@ class AccountQueryService(
     }
 
     fun findAccountName(entityId: String): String {
-        return find(entityId).name
+        return accountService.find(entityId).name
     }
 }
