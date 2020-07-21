@@ -1,7 +1,8 @@
 package ch.jvi.budgetmanager.backend.server.controller
 
-import ch.jvi.budgetmanager.backend.core.service.AccountService
-import ch.jvi.budgetmanager.backend.domain.account.Account
+import ch.jvi.budgetmanager.backend.command.core.service.AccountService
+import ch.jvi.budgetmanager.backend.query.account.AccountDto
+import ch.jvi.budgetmanager.backend.query.account.AccountQueryService
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
 
@@ -12,16 +13,19 @@ import java.math.BigDecimal
  */
 @RestController
 @RequestMapping("/api/accounts")
-class AccountController(private val accountService: AccountService) {
+class AccountController(
+    private val accountService: AccountService,
+    private val accountQueryService: AccountQueryService
+) {
 
     @GetMapping
-    fun get(): List<Account> {
-        return accountService.findAll();
+    fun get(): List<AccountDto> {
+        return accountQueryService.findAll()
     }
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: String): Account {
-        return accountService.find(id)
+    fun get(@PathVariable id: String): AccountDto {
+        return accountQueryService.find(id)
     }
 
     @PostMapping("/create")

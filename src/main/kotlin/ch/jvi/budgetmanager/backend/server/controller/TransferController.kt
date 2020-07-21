@@ -1,8 +1,8 @@
 package ch.jvi.budgetmanager.backend.server.controller
 
-import ch.jvi.budgetmanager.backend.core.event.TransferEvent.UpdateTransferEvent
-import ch.jvi.budgetmanager.backend.core.service.TransferService
-import ch.jvi.budgetmanager.backend.domain.transfer.Transfer
+import ch.jvi.budgetmanager.backend.command.core.event.TransferEvent.UpdateTransferEvent
+import ch.jvi.budgetmanager.backend.command.core.service.TransferService
+import ch.jvi.budgetmanager.backend.command.domain.transfer.Transfer
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
 
