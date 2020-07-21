@@ -2,7 +2,8 @@ package ch.jvi.budgetmanager.backend.server.controller
 
 import ch.jvi.budgetmanager.backend.command.core.event.TransferEvent.UpdateTransferEvent
 import ch.jvi.budgetmanager.backend.command.core.service.TransferService
-import ch.jvi.budgetmanager.backend.command.domain.transfer.Transfer
+import ch.jvi.budgetmanager.backend.query.transfer.TransferDto
+import ch.jvi.budgetmanager.backend.query.transfer.TransferQueryService
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
 
@@ -13,21 +14,24 @@ import java.math.BigDecimal
  */
 @RestController
 @RequestMapping("/api/transfers")
-class TransferController(private val transferService: TransferService) {
+class TransferController(
+    private val transferService: TransferService,
+    private val transferQueryService: TransferQueryService
+) {
 
     @GetMapping()
-    fun get(): List<Transfer> {
-        return transferService.findAll()
+    fun get(): List<TransferDto> {
+        return transferQueryService.findAll()
     }
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: String): Transfer {
-        return transferService.find(id)
+    fun get(@PathVariable id: String): TransferDto {
+        return transferQueryService.find(id)
     }
 
     @GetMapping("/forAccount/{id}")
-    fun getForAccount(@PathVariable id: String): List<Transfer> {
-        return transferService.findAllForAccount(id);
+    fun getForAccount(@PathVariable id: String): List<TransferDto> {
+        return transferQueryService.findAllForAccount(id);
     }
 
     @PostMapping("/create")
