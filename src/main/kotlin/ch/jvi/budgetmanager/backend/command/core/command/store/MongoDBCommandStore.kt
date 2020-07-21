@@ -41,7 +41,7 @@ class MongoDBCommandStore(
 
     override fun findCreationCommand(entityId: String): CreationCommand {
         return creationCommandRepository.findAll().stream().filter { it.entityId == entityId }
-            .findFirst().orElseThrow()
+            .findFirst().orElseThrow { IllegalArgumentException() }
     }
 
     override fun findCreationCommands(predicate: (CreationCommand) -> Boolean): List<CreationCommand> {
