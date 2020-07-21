@@ -2,13 +2,16 @@ package ch.jvi.budgetmanager.backend.query.account
 
 import ch.jvi.budgetmanager.backend.command.core.service.AccountService
 import ch.jvi.budgetmanager.backend.query.transfer.TransferQueryService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 class AccountQueryService(
-    private val accountService: AccountService,
-    private val transferQueryService: TransferQueryService
+    private val accountService: AccountService
 ) {
+
+    @Autowired
+    lateinit var transferQueryService: TransferQueryService
 
     fun find(entityId: String): AccountDto {
         val account = accountService.find(entityId)

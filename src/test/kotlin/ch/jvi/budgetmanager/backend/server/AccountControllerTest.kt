@@ -4,6 +4,7 @@ import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.command.api.event.EventBus
 import ch.jvi.budgetmanager.backend.command.core.service.AccountService
 import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand
+import ch.jvi.budgetmanager.backend.query.account.AccountQueryService
 import ch.jvi.budgetmanager.backend.server.controller.AccountController
 import org.junit.Test
 import org.mockito.Mockito.*
@@ -23,7 +24,9 @@ internal class AccountControllerTest {
         )
     )
 
-    val accountController = AccountController(accountService)
+    val accountQueryService = mock(AccountQueryService::class.java)
+
+    val accountController = AccountController(accountService, accountQueryService)
 
     @Test
     fun testGetAccount() {
