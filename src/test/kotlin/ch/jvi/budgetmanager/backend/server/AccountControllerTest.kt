@@ -39,7 +39,7 @@ internal class AccountControllerTest {
         accountController.get(id)
 
         // Then
-        verify(accountService, times(1)).find(id)
+        verify(accountQueryService, times(1)).find(id)
     }
 
     @Test
