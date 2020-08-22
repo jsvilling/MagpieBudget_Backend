@@ -1,17 +1,26 @@
 package ch.jvi.budgetmanager.backend.command.domain.transfer.event
 
 import ch.jvi.budgetmanager.backend.command.api.command.bus.CommandBus
-import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.AdjustAccountBalanceCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.repository.AccountCommandRepository
 import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.CreateTransferCommand
 import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.UpdateTransferCommand
 import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent.CreateTransferEvent
 import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent.UpdateTransferEvent
+import ch.jvi.budgetmanager.backend.server.repository.TransferCommandRepository
+import ch.jvi.budgetmanager.backend.server.repository.TransferCreationCommandRepository
 import ch.jvi.budgetmanager.core.api.EventListener
 import org.springframework.stereotype.Component
 
 @Component
-class TransferEventListener(private val commandBus: CommandBus, private val commandStore: CommandStore) {
+class TransferEventListener(
+    private val commandBus: CommandBus,
+    private val creationCommandRepository: TransferCreationCommandRepository,
+    private val updateCommandRepository: TransferCommandRepository,
+
+    // TODO: Move to account domain !
+    private val updateAccountRepository: AccountCommandRepository
+) {
 
     @EventListener
     fun handle(createTransferEvent: CreateTransferEvent) {
@@ -25,8 +34,10 @@ class TransferEventListener(private val commandBus: CommandBus, private val comm
                 updateSenderAccount
             )
         )
-        commandStore.saveCreationCommand(createTransferCommand)
-        commandStore.saveAll(listOf(updateRecipientCommand, updateSenderAccount))
+        creationCommandRepository.save(createTransferCommand)
+
+        // TODO: Move to account domain !
+        updateAccountRepository.saveAll(listOf(updateRecipientCommand, updateSenderAccount))
     }
 
     private fun convertToCreateTransferCommand(event: CreateTransferEvent): CreateTransferCommand {
@@ -80,16 +91,25 @@ class TransferEventListener(private val commandBus: CommandBus, private val comm
             balanceChange = updateTransferEvent.newAmount.negate()
         )
 
-        val updateCommands = listOf(
-            updateTransferCommand,
-            updateOldRecipientCommand,
-            updateOldSenderCommand,
-            updateNewRecipientCommand,
-            updateNewSenderCommand
+        updateCommandRepository.save(updateTransferCommand)
+        updateAccountRepository.saveAll(
+            listOf(
+                updateOldRecipientCommand,
+                updateOldSenderCommand,
+                updateNewRecipientCommand,
+                updateNewSenderCommand
+            )
         )
 
-        commandBus.sendAll(updateCommands)
-        commandStore.saveAll(updateCommands)
+        commandBus.sendAll(
+            listOf(
+                updateTransferCommand,
+                updateOldRecipientCommand,
+                updateOldSenderCommand,
+                updateNewRecipientCommand,
+                updateNewSenderCommand
+            )
+        )
     }
 
     private fun convertToUpdateTransferCommand(event: UpdateTransferEvent): UpdateTransferCommand {

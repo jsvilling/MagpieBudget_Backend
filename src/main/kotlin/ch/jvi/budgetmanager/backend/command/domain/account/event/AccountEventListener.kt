@@ -1,28 +1,29 @@
 package ch.jvi.budgetmanager.backend.command.domain.account.event
 
-import ch.jvi.budgetmanager.backend.command.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.command.api.command.bus.CommandBus
-import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
-import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.CreateAccountCommand
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.UpdateAccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.repository.AccountCommandRepository
+import ch.jvi.budgetmanager.backend.command.domain.account.repository.AccountCreationCommandRepository
 import ch.jvi.budgetmanager.core.api.EventListener
 import org.springframework.stereotype.Component
 
 @Component
 class AccountEventListener(
-    private val commandStore: CommandStore,
+    private val creationCommandRepository: AccountCreationCommandRepository,
+    private val updateCommandRepository: AccountCommandRepository,
     private val commandBus: CommandBus
 ) {
 
     @EventListener
     fun handle(createAccountEvent: AccountEvent.CreateAccountEvent) {
-        val createAccountCommand = convertToCreationCommand(createAccountEvent)
-        commandStore.saveCreationCommand(createAccountCommand)
+        val createAccountCommand: CreateAccountCommand = convertToCreationCommand(createAccountEvent)
+        creationCommandRepository.save(createAccountCommand)
         commandBus.send(createAccountCommand)
     }
 
-    private fun convertToCreationCommand(createAccountEvent: AccountEvent.CreateAccountEvent): CreationCommand {
-        return AccountCommand.CreateAccountCommand(
+    private fun convertToCreationCommand(createAccountEvent: AccountEvent.CreateAccountEvent): CreateAccountCommand {
+        return CreateAccountCommand(
             balance = createAccountEvent.balance,
             name = createAccountEvent.name
         )
@@ -31,7 +32,7 @@ class AccountEventListener(
     @EventListener
     fun handle(updateAccountEvent: AccountEvent.UpdateAccountEvent) {
         val updateAccountCommand = convertToUpdateCommand(updateAccountEvent)
-        commandStore.save(updateAccountCommand)
+        updateCommandRepository.save(updateAccountCommand)
         commandBus.send(updateAccountCommand)
     }
 
