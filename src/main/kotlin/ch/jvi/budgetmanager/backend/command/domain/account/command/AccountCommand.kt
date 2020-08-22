@@ -1,7 +1,6 @@
 package ch.jvi.budgetmanager.backend.command.domain.account.command
 
 import ch.jvi.budgetmanager.backend.command.api.command.Command
-import ch.jvi.budgetmanager.backend.command.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.command.domain.IDProvider
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
@@ -23,12 +22,12 @@ sealed class AccountCommand : Command {
         val name: String = "Anonymous Account",
         override val entityId: String = IDProvider.next(),
         @Id override val commandId: String = IDProvider.next()
-    ) : AccountCommand(), CreationCommand
+    ) : AccountCommand()
 
     /**
      * Re-Initialize name and balance of an Account.
      */
-    @Document(collection = "AccountUpdateCommand")
+    @Document(collection = "UpdateAccountCommand")
     data class UpdateAccountCommand(
         val balance: BigDecimal = BigDecimal.ZERO,
         val name: String = "",
@@ -39,7 +38,7 @@ sealed class AccountCommand : Command {
     /**
      * Adjust the balance of an Account by the given amount.
      */
-    @Document(collection = "AccountUpdateCommand")
+    @Document(collection = "AdjustAccountBalanceCommand")
     data class AdjustAccountBalanceCommand(
         val balanceChange: BigDecimal,
         override val entityId: String,

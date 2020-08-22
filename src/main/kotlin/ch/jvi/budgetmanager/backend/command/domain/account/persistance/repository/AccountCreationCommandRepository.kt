@@ -1,4 +1,4 @@
-package ch.jvi.budgetmanager.backend.command.domain.account.repository
+package ch.jvi.budgetmanager.backend.command.domain.account.persistance.repository
 
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.CreateAccountCommand
 import org.springframework.data.mongodb.repository.MongoRepository
