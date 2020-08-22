@@ -1,5 +1,6 @@
 package ch.jvi.budgetmanager.backend.command.domain.account.persistance.store
 
+import ch.jvi.budgetmanager.backend.command.api.command.store.EntityCommandStore
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.CreateAccountCommand
 import ch.jvi.budgetmanager.backend.command.domain.account.persistance.repository.AccountCreationCommandRepository
@@ -12,29 +13,27 @@ class AccountCommandStore(
     private val accountCreationCommandRepository: AccountCreationCommandRepository,
     private val updateAccountCommandRepository: UpdateAccountCommandRepository,
     private val adjustAccountBalanceCommandRepository: AdjustAccountBalanceCommandRepository
-) {
+) : EntityCommandStore<CreateAccountCommand, AccountCommand> {
 
-    fun findCreationCommand(accountId: String): CreateAccountCommand {
+    override fun findCreationCommand(accountId: String): CreateAccountCommand {
         return accountCreationCommandRepository.findByEntityId(accountId)
     }
 
-    fun findAllCreationCommands(): List<CreateAccountCommand> {
+    override fun findAllCreationCommands(): List<CreateAccountCommand> {
         return accountCreationCommandRepository.findAll()
     }
 
-    fun findUpdateCommands(accountId: String): List<AccountCommand> {
+    override fun findUpdateCommands(accountId: String): List<AccountCommand> {
         return listOf(
             updateAccountCommandRepository.findByEntityId(accountId),
             adjustAccountBalanceCommandRepository.findByEntityId(accountId)
         ).flatten()
     }
 
-    fun save(command: AccountCommand) = when (command) {
+    override fun save(command: AccountCommand) = when (command) {
         is CreateAccountCommand -> accountCreationCommandRepository.save(command)
         is AccountCommand.UpdateAccountCommand -> updateAccountCommandRepository.save(command)
         is AccountCommand.AdjustAccountBalanceCommand -> adjustAccountBalanceCommandRepository.save(command)
     }
-
-    fun saveAll(commands: List<AccountCommand>) = commands.forEach { this.save(it) }
 
 }

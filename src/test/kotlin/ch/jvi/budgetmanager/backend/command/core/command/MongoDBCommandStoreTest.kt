@@ -2,8 +2,8 @@ package ch.jvi.budgetmanager.backend.command.core.command
 
 import ch.jvi.budgetmanager.backend.command.core.command.store.MongoDBCommandStore
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand
-import ch.jvi.budgetmanager.backend.server.repository.TransferCommandRepository
-import ch.jvi.budgetmanager.backend.server.repository.TransferCreationCommandRepository
+import ch.jvi.budgetmanager.backend.command.domain.transfer.persistence.repository.TransferCreationCommandRepository
+import ch.jvi.budgetmanager.backend.command.domain.transfer.persistence.repository.UpdateTransferCommandRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.mockito.Mockito
@@ -14,7 +14,7 @@ import java.math.BigDecimal
 internal class MongoDBCommandStoreTest {
 
     private val creationCommandRepository = Mockito.mock(TransferCreationCommandRepository::class.java)
-    private val updateCommandRepository = Mockito.mock(TransferCommandRepository::class.java)
+    private val updateCommandRepository = Mockito.mock(UpdateTransferCommandRepository::class.java)
     private val mongoDBCommandStore =
         MongoDBCommandStore(
             creationCommandRepository,

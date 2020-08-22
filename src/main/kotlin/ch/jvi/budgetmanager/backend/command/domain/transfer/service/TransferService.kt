@@ -8,16 +8,14 @@ import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferComm
 import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.UpdateTransferCommand
 import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent.CreateTransferEvent
 import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent.UpdateTransferEvent
-import ch.jvi.budgetmanager.backend.server.repository.TransferCommandRepository
-import ch.jvi.budgetmanager.backend.server.repository.TransferCreationCommandRepository
+import ch.jvi.budgetmanager.backend.command.domain.transfer.persistence.store.TransferCommandStore
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
 @Service
 class TransferService(
     private val eventBus: EventBus,
-    private val creationCommandRepository: TransferCreationCommandRepository,
-    private val updateCommandRepository: TransferCommandRepository
+    private val transferCommandStore: TransferCommandStore
 ) :
     EntityService<Transfer> {
 
@@ -26,30 +24,25 @@ class TransferService(
      * @throws IllegalArgumentException if no Entity with the given ID is found.
      */
     override fun find(entityId: String): Transfer {
-        val createTransferCommand = creationCommandRepository.findByEntityId(entityId)
+        val createTransferCommand: CreateTransferCommand = transferCommandStore.findCreationCommand(entityId)
         val transfer = Transfer(createTransferCommand)
         return applyCommands(transfer)
     }
 
     override fun findAll(): List<Transfer> {
-        return creationCommandRepository.findAll()
-            .map { Transfer(it as CreateTransferCommand) }
+        return transferCommandStore.findAllCreationCommands()
+            .map { Transfer(it) }
             .map { applyCommands(it) }
     }
 
     fun findAllForAccount(accountId: String): List<Transfer> {
-        return creationCommandRepository.findAll()
-            .map { Transfer(it as CreateTransferCommand) }
-            .map { applyCommands(it) }
-            .filter { it.recipientId == accountId || it.senderId == accountId }
+        // TODO: Implement a more efficient way to do this
+        return findAll().filter { it.recipientId == accountId || it.senderId == accountId }
     }
 
     private fun applyCommands(transfer: Transfer): Transfer {
-        try {
-            val commands: List<TransferCommand> = updateCommandRepository.findByEntityId(transfer.id)
-            transfer.applyAll(commands)
-        } catch (e: Exception) {
-        }
+        val commands: List<TransferCommand> = transferCommandStore.findUpdateCommands(transfer.id)
+        transfer.applyAll(commands)
         return transfer
     }
 
@@ -58,7 +51,7 @@ class TransferService(
      */
     fun createTransfer(senderId: String, name: String, recipientId: String, amount: BigDecimal) {
         val creationCommand = CreateTransferCommand(recipientId, name, senderId, amount)
-        creationCommandRepository.save(creationCommand)
+        transferCommandStore.save(creationCommand)
 
         val createTransferEvent = CreateTransferEvent(name, recipientId, senderId, amount)
         eventBus.send(createTransferEvent)
@@ -75,7 +68,7 @@ class TransferService(
             amount = updateTransferEvent.newAmount,
             name = updateTransferEvent.newName
         )
-        updateCommandRepository.save(updateTransferCommand)
+        transferCommandStore.save(updateTransferCommand)
         eventBus.send(updateTransferEvent)
     }
 
