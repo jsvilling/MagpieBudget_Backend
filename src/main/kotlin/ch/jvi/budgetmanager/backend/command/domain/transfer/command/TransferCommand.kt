@@ -4,6 +4,7 @@ import ch.jvi.budgetmanager.backend.command.api.command.Command
 import ch.jvi.budgetmanager.backend.command.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.command.domain.IDProvider
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
 import java.math.BigDecimal
 
 /**
@@ -16,6 +17,7 @@ sealed class TransferCommand : Command {
     /**
      * Is used to create a Transfer
      */
+    @Document(collection = "TransferCreationCommand")
     data class CreateTransferCommand(
         val recipientId: String,
         val name: String,
@@ -28,6 +30,7 @@ sealed class TransferCommand : Command {
     /**
      * Is used to reset sender, recipient and amount of a transfer.
      */
+    @Document(collection = "TransferUpdateCommand")
     data class UpdateTransferCommand(
         val name: String,
         val recipientId: String,

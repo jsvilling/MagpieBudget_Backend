@@ -12,12 +12,12 @@ import java.math.BigDecimal
  *
  * @author J. Villing
  */
-@Document(collection = "command")
 sealed class AccountCommand : Command {
 
     /**
      * Creation Command for a Account
      */
+    @Document(collection = "AccountCreationCommand")
     data class CreateAccountCommand(
         val balance: BigDecimal = BigDecimal.ZERO,
         val name: String = "Anonymous Account",
@@ -28,6 +28,7 @@ sealed class AccountCommand : Command {
     /**
      * Re-Initialize name and balance of an Account.
      */
+    @Document(collection = "AccountUpdateCommand")
     data class UpdateAccountCommand(
         val balance: BigDecimal = BigDecimal.ZERO,
         val name: String = "",
@@ -38,6 +39,7 @@ sealed class AccountCommand : Command {
     /**
      * Adjust the balance of an Account by the given amount.
      */
+    @Document(collection = "AccountUpdateCommand")
     data class AdjustAccountBalanceCommand(
         val balanceChange: BigDecimal,
         override val entityId: String,
