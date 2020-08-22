@@ -1,6 +1,6 @@
 package ch.jvi.budgetmanager.backend.query.transfer
 
-import ch.jvi.budgetmanager.backend.command.core.service.TransferService
+import ch.jvi.budgetmanager.backend.command.domain.transfer.service.TransferService
 import ch.jvi.budgetmanager.backend.query.account.AccountQueryService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

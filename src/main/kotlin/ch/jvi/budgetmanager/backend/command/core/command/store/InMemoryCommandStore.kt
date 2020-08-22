@@ -3,8 +3,8 @@ package ch.jvi.budgetmanager.backend.command.core.command.store
 import ch.jvi.budgetmanager.backend.command.api.command.Command
 import ch.jvi.budgetmanager.backend.command.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
-import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand
-import ch.jvi.budgetmanager.backend.command.domain.transfer.TransferCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 import kotlin.streams.toList

@@ -1,4 +1,4 @@
-package ch.jvi.budgetmanager.backend.command.core.event
+package ch.jvi.budgetmanager.backend.command.domain.transfer.event
 
 import ch.jvi.budgetmanager.backend.command.api.event.Event
 import java.math.BigDecimal

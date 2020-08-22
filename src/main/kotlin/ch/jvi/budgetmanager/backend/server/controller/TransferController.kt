@@ -1,7 +1,7 @@
 package ch.jvi.budgetmanager.backend.server.controller
 
-import ch.jvi.budgetmanager.backend.command.core.event.TransferEvent.UpdateTransferEvent
-import ch.jvi.budgetmanager.backend.command.core.service.TransferService
+import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent.UpdateTransferEvent
+import ch.jvi.budgetmanager.backend.command.domain.transfer.service.TransferService
 import ch.jvi.budgetmanager.backend.query.transfer.TransferDto
 import ch.jvi.budgetmanager.backend.query.transfer.TransferQueryService
 import org.springframework.web.bind.annotation.*

@@ -1,8 +1,9 @@
 package ch.jvi.budgetmanager.backend.command.domain.transfer
 
 import ch.jvi.budgetmanager.backend.command.domain.DomainEntity
-import ch.jvi.budgetmanager.backend.command.domain.transfer.TransferCommand.CreateTransferCommand
-import ch.jvi.budgetmanager.backend.command.domain.transfer.TransferCommand.UpdateTransferCommand
+import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand
+import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.CreateTransferCommand
+import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.UpdateTransferCommand
 
 
 /**

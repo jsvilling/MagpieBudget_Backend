@@ -1,10 +1,10 @@
-package ch.jvi.budgetmanager.backend.command.core.event
+package ch.jvi.budgetmanager.backend.command.domain.account.event
 
 import ch.jvi.budgetmanager.backend.command.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.command.api.command.bus.CommandBus
 import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
-import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand
-import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand.UpdateAccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.UpdateAccountCommand
 import ch.jvi.budgetmanager.core.api.EventListener
 import org.springframework.stereotype.Component
 

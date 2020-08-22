@@ -1,6 +1,6 @@
 package ch.jvi.budgetmanager.backend.server.controller
 
-import ch.jvi.budgetmanager.backend.command.core.service.AccountService
+import ch.jvi.budgetmanager.backend.command.domain.account.service.AccountService
 import ch.jvi.budgetmanager.backend.query.account.AccountDto
 import ch.jvi.budgetmanager.backend.query.account.AccountQueryService
 import org.springframework.web.bind.annotation.*

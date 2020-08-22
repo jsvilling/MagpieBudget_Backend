@@ -2,11 +2,11 @@ package ch.jvi.budgetmanager.backend.command.core
 
 import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.command.api.event.EventBus
-import ch.jvi.budgetmanager.backend.command.core.event.AccountEvent.CreateAccountEvent
-import ch.jvi.budgetmanager.backend.command.core.service.AccountService
 import ch.jvi.budgetmanager.backend.command.domain.account.Account
-import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand.CreateAccountCommand
-import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand.UpdateAccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.CreateAccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.UpdateAccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.event.AccountEvent.CreateAccountEvent
+import ch.jvi.budgetmanager.backend.command.domain.account.service.AccountService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.mockito.Mockito.*

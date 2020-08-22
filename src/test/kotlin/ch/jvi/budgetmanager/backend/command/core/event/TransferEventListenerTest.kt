@@ -2,8 +2,10 @@ package ch.jvi.budgetmanager.backend.command.core.event
 
 import ch.jvi.budgetmanager.backend.command.api.command.bus.CommandBus
 import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
-import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand
-import ch.jvi.budgetmanager.backend.command.domain.transfer.TransferCommand.CreateTransferCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.CreateTransferCommand
+import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent
+import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEventListener
 import org.junit.Ignore
 import org.junit.Test
 import org.mockito.Mockito.*

@@ -1,7 +1,7 @@
 package ch.jvi.budgetmanager.backend.command.core.command
 
 import ch.jvi.budgetmanager.backend.command.core.command.store.MongoDBCommandStore
-import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand
 import ch.jvi.budgetmanager.backend.server.repository.CreationCommandRepository
 import ch.jvi.budgetmanager.backend.server.repository.UpdateCommandRepository
 import org.assertj.core.api.Assertions.assertThat

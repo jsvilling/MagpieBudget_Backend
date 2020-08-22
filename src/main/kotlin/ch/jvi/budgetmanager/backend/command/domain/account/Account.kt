@@ -1,7 +1,8 @@
 package ch.jvi.budgetmanager.backend.command.domain.account
 
 import ch.jvi.budgetmanager.backend.command.domain.DomainEntity
-import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand.*
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.*
 import java.math.BigDecimal
 
 /**

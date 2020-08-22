@@ -1,13 +1,13 @@
-package ch.jvi.budgetmanager.backend.command.core.service
+package ch.jvi.budgetmanager.backend.command.domain.account.service
 
 import ch.jvi.budgetmanager.backend.command.api.command.CreationCommand
 import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.command.api.event.EventBus
 import ch.jvi.budgetmanager.backend.command.api.service.EntityService
-import ch.jvi.budgetmanager.backend.command.core.event.AccountEvent
 import ch.jvi.budgetmanager.backend.command.domain.account.Account
-import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand
-import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand.CreateAccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.CreateAccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.event.AccountEvent
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 

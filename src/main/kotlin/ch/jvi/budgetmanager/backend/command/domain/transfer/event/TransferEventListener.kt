@@ -1,12 +1,12 @@
-package ch.jvi.budgetmanager.backend.command.core.event
+package ch.jvi.budgetmanager.backend.command.domain.transfer.event
 
 import ch.jvi.budgetmanager.backend.command.api.command.bus.CommandBus
 import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
-import ch.jvi.budgetmanager.backend.command.core.event.TransferEvent.CreateTransferEvent
-import ch.jvi.budgetmanager.backend.command.core.event.TransferEvent.UpdateTransferEvent
-import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand.AdjustAccountBalanceCommand
-import ch.jvi.budgetmanager.backend.command.domain.transfer.TransferCommand.CreateTransferCommand
-import ch.jvi.budgetmanager.backend.command.domain.transfer.TransferCommand.UpdateTransferCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.AdjustAccountBalanceCommand
+import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.CreateTransferCommand
+import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.UpdateTransferCommand
+import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent.CreateTransferEvent
+import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent.UpdateTransferEvent
 import ch.jvi.budgetmanager.core.api.EventListener
 import org.springframework.stereotype.Component
 

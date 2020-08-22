@@ -3,8 +3,10 @@ package ch.jvi.budgetmanager.backend.command.core.event
 import ch.jvi.budgetmanager.backend.command.api.command.bus.CommandBus
 import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.command.domain.IDProvider
-import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand.CreateAccountCommand
-import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand.UpdateAccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.CreateAccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.UpdateAccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.event.AccountEvent
+import ch.jvi.budgetmanager.backend.command.domain.account.event.AccountEventListener
 import org.junit.Ignore
 import org.junit.Test
 import org.mockito.ArgumentCaptor

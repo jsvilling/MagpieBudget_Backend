@@ -2,8 +2,8 @@ package ch.jvi.budgetmanager.backend.command.api.command.store
 
 import ch.jvi.budgetmanager.backend.command.api.command.Command
 import ch.jvi.budgetmanager.backend.command.api.command.CreationCommand
-import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand
-import ch.jvi.budgetmanager.backend.command.domain.transfer.TransferCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand
 
 /**
  * A CommandStore is used to persist and retrieve commands.

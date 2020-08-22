@@ -1,9 +1,9 @@
 package ch.jvi.budgetmanager.backend.integration
 
-import ch.jvi.budgetmanager.backend.command.core.event.TransferEvent
-import ch.jvi.budgetmanager.backend.command.core.service.AccountService
-import ch.jvi.budgetmanager.backend.command.core.service.TransferService
 import ch.jvi.budgetmanager.backend.command.domain.IDProvider.nextId
+import ch.jvi.budgetmanager.backend.command.domain.account.service.AccountService
+import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent
+import ch.jvi.budgetmanager.backend.command.domain.transfer.service.TransferService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith

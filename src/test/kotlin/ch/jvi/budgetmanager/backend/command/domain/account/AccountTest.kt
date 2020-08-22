@@ -1,6 +1,6 @@
 package ch.jvi.budgetmanager.backend.command.domain.account
 
-import ch.jvi.budgetmanager.backend.command.domain.account.AccountCommand.*
+import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.math.BigDecimal
