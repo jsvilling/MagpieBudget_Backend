@@ -1,6 +1,6 @@
 package ch.jvi.budgetmanager.backend.command.domain.transfer.persistence.store
 
-import ch.jvi.budgetmanager.backend.command.api.command.store.EntityCommandStore
+import ch.jvi.budgetmanager.backend.command.api.command.CommandStore
 import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand
 import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.CreateTransferCommand
 import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.UpdateTransferCommand
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 class TransferCommandStore(
     private val transferCreationCommandRepository: TransferCreationCommandRepository,
     private val updateTransferCommandRepository: UpdateTransferCommandRepository
-) : EntityCommandStore<CreateTransferCommand, TransferCommand> {
+) : CommandStore<CreateTransferCommand, TransferCommand> {
 
     override fun findCreationCommand(transferId: String): CreateTransferCommand {
         return transferCreationCommandRepository.findByEntityId(transferId)
