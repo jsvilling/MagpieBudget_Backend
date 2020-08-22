@@ -1,26 +1,16 @@
 package ch.jvi.budgetmanager.backend.command.core.event
 
-import ch.jvi.budgetmanager.backend.command.api.command.bus.CommandBus
-import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
-import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand
-import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.CreateTransferCommand
 import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent
 import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEventListener
+import org.assertj.core.api.Assertions
 import org.junit.Ignore
 import org.junit.Test
-import org.mockito.Mockito.*
 import java.math.BigDecimal
 
 
 internal class TransferEventListenerTest {
 
-    val commandBus = mock(CommandBus::class.java)
-    val commandStore = mock(CommandStore::class.java)
-    val transferEventListener =
-        TransferEventListener(
-            commandBus,
-            commandStore
-        )
+    val transferEventListener = TransferEventListener()
 
     // Ignored until mockito-kotlin is integrated
     @Test
@@ -37,15 +27,9 @@ internal class TransferEventListenerTest {
                 senderId,
                 amount
             )
-        val createTransferCommand = CreateTransferCommand("name", recipientId, senderId, amount, "0")
-        val adjustRecipientCommand = AccountCommand.AdjustAccountBalanceCommand(amount, recipientId)
-        val adjustSenderCommand = AccountCommand.AdjustAccountBalanceCommand(amount.negate(), senderId)
 
         // When
-        transferEventListener.handle(createTransferEvent)
-
         // Then
-        verify(commandBus, times(1)).sendAll(listOf(createTransferCommand, adjustRecipientCommand, adjustSenderCommand))
-        verify(commandStore, times(1)).saveAll(listOf(adjustRecipientCommand, adjustSenderCommand))
+        Assertions.assertThatCode { transferEventListener.handle(createTransferEvent) }.doesNotThrowAnyException()
     }
 }

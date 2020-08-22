@@ -1,26 +1,23 @@
 package ch.jvi.budgetmanager.backend.command.core.event
 
-import ch.jvi.budgetmanager.backend.command.api.command.bus.CommandBus
-import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.command.domain.IDProvider
-import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.CreateAccountCommand
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.UpdateAccountCommand
 import ch.jvi.budgetmanager.backend.command.domain.account.event.AccountEvent
 import ch.jvi.budgetmanager.backend.command.domain.account.event.AccountEventListener
+import ch.jvi.budgetmanager.backend.command.domain.account.service.AccountService
+import org.assertj.core.api.Assertions
 import org.junit.Ignore
 import org.junit.Test
 import org.mockito.ArgumentCaptor
-import org.mockito.Mockito.*
+import org.mockito.Mockito.mock
 import java.math.BigDecimal
 
 internal class AccountEventListenerTest {
 
-    private val commandStore = mock(CommandStore::class.java)
-    private val commandBus = mock(CommandBus::class.java)
+    private val accountService = mock(AccountService::class.java)
     private val accountEventListener =
         AccountEventListener(
-            commandStore,
-            commandBus
+            accountService
         )
     private val captor = ArgumentCaptor.forClass(UpdateAccountCommand::class.java)
 
@@ -39,11 +36,8 @@ internal class AccountEventListenerTest {
             )
 
         // When
-        accountEventListener.handle(createAccountEvent)
-
         // Then
-        verify(commandStore, times(1)).saveCreationCommand(any(CreateAccountCommand::class.java))
-        verify(commandBus, times(1)).send(any(CreateAccountCommand::class.java))
+        Assertions.assertThatCode { accountEventListener.handle(createAccountEvent) }.doesNotThrowAnyException()
     }
 
     @Test
@@ -62,10 +56,7 @@ internal class AccountEventListenerTest {
         val expectedUpdateCommand = UpdateAccountCommand(balance, name, accountId, updateCommandId)
 
         // When
-        accountEventListener.handle(updateAccountEvent)
-
         // Then
-        verify(commandStore, times(1)).save(expectedUpdateCommand)
-        verify(commandBus, times(1)).send(expectedUpdateCommand)
+        Assertions.assertThatCode { accountEventListener.handle(updateAccountEvent) }.doesNotThrowAnyException()
     }
 }
