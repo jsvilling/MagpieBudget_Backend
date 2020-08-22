@@ -1,7 +1,7 @@
 package ch.jvi.budgetmanager.backend.integration
 
-import ch.jvi.budgetmanager.backend.command.domain.IDProvider.nextId
 import ch.jvi.budgetmanager.backend.command.domain.account.service.AccountService
+import ch.jvi.budgetmanager.backend.command.domain.api.IDProvider.nextId
 import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent
 import ch.jvi.budgetmanager.backend.command.domain.transfer.service.TransferService
 import org.assertj.core.api.Assertions.assertThat

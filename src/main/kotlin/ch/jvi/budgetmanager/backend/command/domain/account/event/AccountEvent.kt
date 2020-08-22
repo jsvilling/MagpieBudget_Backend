@@ -1,6 +1,6 @@
 package ch.jvi.budgetmanager.backend.command.domain.account.event
 
-import ch.jvi.budgetmanager.backend.command.api.event.Event
+import ch.jvi.budgetmanager.backend.event.api.Event
 import java.math.BigDecimal
 
 sealed class AccountEvent : Event {

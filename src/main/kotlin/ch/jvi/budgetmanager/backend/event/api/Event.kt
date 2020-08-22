@@ -1,4 +1,4 @@
-package ch.jvi.budgetmanager.backend.command.api.event
+package ch.jvi.budgetmanager.backend.event.api
 
 /**
  * Marker interface for Events to be sent over a EventBus

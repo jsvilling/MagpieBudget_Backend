@@ -1,7 +1,7 @@
-package ch.jvi.budgetmanager.backend.command.core.event
+package ch.jvi.budgetmanager.backend.event
 
-import ch.jvi.budgetmanager.backend.command.api.event.Event
-import ch.jvi.budgetmanager.backend.command.api.event.EventBus
+import ch.jvi.budgetmanager.backend.event.api.Event
+import ch.jvi.budgetmanager.backend.event.api.EventBus
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 

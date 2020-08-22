@@ -1,4 +1,4 @@
-package ch.jvi.budgetmanager.backend.command.api.service
+package ch.jvi.budgetmanager.backend.command.domain.api
 
 /**
  * Interface for entity specific services. A

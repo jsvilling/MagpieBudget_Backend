@@ -1,11 +1,11 @@
 package ch.jvi.budgetmanager.backend.command.core
 
-import ch.jvi.budgetmanager.backend.command.api.event.EventBus
 import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.CreateTransferCommand
 import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent.CreateTransferEvent
 import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent.UpdateTransferEvent
 import ch.jvi.budgetmanager.backend.command.domain.transfer.persistence.store.TransferCommandStore
 import ch.jvi.budgetmanager.backend.command.domain.transfer.service.TransferService
+import ch.jvi.budgetmanager.backend.event.api.EventBus
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.mockito.Mockito.*

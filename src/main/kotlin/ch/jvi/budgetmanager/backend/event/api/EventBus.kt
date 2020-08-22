@@ -1,4 +1,4 @@
-package ch.jvi.budgetmanager.backend.command.api.event
+package ch.jvi.budgetmanager.backend.event.api
 
 /**
  * Interface for a EventeBus implementation

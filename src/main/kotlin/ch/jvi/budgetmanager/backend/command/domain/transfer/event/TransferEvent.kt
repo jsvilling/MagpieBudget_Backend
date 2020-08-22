@@ -1,6 +1,6 @@
 package ch.jvi.budgetmanager.backend.command.domain.transfer.event
 
-import ch.jvi.budgetmanager.backend.command.api.event.Event
+import ch.jvi.budgetmanager.backend.event.api.Event
 import java.math.BigDecimal
 
 sealed class TransferEvent : Event {

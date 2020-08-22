@@ -1,9 +1,9 @@
 package ch.jvi.budgetmanager.backend.command.core.event
 
-import ch.jvi.budgetmanager.backend.command.domain.IDProvider
 import ch.jvi.budgetmanager.backend.command.domain.account.event.AccountEvent
 import ch.jvi.budgetmanager.backend.command.domain.account.event.AccountEventListener
 import ch.jvi.budgetmanager.backend.command.domain.account.service.AccountService
+import ch.jvi.budgetmanager.backend.command.domain.api.IDProvider
 import org.assertj.core.api.Assertions
 import org.junit.Ignore
 import org.junit.Test
