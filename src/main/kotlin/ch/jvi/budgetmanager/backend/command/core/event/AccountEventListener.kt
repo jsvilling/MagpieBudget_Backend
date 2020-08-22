@@ -15,31 +15,31 @@ class AccountEventListener(
 ) {
 
     @EventListener
-    fun handle(createAccountMessage: AccountEvent.CreateAccountEvent) {
-        val createAccountCommand = convertToCreationCommand(createAccountMessage)
+    fun handle(createAccountEvent: AccountEvent.CreateAccountEvent) {
+        val createAccountCommand = convertToCreationCommand(createAccountEvent)
         commandStore.saveCreationCommand(createAccountCommand)
         commandBus.send(createAccountCommand)
     }
 
-    private fun convertToCreationCommand(createAccountMessage: AccountEvent.CreateAccountEvent): CreationCommand {
+    private fun convertToCreationCommand(createAccountEvent: AccountEvent.CreateAccountEvent): CreationCommand {
         return AccountCommand.CreateAccountCommand(
-            balance = createAccountMessage.balance,
-            name = createAccountMessage.name
+            balance = createAccountEvent.balance,
+            name = createAccountEvent.name
         )
     }
 
     @EventListener
-    fun handle(updateAccountMessage: AccountEvent.UpdateAccountEvent) {
-        val updateAccountCommand = convertToUpdateCommand(updateAccountMessage)
+    fun handle(updateAccountEvent: AccountEvent.UpdateAccountEvent) {
+        val updateAccountCommand = convertToUpdateCommand(updateAccountEvent)
         commandStore.save(updateAccountCommand)
         commandBus.send(updateAccountCommand)
     }
 
-    fun convertToUpdateCommand(updateAccountMessage: AccountEvent.UpdateAccountEvent): UpdateAccountCommand {
+    fun convertToUpdateCommand(updateAccountEvent: AccountEvent.UpdateAccountEvent): UpdateAccountCommand {
         return UpdateAccountCommand(
-            entityId = updateAccountMessage.id,
-            balance = updateAccountMessage.balance,
-            name = updateAccountMessage.name
+            entityId = updateAccountEvent.id,
+            balance = updateAccountEvent.balance,
+            name = updateAccountEvent.name
         )
     }
 }

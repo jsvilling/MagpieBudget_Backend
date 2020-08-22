@@ -15,7 +15,7 @@ internal class AccountEventListenerTest {
 
     private val commandStore = mock(CommandStore::class.java)
     private val commandBus = mock(CommandBus::class.java)
-    private val accountMessageListener =
+    private val accountEventListener =
         AccountEventListener(
             commandStore,
             commandBus
@@ -25,19 +25,19 @@ internal class AccountEventListenerTest {
     // Ignored until mockito-kotlin is integrated
     @Test
     @Ignore
-    fun testHandleCreateAccountMessage() {
+    fun testHandleCreateAccountEvent() {
         // Given
         val balance = BigDecimal.TEN
         val name = "NameName"
         val accountId = IDProvider.nextId
-        val receivedCreationMessage =
+        val createAccountEvent =
             AccountEvent.CreateAccountEvent(
                 balance,
                 name
             )
 
         // When
-        accountMessageListener.handle(receivedCreationMessage)
+        accountEventListener.handle(createAccountEvent)
 
         // Then
         verify(commandStore, times(1)).saveCreationCommand(any(CreateAccountCommand::class.java))
@@ -45,12 +45,12 @@ internal class AccountEventListenerTest {
     }
 
     @Test
-    fun testHandleUpdateAccountMessage() {
+    fun testHandleUpdateAccountEvent() {
         // Given
         val accountId = "id"
         val balance = BigDecimal.TEN
         val name = "NameName"
-        val receivedUpdateMessage =
+        val updateAccountEvent =
             AccountEvent.UpdateAccountEvent(
                 accountId,
                 balance,
@@ -60,7 +60,7 @@ internal class AccountEventListenerTest {
         val expectedUpdateCommand = UpdateAccountCommand(balance, name, accountId, updateCommandId)
 
         // When
-        accountMessageListener.handle(receivedUpdateMessage)
+        accountEventListener.handle(updateAccountEvent)
 
         // Then
         verify(commandStore, times(1)).save(expectedUpdateCommand)

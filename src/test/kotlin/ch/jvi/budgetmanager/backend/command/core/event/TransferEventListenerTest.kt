@@ -14,7 +14,7 @@ internal class TransferEventListenerTest {
 
     val commandBus = mock(CommandBus::class.java)
     val commandStore = mock(CommandStore::class.java)
-    val transferMessageListener =
+    val transferEventListener =
         TransferEventListener(
             commandBus,
             commandStore
@@ -23,12 +23,12 @@ internal class TransferEventListenerTest {
     // Ignored until mockito-kotlin is integrated
     @Test
     @Ignore
-    fun testHandleCreateTransactionMessage() {
+    fun testHandleCreateTransactionEvent() {
         // Given
         val recipientId = "0"
         val senderId = "1"
         val amount = BigDecimal.ONE
-        val createTransferMessage =
+        val createTransferEvent =
             TransferEvent.CreateTransferEvent(
                 "name",
                 recipientId,
@@ -40,7 +40,7 @@ internal class TransferEventListenerTest {
         val adjustSenderCommand = AccountCommand.AdjustAccountBalanceCommand(amount.negate(), senderId)
 
         // When
-        transferMessageListener.handle(createTransferMessage)
+        transferEventListener.handle(createTransferEvent)
 
         // Then
         verify(commandBus, times(1)).sendAll(listOf(createTransferCommand, adjustRecipientCommand, adjustSenderCommand))

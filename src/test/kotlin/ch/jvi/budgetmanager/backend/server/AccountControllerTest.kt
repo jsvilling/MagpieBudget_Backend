@@ -13,13 +13,13 @@ import java.math.BigDecimal.TEN
 
 internal class AccountControllerTest {
 
-    val messageBus = mock(EventBus::class.java)
+    val eventBus = mock(EventBus::class.java)
 
     val commandStore = mock(CommandStore::class.java)
 
     val accountService = spy(
         AccountService(
-            messageBus,
+            eventBus,
             commandStore
         )
     )

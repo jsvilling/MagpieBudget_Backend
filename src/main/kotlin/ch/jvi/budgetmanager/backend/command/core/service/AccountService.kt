@@ -52,15 +52,15 @@ class AccountService(
      * Creates and sends a CreateAccountEvent with the given balance and name
      */
     fun createAccount(balance: BigDecimal, name: String) {
-        val createAccountMessage = AccountEvent.CreateAccountEvent(balance, name)
-        eventBus.send(createAccountMessage)
+        val createAccountEvent = AccountEvent.CreateAccountEvent(balance, name)
+        eventBus.send(createAccountEvent)
     }
 
     /**
      * Creates and sends an UpdateAccountEvent with the given id, balance and name.
      */
     fun updateAccount(id: String, balance: BigDecimal, name: String) {
-        val updateAccountMessage = AccountEvent.UpdateAccountEvent(id, balance, name)
-        eventBus.send(updateAccountMessage)
+        val updateAccountEvent = AccountEvent.UpdateAccountEvent(id, balance, name)
+        eventBus.send(updateAccountEvent)
     }
 }

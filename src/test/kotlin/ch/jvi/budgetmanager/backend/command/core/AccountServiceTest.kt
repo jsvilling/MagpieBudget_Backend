@@ -14,10 +14,10 @@ import java.math.BigDecimal
 
 internal class AccountServiceTest {
 
-    private val messageBus = mock(EventBus::class.java)
+    private val eventBus = mock(EventBus::class.java)
     private val commandStore = mock(CommandStore::class.java)
     private val accountService =
-        AccountService(messageBus, commandStore)
+        AccountService(eventBus, commandStore)
 
     @Test
     fun testGetAccount_OnlyCreationCommand() {
@@ -61,12 +61,12 @@ internal class AccountServiceTest {
         // Given
         val balance = BigDecimal.TEN
         val name = "name"
-        val creationMessage = CreateAccountEvent(balance, name)
+        val creationEvent = CreateAccountEvent(balance, name)
 
         // When
         accountService.createAccount(balance, name)
 
         // Then
-        verify(messageBus, times(1)).send(creationMessage)
+        verify(eventBus, times(1)).send(creationEvent)
     }
 }

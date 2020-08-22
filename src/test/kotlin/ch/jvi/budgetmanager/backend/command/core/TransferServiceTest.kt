@@ -15,10 +15,10 @@ import java.math.BigDecimal.ZERO
 internal class TransferServiceTest {
 
     val commandStore = mock(CommandStore::class.java)
-    val messageBus = mock(EventBus::class.java)
+    val eventBus = mock(EventBus::class.java)
 
     private val transferService =
-        TransferService(commandStore, messageBus)
+        TransferService(commandStore, eventBus)
 
     @Test
     fun testGetTransfer() {
@@ -47,7 +47,7 @@ internal class TransferServiceTest {
         transferService.createTransfer(senderId, "name", recipientId, amount)
 
         // Then
-        verify(messageBus, times(1)).send(creationCommand)
+        verify(eventBus, times(1)).send(creationCommand)
     }
 
     @Test
@@ -64,6 +64,6 @@ internal class TransferServiceTest {
         transferService.updateTransfer(updateTransferEvent)
 
         // Then
-        verify(messageBus, times(1)).send(updateTransferEvent)
+        verify(eventBus, times(1)).send(updateTransferEvent)
     }
 }
