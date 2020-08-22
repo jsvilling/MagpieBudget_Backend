@@ -1,13 +1,13 @@
 package ch.jvi.budgetmanager.backend.command.domain.account.service
 
-import ch.jvi.budgetmanager.backend.command.api.command.CreationCommand
-import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.command.api.event.EventBus
 import ch.jvi.budgetmanager.backend.command.api.service.EntityService
 import ch.jvi.budgetmanager.backend.command.domain.account.Account
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.CreateAccountCommand
 import ch.jvi.budgetmanager.backend.command.domain.account.event.AccountEvent
+import ch.jvi.budgetmanager.backend.command.domain.account.repository.AccountCommandRepository
+import ch.jvi.budgetmanager.backend.command.domain.account.repository.AccountCreationCommandRepository
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
@@ -18,8 +18,9 @@ import java.math.BigDecimal
  */
 @Service
 class AccountService(
-    private val eventBus: EventBus,
-    private val commandStore: CommandStore
+    private val creationCommandRepository: AccountCreationCommandRepository,
+    private val updateCommandRepository: AccountCommandRepository,
+    private val eventBus: EventBus
 ) : EntityService<Account> {
 
     /**
@@ -27,25 +28,21 @@ class AccountService(
      * @throws IllegalArgumentException if no Entity with the given ID is found.
      */
     override fun find(entityId: String): Account {
-        val creationCommand: CreateAccountCommand = commandStore.findCreationCommand(entityId) as CreateAccountCommand
+        val creationCommand: CreateAccountCommand = creationCommandRepository.findByEntityId(entityId)
         val account = Account(creationCommand)
-        return applyCommands(account)
+        return findAndApplyAllCommands(account)
     }
 
     override fun findAll(): List<Account> {
-        return commandStore.findCreationCommands(this::isAccountCreationCommand)
-            .map { Account(it as CreateAccountCommand) }
-            .map { applyCommands(it) }
+        return creationCommandRepository.findAll()
+            .map { Account(it) }
+            .map { findAndApplyAllCommands(it) }
     }
 
-    private fun applyCommands(account: Account): Account {
-        val commands: List<AccountCommand> = commandStore.findAccountCommands(account.id)
+    private fun findAndApplyAllCommands(account: Account): Account {
+        val commands: List<AccountCommand> = updateCommandRepository.findByEntityId(account.id)
         account.applyAll(commands)
         return account
-    }
-
-    fun isAccountCreationCommand(command: CreationCommand): Boolean {
-        return command is CreateAccountCommand
     }
 
     /**

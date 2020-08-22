@@ -6,4 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository
 /**
  * @author J. Villing
  */
-interface AccountCommandRepository : MongoRepository<AccountCommand, String>
+interface AccountCommandRepository : MongoRepository<AccountCommand, String> {
+    fun findByEntityId(entityId: String): List<AccountCommand>
+}

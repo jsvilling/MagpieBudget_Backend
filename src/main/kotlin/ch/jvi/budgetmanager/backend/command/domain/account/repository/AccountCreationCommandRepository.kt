@@ -6,4 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository
 /**
  * @author J. Villing
  */
-interface AccountCreationCommandRepository : MongoRepository<CreateAccountCommand, String>
+interface AccountCreationCommandRepository : MongoRepository<CreateAccountCommand, String> {
+    fun findByEntityId(entityId: String): CreateAccountCommand
+}
