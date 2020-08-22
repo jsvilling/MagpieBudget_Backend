@@ -1,4 +1,4 @@
-package ch.jvi.budgetmanager.backend.server.controller
+package ch.jvi.budgetmanager.backend.gateway
 
 import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent.UpdateTransferEvent
 import ch.jvi.budgetmanager.backend.command.domain.transfer.service.TransferService

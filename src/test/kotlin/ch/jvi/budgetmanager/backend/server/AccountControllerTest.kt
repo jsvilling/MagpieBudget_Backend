@@ -4,8 +4,8 @@ import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountComman
 import ch.jvi.budgetmanager.backend.command.domain.account.persistance.store.AccountCommandStore
 import ch.jvi.budgetmanager.backend.command.domain.account.service.AccountService
 import ch.jvi.budgetmanager.backend.event.api.EventBus
+import ch.jvi.budgetmanager.backend.gateway.AccountController
 import ch.jvi.budgetmanager.backend.query.account.AccountQueryService
-import ch.jvi.budgetmanager.backend.server.controller.AccountController
 import org.junit.Test
 import org.mockito.Mockito.*
 import java.math.BigDecimal

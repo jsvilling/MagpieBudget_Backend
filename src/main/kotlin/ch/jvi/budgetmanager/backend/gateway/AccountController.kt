@@ -1,4 +1,4 @@
-package ch.jvi.budgetmanager.backend.server.controller
+package ch.jvi.budgetmanager.backend.gateway
 
 import ch.jvi.budgetmanager.backend.command.domain.account.service.AccountService
 import ch.jvi.budgetmanager.backend.query.account.AccountDto
