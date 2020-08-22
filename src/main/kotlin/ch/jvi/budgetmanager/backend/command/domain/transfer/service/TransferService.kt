@@ -7,15 +7,20 @@ import ch.jvi.budgetmanager.backend.command.api.service.EntityService
 import ch.jvi.budgetmanager.backend.command.domain.transfer.Transfer
 import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand
 import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.CreateTransferCommand
+import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.UpdateTransferCommand
 import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent.CreateTransferEvent
 import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent.UpdateTransferEvent
+import ch.jvi.budgetmanager.backend.server.repository.TransferCommandRepository
+import ch.jvi.budgetmanager.backend.server.repository.TransferCreationCommandRepository
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
 @Service
 class TransferService(
     private val commandStore: CommandStore,
-    private val eventBus: EventBus
+    private val eventBus: EventBus,
+    private val creationCommandRepository: TransferCreationCommandRepository,
+    private val updateCommandRepository: TransferCommandRepository
 ) :
     EntityService<Transfer> {
 
@@ -43,7 +48,7 @@ class TransferService(
     }
 
     private fun isTransferCreationCommand(command: CreationCommand): Boolean {
-        return command is CreateTransferCommand;
+        return command is CreateTransferCommand
     }
 
     private fun applyCommands(transfer: Transfer): Transfer {
@@ -56,13 +61,10 @@ class TransferService(
      * Creates and sends a CreateTransferEvent with the given data.
      */
     fun createTransfer(senderId: String, name: String, recipientId: String, amount: BigDecimal) {
-        val createTransferEvent =
-            CreateTransferEvent(
-                recipientId = recipientId,
-                name = name,
-                senderId = senderId,
-                amount = amount
-            )
+        val creationCommand = CreateTransferCommand(name, recipientId, senderId, amount)
+        creationCommandRepository.save(creationCommand)
+
+        val createTransferEvent = CreateTransferEvent(recipientId, name, senderId, amount)
         eventBus.send(createTransferEvent)
     }
 
@@ -70,6 +72,14 @@ class TransferService(
      * Sends an UpdateTransferEvent with the given Data.
      */
     fun updateTransfer(updateTransferEvent: UpdateTransferEvent) {
+        val updateTransferCommand = UpdateTransferCommand(
+            entityId = updateTransferEvent.transferId,
+            recipientId = updateTransferEvent.newRecipientId,
+            senderId = updateTransferEvent.newSenderId,
+            amount = updateTransferEvent.newAmount,
+            name = updateTransferEvent.newName
+        )
+        updateCommandRepository.save(updateTransferCommand)
         eventBus.send(updateTransferEvent)
     }
 

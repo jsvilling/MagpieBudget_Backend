@@ -67,4 +67,11 @@ class AccountService(
         val updateAccountEvent = AccountEvent.UpdateAccountEvent(id, balance, name)
         eventBus.send(updateAccountEvent)
     }
+
+    fun updateAccountBalance(id: String, balanceChange: BigDecimal) {
+        val updateRecipientCommand = AccountCommand.AdjustAccountBalanceCommand(balanceChange, id)
+        val updateSenderAccount = AccountCommand.AdjustAccountBalanceCommand(balanceChange, id)
+        updateCommandRepository.saveAll(listOf(updateRecipientCommand, updateSenderAccount))
+    }
+
 }
