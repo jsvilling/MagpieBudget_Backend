@@ -10,4 +10,7 @@ import org.springframework.stereotype.Repository
  * @author J. Villing
  */
 @Repository
-interface TransferCreationCommandRepository : MongoRepository<CreateTransferCommand, String>
+interface TransferCreationCommandRepository : MongoRepository<CreateTransferCommand, String> {
+    fun findByEntityId(entityId: String): CreateTransferCommand
+
+}

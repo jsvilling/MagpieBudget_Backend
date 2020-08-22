@@ -1,7 +1,5 @@
 package ch.jvi.budgetmanager.backend.command.domain.transfer.service
 
-import ch.jvi.budgetmanager.backend.command.api.command.CreationCommand
-import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.command.api.event.EventBus
 import ch.jvi.budgetmanager.backend.command.api.service.EntityService
 import ch.jvi.budgetmanager.backend.command.domain.transfer.Transfer
@@ -17,7 +15,6 @@ import java.math.BigDecimal
 
 @Service
 class TransferService(
-    private val commandStore: CommandStore,
     private val eventBus: EventBus,
     private val creationCommandRepository: TransferCreationCommandRepository,
     private val updateCommandRepository: TransferCommandRepository
@@ -29,31 +26,30 @@ class TransferService(
      * @throws IllegalArgumentException if no Entity with the given ID is found.
      */
     override fun find(entityId: String): Transfer {
-        val createTransferCommand = commandStore.findCreationCommand(entityId) as CreateTransferCommand
+        val createTransferCommand = creationCommandRepository.findByEntityId(entityId)
         val transfer = Transfer(createTransferCommand)
         return applyCommands(transfer)
     }
 
     override fun findAll(): List<Transfer> {
-        return commandStore.findCreationCommands(this::isTransferCreationCommand)
+        return creationCommandRepository.findAll()
             .map { Transfer(it as CreateTransferCommand) }
             .map { applyCommands(it) }
     }
 
     fun findAllForAccount(accountId: String): List<Transfer> {
-        return commandStore.findCreationCommands(this::isTransferCreationCommand)
+        return creationCommandRepository.findAll()
             .map { Transfer(it as CreateTransferCommand) }
             .map { applyCommands(it) }
             .filter { it.recipientId == accountId || it.senderId == accountId }
     }
 
-    private fun isTransferCreationCommand(command: CreationCommand): Boolean {
-        return command is CreateTransferCommand
-    }
-
     private fun applyCommands(transfer: Transfer): Transfer {
-        val commands: List<TransferCommand> = commandStore.findTransferCommands(transfer.id)
-        transfer.applyAll(commands)
+        try {
+            val commands: List<TransferCommand> = updateCommandRepository.findByEntityId(transfer.id)
+            transfer.applyAll(commands)
+        } catch (e: Exception) {
+        }
         return transfer
     }
 
@@ -61,7 +57,7 @@ class TransferService(
      * Creates and sends a CreateTransferEvent with the given data.
      */
     fun createTransfer(senderId: String, name: String, recipientId: String, amount: BigDecimal) {
-        val creationCommand = CreateTransferCommand(name, recipientId, senderId, amount)
+        val creationCommand = CreateTransferCommand(recipientId, name, senderId, amount)
         creationCommandRepository.save(creationCommand)
 
         val createTransferEvent = CreateTransferEvent(recipientId, name, senderId, amount)

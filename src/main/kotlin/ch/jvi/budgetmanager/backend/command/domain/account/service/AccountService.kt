@@ -41,8 +41,12 @@ class AccountService(
     }
 
     private fun findAndApplyAllCommands(account: Account): Account {
-        val commands: List<AccountCommand> = updateCommandRepository.findByEntityId(account.id)
-        account.applyAll(commands)
+        try {
+            val commands: List<AccountCommand> = updateCommandRepository.findByEntityId(account.id)
+            account.applyAll(commands)
+        } catch (e: Exception) {
+
+        }
         return account
     }
 

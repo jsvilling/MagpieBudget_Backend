@@ -8,4 +8,6 @@ import org.springframework.data.mongodb.repository.MongoRepository
  *
  * @author J. Villing
  */
-interface TransferCommandRepository : MongoRepository<TransferCommand, String>
+interface TransferCommandRepository : MongoRepository<TransferCommand, String> {
+    fun findByEntityId(entityId: String): List<TransferCommand>
+}
