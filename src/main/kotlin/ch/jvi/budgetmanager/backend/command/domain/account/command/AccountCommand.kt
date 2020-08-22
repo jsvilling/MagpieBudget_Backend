@@ -1,6 +1,6 @@
 package ch.jvi.budgetmanager.backend.command.domain.account.command
 
-import ch.jvi.budgetmanager.backend.command.api.command.Command
+import ch.jvi.budgetmanager.backend.command.api.Command
 import ch.jvi.budgetmanager.backend.command.domain.api.IDProvider
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document

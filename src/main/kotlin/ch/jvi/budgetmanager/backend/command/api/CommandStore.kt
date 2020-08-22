@@ -1,4 +1,4 @@
-package ch.jvi.budgetmanager.backend.command.api.command
+package ch.jvi.budgetmanager.backend.command.api
 
 /**
  * A CommandStore is used to persist and retrieve commands.

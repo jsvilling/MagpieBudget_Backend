@@ -1,6 +1,6 @@
 package ch.jvi.budgetmanager.backend.command.domain.account.persistance.store
 
-import ch.jvi.budgetmanager.backend.command.api.command.CommandStore
+import ch.jvi.budgetmanager.backend.command.api.CommandStore
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.CreateAccountCommand
 import ch.jvi.budgetmanager.backend.command.domain.account.persistance.repository.AccountCreationCommandRepository

@@ -1,6 +1,6 @@
 package ch.jvi.budgetmanager.backend.command.domain.api
 
-import ch.jvi.budgetmanager.backend.command.api.command.Command
+import ch.jvi.budgetmanager.backend.command.api.Command
 
 /**
  * Interface for all domain entities

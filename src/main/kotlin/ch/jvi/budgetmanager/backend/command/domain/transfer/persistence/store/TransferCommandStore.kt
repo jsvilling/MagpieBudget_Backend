@@ -1,6 +1,6 @@
 package ch.jvi.budgetmanager.backend.command.domain.transfer.persistence.store
 
-import ch.jvi.budgetmanager.backend.command.api.command.CommandStore
+import ch.jvi.budgetmanager.backend.command.api.CommandStore
 import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand
 import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.CreateTransferCommand
 import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.UpdateTransferCommand
