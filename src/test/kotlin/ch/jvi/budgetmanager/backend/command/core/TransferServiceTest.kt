@@ -1,10 +1,10 @@
 package ch.jvi.budgetmanager.backend.command.core
 
-import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.command.api.event.EventBus
 import ch.jvi.budgetmanager.backend.command.domain.transfer.command.TransferCommand.CreateTransferCommand
 import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent.CreateTransferEvent
 import ch.jvi.budgetmanager.backend.command.domain.transfer.event.TransferEvent.UpdateTransferEvent
+import ch.jvi.budgetmanager.backend.command.domain.transfer.persistence.store.TransferCommandStore
 import ch.jvi.budgetmanager.backend.command.domain.transfer.service.TransferService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
@@ -14,11 +14,11 @@ import java.math.BigDecimal.ZERO
 
 internal class TransferServiceTest {
 
-    val commandStore = mock(CommandStore::class.java)
-    val eventBus = mock(EventBus::class.java)
+    private val commandStore = mock(TransferCommandStore::class.java)
+    private val eventBus = mock(EventBus::class.java)
 
     private val transferService =
-        TransferService(commandStore, eventBus)
+        TransferService(eventBus, commandStore)
 
     @Test
     fun testGetTransfer() {

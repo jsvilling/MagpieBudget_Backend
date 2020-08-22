@@ -1,8 +1,8 @@
 package ch.jvi.budgetmanager.backend.server
 
-import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.command.api.event.EventBus
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand
+import ch.jvi.budgetmanager.backend.command.domain.account.persistance.store.AccountCommandStore
 import ch.jvi.budgetmanager.backend.command.domain.account.service.AccountService
 import ch.jvi.budgetmanager.backend.query.account.AccountQueryService
 import ch.jvi.budgetmanager.backend.server.controller.AccountController
@@ -15,12 +15,12 @@ internal class AccountControllerTest {
 
     val eventBus = mock(EventBus::class.java)
 
-    val commandStore = mock(CommandStore::class.java)
+    val commandStore = mock(AccountCommandStore::class.java)
 
     val accountService = spy(
         AccountService(
-            eventBus,
-            commandStore
+            commandStore,
+            eventBus
         )
     )
 

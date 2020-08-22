@@ -1,14 +1,12 @@
 package ch.jvi.budgetmanager.backend.command.core.event
 
 import ch.jvi.budgetmanager.backend.command.domain.IDProvider
-import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.UpdateAccountCommand
 import ch.jvi.budgetmanager.backend.command.domain.account.event.AccountEvent
 import ch.jvi.budgetmanager.backend.command.domain.account.event.AccountEventListener
 import ch.jvi.budgetmanager.backend.command.domain.account.service.AccountService
 import org.assertj.core.api.Assertions
 import org.junit.Ignore
 import org.junit.Test
-import org.mockito.ArgumentCaptor
 import org.mockito.Mockito.mock
 import java.math.BigDecimal
 
@@ -19,7 +17,6 @@ internal class AccountEventListenerTest {
         AccountEventListener(
             accountService
         )
-    private val captor = ArgumentCaptor.forClass(UpdateAccountCommand::class.java)
 
     // Ignored until mockito-kotlin is integrated
     @Test
@@ -28,7 +25,6 @@ internal class AccountEventListenerTest {
         // Given
         val balance = BigDecimal.TEN
         val name = "NameName"
-        val accountId = IDProvider.nextId
         val createAccountEvent =
             AccountEvent.CreateAccountEvent(
                 balance,
@@ -53,7 +49,6 @@ internal class AccountEventListenerTest {
                 name
             )
         val updateCommandId = IDProvider.nextId
-        val expectedUpdateCommand = UpdateAccountCommand(balance, name, accountId, updateCommandId)
 
         // When
         // Then

@@ -1,11 +1,11 @@
 package ch.jvi.budgetmanager.backend.command.core
 
-import ch.jvi.budgetmanager.backend.command.api.command.store.CommandStore
 import ch.jvi.budgetmanager.backend.command.api.event.EventBus
 import ch.jvi.budgetmanager.backend.command.domain.account.Account
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.CreateAccountCommand
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.UpdateAccountCommand
 import ch.jvi.budgetmanager.backend.command.domain.account.event.AccountEvent.CreateAccountEvent
+import ch.jvi.budgetmanager.backend.command.domain.account.persistance.store.AccountCommandStore
 import ch.jvi.budgetmanager.backend.command.domain.account.service.AccountService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
@@ -15,9 +15,9 @@ import java.math.BigDecimal
 internal class AccountServiceTest {
 
     private val eventBus = mock(EventBus::class.java)
-    private val commandStore = mock(CommandStore::class.java)
+    private val commandStore = mock(AccountCommandStore::class.java)
     private val accountService =
-        AccountService(eventBus, commandStore)
+        AccountService(commandStore, eventBus)
 
     @Test
     fun testGetAccount_OnlyCreationCommand() {
@@ -47,7 +47,7 @@ internal class AccountServiceTest {
         val creationCommand = CreateAccountCommand(balance, name, id)
         val updateCommand = UpdateAccountCommand(newBalace, newName, id)
         doReturn(creationCommand).`when`(commandStore).findCreationCommand(id)
-        doReturn(listOf(updateCommand)).`when`(commandStore).findAccountCommands(id)
+        doReturn(listOf(updateCommand)).`when`(commandStore).findUpdateCommands(id)
 
         // When
         val account = accountService.find(id)
