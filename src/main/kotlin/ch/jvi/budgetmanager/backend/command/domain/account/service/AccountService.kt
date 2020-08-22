@@ -6,6 +6,7 @@ import ch.jvi.budgetmanager.backend.command.domain.account.Account
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand
 import ch.jvi.budgetmanager.backend.command.domain.account.command.AccountCommand.CreateAccountCommand
 import ch.jvi.budgetmanager.backend.command.domain.account.event.AccountEvent
+import ch.jvi.budgetmanager.backend.command.domain.account.event.AccountEvent.CreateAccountEvent
 import ch.jvi.budgetmanager.backend.command.domain.account.repository.AccountCommandRepository
 import ch.jvi.budgetmanager.backend.command.domain.account.repository.AccountCreationCommandRepository
 import org.springframework.stereotype.Service
@@ -49,7 +50,10 @@ class AccountService(
      * Creates and sends a CreateAccountEvent with the given balance and name
      */
     fun createAccount(balance: BigDecimal, name: String) {
-        val createAccountEvent = AccountEvent.CreateAccountEvent(balance, name)
+        val createAccountCommand = CreateAccountCommand(balance, name)
+        creationCommandRepository.save(createAccountCommand)
+
+        val createAccountEvent = CreateAccountEvent(balance, name)
         eventBus.send(createAccountEvent)
     }
 
@@ -57,6 +61,9 @@ class AccountService(
      * Creates and sends an UpdateAccountEvent with the given id, balance and name.
      */
     fun updateAccount(id: String, balance: BigDecimal, name: String) {
+        val updateAccountCommand = AccountCommand.UpdateAccountCommand(balance, name, id)
+        updateCommandRepository.save(updateAccountCommand)
+
         val updateAccountEvent = AccountEvent.UpdateAccountEvent(id, balance, name)
         eventBus.send(updateAccountEvent)
     }
