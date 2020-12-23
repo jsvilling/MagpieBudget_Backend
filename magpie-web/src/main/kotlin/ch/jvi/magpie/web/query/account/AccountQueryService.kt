@@ -1,13 +1,13 @@
 package ch.jvi.magpie.query.account
 
-import ch.jvi.magpie.domain.command.domain.account.service.AccountService
+import ch.jvi.magpie.domain.command.domain.account.service.IAccountService
 import ch.jvi.magpie.query.transfer.TransferQueryService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 class AccountQueryService(
-    private val accountService: AccountService
+    private val accountService: IAccountService
 ) {
 
     @Autowired

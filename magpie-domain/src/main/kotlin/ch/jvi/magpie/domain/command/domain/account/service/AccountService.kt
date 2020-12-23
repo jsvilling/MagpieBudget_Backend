@@ -7,7 +7,6 @@ import ch.jvi.magpie.domain.command.domain.account.command.AccountCommand.Update
 import ch.jvi.magpie.domain.command.domain.account.event.AccountEvent
 import ch.jvi.magpie.domain.command.domain.account.event.AccountEvent.CreateAccountEvent
 import ch.jvi.magpie.domain.command.domain.account.persistance.store.AccountCommandStore
-import ch.jvi.magpie.domain.command.domain.api.EntityService
 import ch.jvi.magpie.domain.event.api.EventBus
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
@@ -21,7 +20,7 @@ import java.math.BigDecimal
 class AccountService(
     private val accountCommandStore: AccountCommandStore,
     private val eventBus: EventBus
-) : EntityService<Account> {
+) : IAccountService {
 
     /**
      * @return The account with the requested ID
@@ -52,7 +51,7 @@ class AccountService(
     /**
      * Creates and sends a CreateAccountEvent with the given balance and name
      */
-    fun createAccount(balance: BigDecimal, name: String) {
+    override fun createAccount(balance: BigDecimal, name: String) {
         val createAccountCommand = CreateAccountCommand(balance, name)
         accountCommandStore.save(createAccountCommand)
 
@@ -63,7 +62,7 @@ class AccountService(
     /**
      * Creates and sends an UpdateAccountEvent with the given id, balance and name.
      */
-    fun updateAccount(id: String, balance: BigDecimal, name: String) {
+    override fun updateAccount(id: String, balance: BigDecimal, name: String) {
         val updateAccountCommand = UpdateAccountCommand(balance, name, id)
         accountCommandStore.save(updateAccountCommand)
 
@@ -71,7 +70,7 @@ class AccountService(
         eventBus.send(updateAccountEvent)
     }
 
-    fun updateAccountBalance(id: String, balanceChange: BigDecimal) {
+    override fun updateAccountBalance(id: String, balanceChange: BigDecimal) {
         val updateCommand = AccountCommand.AdjustAccountBalanceCommand(balanceChange, id)
         accountCommandStore.save(updateCommand)
     }

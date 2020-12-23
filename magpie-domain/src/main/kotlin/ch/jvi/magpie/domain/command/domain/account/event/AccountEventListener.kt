@@ -1,6 +1,6 @@
 package ch.jvi.magpie.domain.command.domain.account.event
 
-import ch.jvi.magpie.domain.command.domain.account.service.AccountService
+import ch.jvi.magpie.domain.command.domain.account.service.IAccountService
 import ch.jvi.magpie.domain.command.domain.transfer.event.TransferEvent
 import ch.jvi.magpie.domain.command.domain.transfer.event.TransferEvent.CreateTransferEvent
 import ch.jvi.magpie.domain.event.api.EventListener
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class AccountEventListener(
-    private val accountService: AccountService
+    private val accountService: IAccountService
 ) {
 
     @EventListener

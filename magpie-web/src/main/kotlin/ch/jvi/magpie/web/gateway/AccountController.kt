@@ -1,6 +1,6 @@
 package ch.jvi.magpie.web.gateway
 
-import ch.jvi.magpie.domain.command.domain.account.service.AccountService
+import ch.jvi.magpie.domain.command.domain.account.service.IAccountService
 import ch.jvi.magpie.query.account.AccountDto
 import ch.jvi.magpie.query.account.AccountQueryService
 import org.springframework.web.bind.annotation.*
@@ -14,7 +14,7 @@ import java.math.BigDecimal
 @RestController
 @RequestMapping("/api/accounts")
 class AccountController(
-    private val accountService: AccountService,
+    private val accountService: IAccountService,
     private val accountQueryService: AccountQueryService
 ) {
 
