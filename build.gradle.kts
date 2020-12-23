@@ -8,7 +8,7 @@ plugins {
     kotlin("plugin.spring") version "1.3.71"
 }
 
-group = "ch.jvi.budgetmanager"
+group = "ch.jvi.magpie"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 

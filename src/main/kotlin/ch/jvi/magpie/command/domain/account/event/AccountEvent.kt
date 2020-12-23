@@ -1,0 +1,9 @@
+package ch.jvi.magpie.command.domain.account.event
+
+import ch.jvi.magpie.event.api.Event
+import java.math.BigDecimal
+
+sealed class AccountEvent : Event {
+    data class CreateAccountEvent(val balance: BigDecimal, val name: String) : AccountEvent()
+    data class UpdateAccountEvent(val id: String, val balance: BigDecimal, val name: String) : AccountEvent()
+}
