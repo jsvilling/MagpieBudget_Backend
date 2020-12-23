@@ -52,7 +52,7 @@ class TransferService(
         val creationCommand = CreateTransferCommand(recipientId, name, senderId, amount)
         transferCommandStore.save(creationCommand)
 
-        val createTransferEvent = CreateTransferEvent(name, recipientId, senderId, amount)
+        val createTransferEvent = CreateTransferEvent(creationCommand.entityId, name, recipientId, senderId, amount)
         eventBus.send(createTransferEvent)
     }
 

@@ -5,6 +5,7 @@ import java.math.BigDecimal
 
 sealed class TransferEvent : Event {
     data class CreateTransferEvent(
+        val id: String,
         val name: String,
         val recipientId: String,
         val senderId: String,

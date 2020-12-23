@@ -37,7 +37,6 @@ class AccountEventListener(
                 transfers = emptyList()
             )
         )
-
     }
 
     @EventListener

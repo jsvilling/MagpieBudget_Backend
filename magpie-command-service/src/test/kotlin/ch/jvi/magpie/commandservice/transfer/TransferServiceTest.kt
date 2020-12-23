@@ -39,7 +39,7 @@ internal class TransferServiceTest {
         val recipientId = "reciient"
         val senderId = "sender"
         val amount = TEN
-        val creationCommand = TransferEvent.CreateTransferEvent("name", recipientId, senderId, amount)
+        val creationCommand = TransferEvent.CreateTransferEvent("id", "name", recipientId, senderId, amount)
 
         // When
         transferService.createTransfer(senderId, "name", recipientId, amount)
