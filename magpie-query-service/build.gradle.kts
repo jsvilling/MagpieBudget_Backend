@@ -29,7 +29,11 @@ dependencies {
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
 
     implementation(project(":magpie-command-service"))
+    implementation(project(":magpie-query-domain"))
     implementation(project(":magpie-domain"))
+
+
+
 }
 
 tasks.withType<KotlinCompile> {

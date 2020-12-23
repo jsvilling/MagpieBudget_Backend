@@ -2,8 +2,8 @@ package ch.jvi.magpie.web.gateway
 
 import ch.jvi.magpie.domain.transfer.ITransferService
 import ch.jvi.magpie.domain.transfer.TransferEvent
-import ch.jvi.magpie.query.transfer.TransferDto
 import ch.jvi.magpie.query.transfer.TransferQueryService
+import ch.jvi.querydomain.transfer.QueryTransfer
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
 
@@ -20,17 +20,17 @@ class TransferController(
 ) {
 
     @GetMapping()
-    fun get(): List<TransferDto> {
+    fun get(): List<QueryTransfer> {
         return transferQueryService.findAll()
     }
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: String): TransferDto {
+    fun get(@PathVariable id: String): QueryTransfer {
         return transferQueryService.find(id)
     }
 
     @GetMapping("/forAccount/{id}")
-    fun getForAccount(@PathVariable id: String): List<TransferDto> {
+    fun getForAccount(@PathVariable id: String): List<QueryTransfer> {
         return transferQueryService.findAllForAccount(id);
     }
 

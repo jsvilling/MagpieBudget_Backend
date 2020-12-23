@@ -1,8 +1,8 @@
 package ch.jvi.magpie.web.gateway
 
 import ch.jvi.magpie.domain.account.IAccountService
-import ch.jvi.magpie.query.account.AccountDto
 import ch.jvi.magpie.query.account.AccountQueryService
+import ch.jvi.querydomain.account.QueryAccount
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
 
@@ -19,12 +19,12 @@ class AccountController(
 ) {
 
     @GetMapping
-    fun get(): List<AccountDto> {
+    fun get(): List<QueryAccount> {
         return accountQueryService.findAll()
     }
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: String): AccountDto {
+    fun get(@PathVariable id: String): QueryAccount {
         return accountQueryService.find(id)
     }
 

@@ -2,6 +2,7 @@ package ch.jvi.magpie.query.transfer
 
 import ch.jvi.magpie.domain.transfer.ITransferService
 import ch.jvi.magpie.query.account.AccountQueryService
+import ch.jvi.querydomain.transfer.QueryTransfer
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -13,9 +14,9 @@ class TransferQueryService(
     @Autowired
     lateinit var accountQueryService: AccountQueryService
 
-    fun find(entityId: String): TransferDto {
+    fun find(entityId: String): QueryTransfer {
         val transfer = transferService.find(entityId)
-        return TransferDto(
+        return QueryTransfer(
             transfer.id,
             transfer.name,
             transfer.amount,
@@ -26,9 +27,9 @@ class TransferQueryService(
         )
     }
 
-    fun findAll(): List<TransferDto> {
+    fun findAll(): List<QueryTransfer> {
         return transferService.findAll().map {
-            TransferDto(
+            QueryTransfer(
                 it.id,
                 it.name,
                 it.amount,
@@ -40,9 +41,9 @@ class TransferQueryService(
         }
     }
 
-    fun findAllForAccount(accountId: String): List<TransferDto> {
+    fun findAllForAccount(accountId: String): List<QueryTransfer> {
         return transferService.findAllForAccount(accountId).map {
-            TransferDto(
+            QueryTransfer(
                 it.id,
                 it.name,
                 it.amount,
