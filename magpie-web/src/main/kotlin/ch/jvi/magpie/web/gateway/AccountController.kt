@@ -1,4 +1,4 @@
-package ch.jvi.magpie.gateway
+package ch.jvi.magpie.web.gateway
 
 import ch.jvi.magpie.domain.command.domain.account.service.AccountService
 import ch.jvi.magpie.query.account.AccountDto

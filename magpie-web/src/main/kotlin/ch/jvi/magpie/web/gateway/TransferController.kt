@@ -1,4 +1,4 @@
-package ch.jvi.magpie.gateway
+package ch.jvi.magpie.web.gateway
 
 import ch.jvi.magpie.domain.command.domain.transfer.event.TransferEvent.UpdateTransferEvent
 import ch.jvi.magpie.domain.command.domain.transfer.service.TransferService
