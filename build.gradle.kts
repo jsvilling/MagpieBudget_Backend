@@ -27,6 +27,9 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+
+    implementation(project(":magpie-app"))
+    implementation(project(":magpie-domain"))
 }
 
 tasks.withType<KotlinCompile> {

@@ -1,6 +1,6 @@
 package ch.jvi.magpie.gateway
 
-import ch.jvi.magpie.command.domain.account.service.AccountService
+import ch.jvi.magpie.domain.command.domain.account.service.AccountService
 import ch.jvi.magpie.query.account.AccountDto
 import ch.jvi.magpie.query.account.AccountQueryService
 import org.springframework.web.bind.annotation.*

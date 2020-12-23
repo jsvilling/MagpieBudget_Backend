@@ -1,6 +1,6 @@
 package ch.jvi.magpie.query.account
 
-import ch.jvi.magpie.command.domain.account.service.AccountService
+import ch.jvi.magpie.domain.command.domain.account.service.AccountService
 import ch.jvi.magpie.query.transfer.TransferQueryService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

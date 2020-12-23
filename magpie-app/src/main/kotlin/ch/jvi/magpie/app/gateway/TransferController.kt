@@ -1,7 +1,7 @@
 package ch.jvi.magpie.gateway
 
-import ch.jvi.magpie.command.domain.transfer.event.TransferEvent.UpdateTransferEvent
-import ch.jvi.magpie.command.domain.transfer.service.TransferService
+import ch.jvi.magpie.domain.command.domain.transfer.event.TransferEvent.UpdateTransferEvent
+import ch.jvi.magpie.domain.command.domain.transfer.service.TransferService
 import ch.jvi.magpie.query.transfer.TransferDto
 import ch.jvi.magpie.query.transfer.TransferQueryService
 import org.springframework.web.bind.annotation.*
