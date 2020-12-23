@@ -28,8 +28,8 @@ dependencies {
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
 
+    implementation(project(":magpie-command-service"))
     implementation(project(":magpie-domain"))
-    implementation(project(":magpie-query-service"))
 }
 
 tasks.withType<KotlinCompile> {

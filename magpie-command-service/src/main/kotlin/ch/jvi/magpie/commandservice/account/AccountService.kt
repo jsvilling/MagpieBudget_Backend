@@ -1,7 +1,7 @@
 package ch.jvi.magpie.commandservice.account
 
 import ch.jvi.magpie.commandservice.EventBus
-import ch.jvi.magpie.commandstore.account.persistance.store.AccountCommandStore
+import ch.jvi.magpie.commandservice.IAccountCommandStore
 import ch.jvi.magpie.domain.account.Account
 import ch.jvi.magpie.domain.account.AccountCommand
 import ch.jvi.magpie.domain.account.AccountCommand.CreateAccountCommand
@@ -19,7 +19,7 @@ import java.math.BigDecimal
  */
 @Service
 class AccountService(
-    private val accountCommandStore: AccountCommandStore,
+    private val accountCommandStore: IAccountCommandStore,
     private val eventBus: EventBus
 ) : IAccountService {
 

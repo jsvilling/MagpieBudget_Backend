@@ -1,6 +1,6 @@
 package ch.jvi.magpie.commandstore.transfer
 
-import ch.jvi.magpie.commandservice.CommandStore
+import ch.jvi.magpie.commandservice.ITransferCommandStore
 import ch.jvi.magpie.domain.transfer.TransferCommand
 import ch.jvi.magpie.domain.transfer.TransferCommand.CreateTransferCommand
 import ch.jvi.magpie.domain.transfer.TransferCommand.UpdateTransferCommand
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 class TransferCommandStore(
     private val transferCreationCommandRepository: TransferCreationCommandRepository,
     private val updateTransferCommandRepository: UpdateTransferCommandRepository
-) : CommandStore<CreateTransferCommand, TransferCommand> {
+) : ITransferCommandStore {
 
     override fun findCreationCommand(transferId: String): CreateTransferCommand {
         return transferCreationCommandRepository.findByEntityId(transferId)

@@ -1,6 +1,6 @@
 package ch.jvi.magpie.commandstore.account.persistance.store
 
-import ch.jvi.magpie.commandservice.CommandStore
+import ch.jvi.magpie.commandservice.IAccountCommandStore
 import ch.jvi.magpie.commandstore.account.persistance.repository.AccountCreationCommandRepository
 import ch.jvi.magpie.commandstore.account.persistance.repository.AdjustAccountBalanceCommandRepository
 import ch.jvi.magpie.commandstore.account.persistance.repository.UpdateAccountCommandRepository
@@ -13,7 +13,7 @@ class AccountCommandStore(
     private val accountCreationCommandRepository: AccountCreationCommandRepository,
     private val updateAccountCommandRepository: UpdateAccountCommandRepository,
     private val adjustAccountBalanceCommandRepository: AdjustAccountBalanceCommandRepository
-) : CommandStore<CreateAccountCommand, AccountCommand> {
+) : IAccountCommandStore {
 
     override fun findCreationCommand(accountId: String): CreateAccountCommand {
         return accountCreationCommandRepository.findByEntityId(accountId)
