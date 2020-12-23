@@ -1,6 +1,6 @@
 package ch.jvi.magpie.query.account
 
-import ch.jvi.magpie.domain.command.domain.account.Account
+import ch.jvi.magpie.domain.account.Account
 
 object AccountDtoMapper {
     fun mapToAccountDto(account: Account): AccountDto {

@@ -1,7 +1,7 @@
 package ch.jvi.magpie.web.gateway
 
-import ch.jvi.magpie.domain.command.domain.transfer.event.TransferEvent.UpdateTransferEvent
-import ch.jvi.magpie.domain.command.domain.transfer.service.ITransferService
+import ch.jvi.magpie.domain.transfer.ITransferService
+import ch.jvi.magpie.domain.transfer.TransferEvent
 import ch.jvi.magpie.query.transfer.TransferDto
 import ch.jvi.magpie.query.transfer.TransferQueryService
 import org.springframework.web.bind.annotation.*
@@ -45,7 +45,7 @@ class TransferController(
     }
 
     @PutMapping("/{id}/update")
-    fun update(@RequestBody updateTransferEvent: UpdateTransferEvent) {
+    fun update(@RequestBody updateTransferEvent: TransferEvent.UpdateTransferEvent) {
         transferService.updateTransfer(updateTransferEvent)
     }
 }

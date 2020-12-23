@@ -29,6 +29,8 @@ dependencies {
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
 
     implementation(project(":magpie-domain"))
+    implementation(project(":magpie-web"))
+    implementation(project(":magpie-command-service"))
 }
 
 tasks.withType<KotlinCompile> {

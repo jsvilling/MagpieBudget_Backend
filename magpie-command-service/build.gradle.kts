@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.asciidoctor.convert") version "1.5.3"
-    id("org.springframework.boot") version "2.1.6.RELEASE"
-    id("io.spring.dependency-management") version "1.0.7.RELEASE"
-    kotlin("jvm") version "1.3.71"
-    kotlin("plugin.spring") version "1.3.71"
+    id("org.asciidoctor.convert")
+    id("org.springframework.boot")
+    id("io.spring.dependency-management")
+    kotlin("jvm")
+    kotlin("plugin.spring")
 }
 
 group = "ch.jvi.magpie"
@@ -28,11 +28,7 @@ dependencies {
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
 
-    implementation(project(":magpie-app"))
     implementation(project(":magpie-domain"))
-    implementation(project(":magpie-web"))
-    implementation(project(":magpie-command-service"))
-
 }
 
 tasks.withType<KotlinCompile> {
