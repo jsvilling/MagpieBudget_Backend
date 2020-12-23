@@ -1,4 +1,4 @@
-package ch.jvi.magpie.domain.account.command
+package ch.jvi.magpie.domain.account
 
 import ch.jvi.magpie.domain.Command
 import ch.jvi.magpie.domain.IDProvider

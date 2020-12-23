@@ -1,6 +1,6 @@
 package ch.jvi.magpie.domain.transfer
 
-import ch.jvi.magpie.domain.event.api.Event
+import ch.jvi.magpie.domain.Event
 import java.math.BigDecimal
 
 sealed class TransferEvent : Event {

@@ -1,8 +1,8 @@
 package ch.jvi.magpie.commandservice.transfer
 
 import ch.jvi.magpie.command.domain.transfer.Transfer
+import ch.jvi.magpie.commandservice.EventBus
 import ch.jvi.magpie.commandstore.transfer.persistence.store.TransferCommandStore
-import ch.jvi.magpie.domain.event.api.EventBus
 import ch.jvi.magpie.domain.transfer.ITransferService
 import ch.jvi.magpie.domain.transfer.TransferCommand
 import ch.jvi.magpie.domain.transfer.TransferCommand.CreateTransferCommand

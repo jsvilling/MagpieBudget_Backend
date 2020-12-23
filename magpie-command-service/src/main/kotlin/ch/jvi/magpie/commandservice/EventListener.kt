@@ -1,4 +1,4 @@
-package ch.jvi.magpie.domain.event.api
+package ch.jvi.magpie.commandservice
 
 import org.springframework.context.event.EventListener
 import org.springframework.scheduling.annotation.Async

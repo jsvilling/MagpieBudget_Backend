@@ -1,14 +1,14 @@
 package ch.jvi.magpie.commandservice.account
 
+import ch.jvi.magpie.commandservice.EventBus
 import ch.jvi.magpie.commandstore.account.persistance.store.AccountCommandStore
 import ch.jvi.magpie.domain.account.Account
-import ch.jvi.magpie.domain.account.command.AccountCommand
-import ch.jvi.magpie.domain.account.command.AccountCommand.CreateAccountCommand
-import ch.jvi.magpie.domain.account.command.AccountCommand.UpdateAccountCommand
-import ch.jvi.magpie.domain.account.event.AccountEvent
-import ch.jvi.magpie.domain.account.event.AccountEvent.CreateAccountEvent
-import ch.jvi.magpie.domain.account.service.IAccountService
-import ch.jvi.magpie.domain.event.api.EventBus
+import ch.jvi.magpie.domain.account.AccountCommand
+import ch.jvi.magpie.domain.account.AccountCommand.CreateAccountCommand
+import ch.jvi.magpie.domain.account.AccountCommand.UpdateAccountCommand
+import ch.jvi.magpie.domain.account.AccountEvent
+import ch.jvi.magpie.domain.account.AccountEvent.CreateAccountEvent
+import ch.jvi.magpie.domain.account.IAccountService
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
