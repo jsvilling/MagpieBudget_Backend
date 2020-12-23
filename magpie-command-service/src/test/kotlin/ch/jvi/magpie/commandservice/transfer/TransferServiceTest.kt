@@ -2,6 +2,7 @@ package ch.jvi.magpie.commandservice.transfer
 
 import ch.jvi.magpie.commandservice.EventBus
 import ch.jvi.magpie.commandservice.ITransferCommandStore
+import ch.jvi.magpie.domain.IDProvider
 import ch.jvi.magpie.domain.transfer.TransferCommand
 import ch.jvi.magpie.domain.transfer.TransferEvent
 import org.assertj.core.api.Assertions.assertThat
@@ -39,13 +40,13 @@ internal class TransferServiceTest {
         val recipientId = "reciient"
         val senderId = "sender"
         val amount = TEN
-        val creationCommand = TransferEvent.CreateTransferEvent("id", "name", recipientId, senderId, amount)
+        val creationEvent = TransferEvent.CreateTransferEvent(IDProvider.nextId, "name", recipientId, senderId, amount)
 
         // When
         transferService.createTransfer(senderId, "name", recipientId, amount)
 
         // Then
-        verify(eventBus, times(1)).send(creationCommand)
+        verify(eventBus, times(1)).send(creationEvent)
     }
 
     @Test
