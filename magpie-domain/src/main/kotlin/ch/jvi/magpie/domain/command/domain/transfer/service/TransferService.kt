@@ -1,7 +1,6 @@
 package ch.jvi.magpie.domain.command.domain.transfer.service
 
 import ch.jvi.magpie.command.domain.transfer.Transfer
-import ch.jvi.magpie.domain.command.domain.api.EntityService
 import ch.jvi.magpie.domain.command.domain.transfer.command.TransferCommand
 import ch.jvi.magpie.domain.command.domain.transfer.command.TransferCommand.CreateTransferCommand
 import ch.jvi.magpie.domain.command.domain.transfer.command.TransferCommand.UpdateTransferCommand
@@ -16,8 +15,7 @@ import java.math.BigDecimal
 class TransferService(
     private val eventBus: EventBus,
     private val transferCommandStore: TransferCommandStore
-) :
-    EntityService<Transfer> {
+) : ITransferService {
 
     /**
      * @return The transfer with the requested ID
@@ -35,7 +33,7 @@ class TransferService(
             .map { applyCommands(it) }
     }
 
-    fun findAllForAccount(accountId: String): List<Transfer> {
+    override fun findAllForAccount(accountId: String): List<Transfer> {
         // TODO: Implement a more efficient way to do this
         return findAll().filter { it.recipientId == accountId || it.senderId == accountId }
     }
@@ -49,7 +47,7 @@ class TransferService(
     /**
      * Creates and sends a CreateTransferEvent with the given data.
      */
-    fun createTransfer(senderId: String, name: String, recipientId: String, amount: BigDecimal) {
+    override fun createTransfer(senderId: String, name: String, recipientId: String, amount: BigDecimal) {
         val creationCommand = CreateTransferCommand(recipientId, name, senderId, amount)
         transferCommandStore.save(creationCommand)
 
@@ -60,7 +58,7 @@ class TransferService(
     /**
      * Sends an UpdateTransferEvent with the given Data.
      */
-    fun updateTransfer(updateTransferEvent: UpdateTransferEvent) {
+    override fun updateTransfer(updateTransferEvent: UpdateTransferEvent) {
         val updateTransferCommand = UpdateTransferCommand(
             entityId = updateTransferEvent.transferId,
             recipientId = updateTransferEvent.newRecipientId,
