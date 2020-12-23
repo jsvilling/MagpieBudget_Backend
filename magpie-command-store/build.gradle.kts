@@ -28,10 +28,8 @@ dependencies {
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
 
-    implementation(project(":magpie-domain"))
-    implementation(project(":magpie-web"))
     implementation(project(":magpie-command-service"))
-    implementation(project(":magpie-command-store"))
+    implementation(project(":magpie-domain"))
 }
 
 tasks.withType<KotlinCompile> {
@@ -41,3 +39,8 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+val jar: Jar by tasks
+val bootJar: org.springframework.boot.gradle.tasks.bundling.BootJar by tasks
+
+bootJar.enabled = false
+jar.enabled = true

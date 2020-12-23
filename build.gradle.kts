@@ -32,6 +32,7 @@ dependencies {
     implementation(project(":magpie-domain"))
     implementation(project(":magpie-web"))
     implementation(project(":magpie-command-service"))
+    implementation(project(":magpie-command-store"))
 
 }
 

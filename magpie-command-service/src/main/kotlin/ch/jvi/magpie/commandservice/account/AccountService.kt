@@ -1,6 +1,6 @@
 package ch.jvi.magpie.commandservice.account
 
-import ch.jvi.magpie.commandservice.account.persistance.store.AccountCommandStore
+import ch.jvi.magpie.commandstore.account.persistance.store.AccountCommandStore
 import ch.jvi.magpie.domain.account.Account
 import ch.jvi.magpie.domain.account.command.AccountCommand
 import ch.jvi.magpie.domain.account.command.AccountCommand.CreateAccountCommand

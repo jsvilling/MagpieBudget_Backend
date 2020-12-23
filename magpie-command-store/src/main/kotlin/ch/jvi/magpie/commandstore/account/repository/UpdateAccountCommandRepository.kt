@@ -1,4 +1,4 @@
-package ch.jvi.magpie.commandservice.account.persistance.repository
+package ch.jvi.magpie.commandstore.account.persistance.repository
 
 import ch.jvi.magpie.domain.account.command.AccountCommand.UpdateAccountCommand
 import org.springframework.data.mongodb.repository.MongoRepository

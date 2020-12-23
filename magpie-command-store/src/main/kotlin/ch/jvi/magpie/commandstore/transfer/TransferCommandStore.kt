@@ -1,8 +1,6 @@
-package ch.jvi.magpie.commandservice.transfer.persistence.store
+package ch.jvi.magpie.commandstore.transfer
 
 import ch.jvi.magpie.commandservice.CommandStore
-import ch.jvi.magpie.commandservice.transfer.persistence.repository.TransferCreationCommandRepository
-import ch.jvi.magpie.commandservice.transfer.persistence.repository.UpdateTransferCommandRepository
 import ch.jvi.magpie.domain.transfer.TransferCommand
 import ch.jvi.magpie.domain.transfer.TransferCommand.CreateTransferCommand
 import ch.jvi.magpie.domain.transfer.TransferCommand.UpdateTransferCommand
