@@ -1,10 +1,10 @@
-package ch.jvi.magpie.commandservice.account
+package ch.jvi.magpie.eventbus.account
 
-import ch.jvi.magpie.commandservice.EventListener
 import ch.jvi.magpie.domain.account.AccountEvent
 import ch.jvi.magpie.domain.account.IAccountService
 import ch.jvi.magpie.domain.transfer.TransferEvent
 import ch.jvi.magpie.domain.transfer.TransferEvent.CreateTransferEvent
+import ch.jvi.magpie.eventbus.EventListener
 import org.springframework.stereotype.Component
 
 @Component

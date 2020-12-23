@@ -1,6 +1,7 @@
 package ch.jvi.magpie.commandservice.transfer
 
 import ch.jvi.magpie.domain.transfer.TransferEvent
+import ch.jvi.magpie.eventbus.transfer.TransferEventListener
 import org.assertj.core.api.Assertions
 import org.junit.Ignore
 import org.junit.Test

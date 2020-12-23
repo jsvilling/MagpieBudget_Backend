@@ -1,5 +1,6 @@
-package ch.jvi.magpie.commandservice
+package ch.jvi.magpie.eventbus
 
+import ch.jvi.magpie.commandservice.EventBus
 import ch.jvi.magpie.domain.Event
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component

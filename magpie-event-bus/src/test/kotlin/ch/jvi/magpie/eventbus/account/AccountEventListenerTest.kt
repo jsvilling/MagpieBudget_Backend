@@ -2,6 +2,7 @@ package ch.jvi.magpie.commandservice.account
 
 import ch.jvi.magpie.domain.IDProvider
 import ch.jvi.magpie.domain.account.AccountEvent
+import ch.jvi.magpie.eventbus.account.AccountEventListener
 import org.assertj.core.api.Assertions
 import org.junit.Ignore
 import org.junit.Test

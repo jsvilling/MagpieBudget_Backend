@@ -1,7 +1,7 @@
-package ch.jvi.magpie.commandservice.transfer
+package ch.jvi.magpie.eventbus.transfer
 
-import ch.jvi.magpie.commandservice.EventListener
 import ch.jvi.magpie.domain.transfer.TransferEvent
+import ch.jvi.magpie.eventbus.EventListener
 import org.springframework.stereotype.Component
 
 @Component

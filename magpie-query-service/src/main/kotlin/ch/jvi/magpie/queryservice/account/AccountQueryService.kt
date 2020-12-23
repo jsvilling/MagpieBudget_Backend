@@ -1,4 +1,4 @@
-package ch.jvi.magpie.query.account
+package ch.jvi.magpie.queryservice.account
 
 import ch.jvi.magpie.domain.account.IAccountService
 import ch.jvi.magpie.query.transfer.TransferQueryService
