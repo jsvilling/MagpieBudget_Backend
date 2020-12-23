@@ -4,3 +4,4 @@ pluginManagement {
     }
 }
 rootProject.name = "magpie"
+include("magpie-app")
