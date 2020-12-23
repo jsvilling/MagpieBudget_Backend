@@ -1,33 +1,43 @@
 package ch.jvi.magpie.queryservice.account
 
-import ch.jvi.magpie.domain.account.IAccountService
-import ch.jvi.magpie.query.transfer.TransferQueryService
 import ch.jvi.querydomain.account.QueryAccount
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 class AccountQueryService(
-    private val accountService: IAccountService
+    private val queryAccountStore: IQueryAccountStore
 ) {
 
-    @Autowired
-    lateinit var transferQueryService: TransferQueryService
-
-    fun find(entityId: String): QueryAccount {
-        val account = accountService.find(entityId)
-        val transfers = transferQueryService.findAllForAccount(entityId)
-        return QueryAccount(account.id, account.name, account.balance, transfers)
+    fun find(id: String): QueryAccount {
+        return queryAccountStore.findById(id)
     }
 
     fun findAll(): List<QueryAccount> {
-        val allAccounts = accountService.findAll()
-        return allAccounts.map {
-            QueryAccount(it.id, it.name, it.balance, transferQueryService.findAllForAccount(it.id))
-        }.toList()
+        return queryAccountStore.findAll()
     }
 
-    fun findAccountName(entityId: String): String {
-        return accountService.find(entityId).name
+    fun findAccountName(id: String): String {
+        return find(id).name
+    }
+
+    fun add(account: QueryAccount) {
+        queryAccountStore.add(account)
+    }
+
+    fun update(account: QueryAccount) {
+        val oldAccount = find(account.id)
+        queryAccountStore.remove(account.id)
+        queryAccountStore.add(
+            QueryAccount(
+                id = account.id,
+                balance = account.balance,
+                name = account.name,
+                transfers = oldAccount.transfers
+            )
+        )
+    }
+
+    fun remove(id: String) {
+        queryAccountStore.remove(id)
     }
 }

@@ -1,7 +1,5 @@
 package ch.jvi.magpie.queryservice
 
-import java.util.*
-
 /**
  * @author J. Villing
  */
@@ -9,7 +7,7 @@ interface QueryModelStore<T, I> {
 
     fun findAll(): List<T>
 
-    fun findById(id: I): Optional<T>
+    fun findById(id: I): T
 
     fun add(newObj: T): T
 

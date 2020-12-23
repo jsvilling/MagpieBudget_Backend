@@ -33,6 +33,10 @@ dependencies {
     implementation(project(":magpie-web"))
     implementation(project(":magpie-command-service"))
     implementation(project(":magpie-command-store"))
+    implementation(project(":magpie-query-store"))
+    implementation(project(":magpie-query-service"))
+    implementation(project(":magpie-query-domain"))
+    implementation(project(":magpie-event-bus"))
 
 }
 

@@ -3,6 +3,7 @@ package ch.jvi.magpie.commandservice.account
 import ch.jvi.magpie.domain.IDProvider
 import ch.jvi.magpie.domain.account.AccountEvent
 import ch.jvi.magpie.eventbus.account.AccountEventListener
+import ch.jvi.magpie.queryservice.account.AccountQueryService
 import org.assertj.core.api.Assertions
 import org.junit.Ignore
 import org.junit.Test
@@ -12,9 +13,11 @@ import java.math.BigDecimal
 internal class AccountEventListenerTest {
 
     private val accountService = mock(AccountService::class.java)
+    private val queryAccountService = mock(AccountQueryService::class.java)
     private val accountEventListener =
         AccountEventListener(
-            accountService
+            accountService,
+            queryAccountService
         )
 
     // Ignored until mockito-kotlin is integrated

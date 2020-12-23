@@ -5,21 +5,39 @@ import ch.jvi.magpie.domain.account.IAccountService
 import ch.jvi.magpie.domain.transfer.TransferEvent
 import ch.jvi.magpie.domain.transfer.TransferEvent.CreateTransferEvent
 import ch.jvi.magpie.eventbus.EventListener
+import ch.jvi.magpie.queryservice.account.AccountQueryService
+import ch.jvi.querydomain.account.QueryAccount
 import org.springframework.stereotype.Component
 
 @Component
 class AccountEventListener(
-    private val accountService: IAccountService
+    private val accountService: IAccountService,
+    private val queryAccountService: AccountQueryService
 ) {
 
     @EventListener
     fun handle(createAccountEvent: AccountEvent.CreateAccountEvent) {
-        // TODO: Use in query model to update query model
+        queryAccountService.add(
+            QueryAccount(
+                id = createAccountEvent.name,
+                balance = createAccountEvent.balance,
+                name = createAccountEvent.name,
+                transfers = emptyList()
+            )
+        )
     }
 
     @EventListener
     fun handle(updateAccountEvent: AccountEvent.UpdateAccountEvent) {
-        // TODO: Use in query model to update query model
+        queryAccountService.update(
+            QueryAccount(
+                id = updateAccountEvent.name,
+                balance = updateAccountEvent.balance,
+                name = updateAccountEvent.name,
+                transfers = emptyList()
+            )
+        )
+
     }
 
     @EventListener
