@@ -12,6 +12,12 @@ class TransferQueryStore : IQueryTransferStore {
 
     private val cache = mutableMapOf<String, QueryTransfer>()
 
+    override fun findByAccountId(accountId: String): MutableList<QueryTransfer> {
+        return cache.values
+            .filter { it.recipientId == accountId || it.senderId == accountId }
+            .toMutableList()
+    }
+
     override fun findAll(): List<QueryTransfer> {
         return cache.values.toList()
     }

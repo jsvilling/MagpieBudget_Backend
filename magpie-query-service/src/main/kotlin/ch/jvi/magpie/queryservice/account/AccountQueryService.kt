@@ -1,12 +1,14 @@
 package ch.jvi.magpie.queryservice.account
 
+import ch.jvi.magpie.queryservice.transfer.IQueryTransferStore
 import ch.jvi.querydomain.account.QueryAccount
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
 @Service
 class AccountQueryService(
-    private val queryAccountStore: IQueryAccountStore
+    private val queryAccountStore: IQueryAccountStore,
+    private val queryTransferStore: IQueryTransferStore
 ) {
 
     fun find(id: String): QueryAccount {
@@ -26,14 +28,14 @@ class AccountQueryService(
     }
 
     fun update(account: QueryAccount) {
-        val oldAccount = find(account.id)
         queryAccountStore.remove(account.id)
         queryAccountStore.add(
             QueryAccount(
                 id = account.id,
                 balance = account.balance,
                 name = account.name,
-                transfers = oldAccount.transfers
+                // TODO: Fix concurrency issues
+                transfers = queryTransferStore.findByAccountId(account.id)
             )
         )
     }
