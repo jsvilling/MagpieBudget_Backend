@@ -19,10 +19,10 @@ class AccountEventListener(
     fun handle(createAccountEvent: AccountEvent.CreateAccountEvent) {
         queryAccountService.add(
             QueryAccount(
-                id = createAccountEvent.name,
+                id = createAccountEvent.id,
                 balance = createAccountEvent.balance,
                 name = createAccountEvent.name,
-                transfers = emptyList()
+                transfers = mutableListOf()
             )
         )
     }
@@ -31,10 +31,10 @@ class AccountEventListener(
     fun handle(updateAccountEvent: AccountEvent.UpdateAccountEvent) {
         queryAccountService.update(
             QueryAccount(
-                id = updateAccountEvent.name,
+                id = updateAccountEvent.id,
                 balance = updateAccountEvent.balance,
                 name = updateAccountEvent.name,
-                transfers = emptyList()
+                transfers = mutableListOf()
             )
         )
     }
@@ -43,6 +43,7 @@ class AccountEventListener(
     fun handle(createTransferEvent: CreateTransferEvent) {
         accountService.updateAccountBalance(createTransferEvent.recipientId, createTransferEvent.amount)
         accountService.updateAccountBalance(createTransferEvent.senderId, createTransferEvent.amount.negate())
+
         queryAccountService.updateAccountBalance(createTransferEvent.recipientId, createTransferEvent.amount)
         queryAccountService.updateAccountBalance(createTransferEvent.senderId, createTransferEvent.amount.negate())
     }

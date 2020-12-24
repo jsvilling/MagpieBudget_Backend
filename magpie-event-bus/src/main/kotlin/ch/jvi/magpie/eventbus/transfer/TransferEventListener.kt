@@ -2,8 +2,8 @@ package ch.jvi.magpie.eventbus.transfer
 
 import ch.jvi.magpie.domain.transfer.TransferEvent
 import ch.jvi.magpie.eventbus.EventListener
-import ch.jvi.magpie.query.transfer.TransferQueryService
 import ch.jvi.magpie.queryservice.account.AccountQueryService
+import ch.jvi.magpie.queryservice.transfer.TransferQueryService
 import ch.jvi.querydomain.transfer.QueryTransfer
 import org.springframework.stereotype.Component
 

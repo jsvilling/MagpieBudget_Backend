@@ -1,6 +1,5 @@
-package ch.jvi.magpie.query.transfer
+package ch.jvi.magpie.queryservice.transfer
 
-import ch.jvi.magpie.queryservice.transfer.IQueryTransferStore
 import ch.jvi.querydomain.transfer.QueryTransfer
 import org.springframework.stereotype.Service
 

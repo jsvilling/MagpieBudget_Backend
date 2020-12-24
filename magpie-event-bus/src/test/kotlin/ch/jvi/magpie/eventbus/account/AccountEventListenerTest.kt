@@ -29,6 +29,7 @@ internal class AccountEventListenerTest {
         val name = "NameName"
         val createAccountEvent =
             AccountEvent.CreateAccountEvent(
+                IDProvider.nextId,
                 balance,
                 name
             )

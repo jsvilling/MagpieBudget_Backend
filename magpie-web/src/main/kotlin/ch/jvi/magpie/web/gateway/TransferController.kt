@@ -2,7 +2,7 @@ package ch.jvi.magpie.web.gateway
 
 import ch.jvi.magpie.domain.transfer.ITransferService
 import ch.jvi.magpie.domain.transfer.TransferEvent
-import ch.jvi.magpie.query.transfer.TransferQueryService
+import ch.jvi.magpie.queryservice.transfer.TransferQueryService
 import ch.jvi.querydomain.transfer.QueryTransfer
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal

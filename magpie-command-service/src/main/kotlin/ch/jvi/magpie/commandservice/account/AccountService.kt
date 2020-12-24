@@ -56,7 +56,7 @@ class AccountService(
         val createAccountCommand = CreateAccountCommand(balance, name)
         accountCommandStore.save(createAccountCommand)
 
-        val createAccountEvent = CreateAccountEvent(balance, name)
+        val createAccountEvent = CreateAccountEvent(createAccountCommand.entityId, balance, name)
         eventBus.send(createAccountEvent)
     }
 

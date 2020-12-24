@@ -2,6 +2,7 @@ package ch.jvi.magpie.commandservice.account
 
 import ch.jvi.magpie.commandservice.EventBus
 import ch.jvi.magpie.commandservice.IAccountCommandStore
+import ch.jvi.magpie.domain.IDProvider
 import ch.jvi.magpie.domain.account.Account
 import ch.jvi.magpie.domain.account.AccountCommand
 import ch.jvi.magpie.domain.account.AccountEvent
@@ -59,7 +60,7 @@ internal class AccountServiceTest {
         // Given
         val balance = BigDecimal.TEN
         val name = "name"
-        val creationEvent = AccountEvent.CreateAccountEvent(balance, name)
+        val creationEvent = AccountEvent.CreateAccountEvent(IDProvider.nextId, balance, name)
 
         // When
         accountService.createAccount(balance, name)

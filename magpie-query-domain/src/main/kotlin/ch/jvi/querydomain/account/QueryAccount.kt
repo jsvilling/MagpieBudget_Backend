@@ -10,5 +10,5 @@ data class QueryAccount(
     val id: String,
     val name: String,
     val balance: BigDecimal,
-    val transfers: List<QueryTransfer>
+    val transfers: MutableList<QueryTransfer>
 )
