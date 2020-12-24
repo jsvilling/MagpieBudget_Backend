@@ -43,6 +43,8 @@ class AccountEventListener(
     fun handle(createTransferEvent: CreateTransferEvent) {
         accountService.updateAccountBalance(createTransferEvent.recipientId, createTransferEvent.amount)
         accountService.updateAccountBalance(createTransferEvent.senderId, createTransferEvent.amount.negate())
+        queryAccountService.updateAccountBalance(createTransferEvent.recipientId, createTransferEvent.amount)
+        queryAccountService.updateAccountBalance(createTransferEvent.senderId, createTransferEvent.amount.negate())
     }
 
     @EventListener
@@ -52,9 +54,17 @@ class AccountEventListener(
             updateTransferEvent.oldRecipientId,
             updateTransferEvent.oldAmount.negate()
         )
+        queryAccountService.updateAccountBalance(
+            updateTransferEvent.oldRecipientId,
+            updateTransferEvent.oldAmount.negate()
+        )
 
         // Update Old Sender
         accountService.updateAccountBalance(
+            updateTransferEvent.oldSenderId,
+            updateTransferEvent.oldAmount
+        )
+        queryAccountService.updateAccountBalance(
             updateTransferEvent.oldSenderId,
             updateTransferEvent.oldAmount
         )
@@ -64,9 +74,17 @@ class AccountEventListener(
             updateTransferEvent.newRecipientId,
             updateTransferEvent.newAmount
         )
+        queryAccountService.updateAccountBalance(
+            updateTransferEvent.newRecipientId,
+            updateTransferEvent.newAmount
+        )
 
         // Update New Sender
         accountService.updateAccountBalance(
+            updateTransferEvent.newSenderId,
+            updateTransferEvent.newAmount.negate()
+        )
+        queryAccountService.updateAccountBalance(
             updateTransferEvent.newSenderId,
             updateTransferEvent.newAmount.negate()
         )

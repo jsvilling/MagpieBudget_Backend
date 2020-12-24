@@ -2,6 +2,7 @@ package ch.jvi.magpie.queryservice.account
 
 import ch.jvi.querydomain.account.QueryAccount
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
 
 @Service
 class AccountQueryService(
@@ -35,6 +36,11 @@ class AccountQueryService(
                 transfers = oldAccount.transfers
             )
         )
+    }
+
+    fun updateAccountBalance(id: String, newBalance: BigDecimal) {
+        val account = find(id)
+        queryAccountStore.update(account.copy(balance = newBalance), id)
     }
 
     fun remove(id: String) {
