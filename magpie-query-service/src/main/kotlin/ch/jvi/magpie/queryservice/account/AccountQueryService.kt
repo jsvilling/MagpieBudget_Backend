@@ -9,6 +9,8 @@ class AccountQueryService(
     private val accountService: IAccountService
 ) {
 
+    // TODO: Revise - This is just a loose draft for testing out some things
+
     @Autowired
     lateinit var transferQueryService: TransferQueryService
 
