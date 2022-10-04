@@ -2,9 +2,9 @@ package ch.jvi.magpie.commandservice.account
 
 import ch.jvi.magpie.domain.IDProvider
 import ch.jvi.magpie.domain.account.AccountEvent
+import jdk.nashorn.internal.ir.annotations.Ignore
 import org.assertj.core.api.Assertions
-import org.junit.Ignore
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import java.math.BigDecimal
 

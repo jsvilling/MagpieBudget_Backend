@@ -6,7 +6,7 @@ import ch.jvi.magpie.commandservice.account.AccountService
 import ch.jvi.magpie.domain.account.AccountCommand
 import ch.jvi.magpie.query.account.AccountQueryService
 import ch.jvi.magpie.web.gateway.AccountController
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
 import java.math.BigDecimal
 import java.math.BigDecimal.TEN
@@ -26,7 +26,7 @@ internal class AccountControllerTest {
 
     val accountQueryService = mock(AccountQueryService::class.java)
 
-    val accountController = AccountController(accountService, accountQueryService)
+    val accountController = AccountController(accountService)
 
     @Test
     fun testGetAccount() {

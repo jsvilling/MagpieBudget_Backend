@@ -6,7 +6,7 @@ import ch.jvi.magpie.domain.account.Account
 import ch.jvi.magpie.domain.account.AccountCommand
 import ch.jvi.magpie.domain.account.AccountEvent
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
 import java.math.BigDecimal
 

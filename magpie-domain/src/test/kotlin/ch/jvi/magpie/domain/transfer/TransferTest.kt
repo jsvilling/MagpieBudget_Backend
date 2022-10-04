@@ -2,7 +2,7 @@ package ch.jvi.magpie.domain.transfer
 
 import ch.jvi.magpie.command.domain.transfer.Transfer
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.math.BigDecimal.TEN
 
 internal class TransferTest {

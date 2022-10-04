@@ -1,5 +1,6 @@
 package ch.jvi.magpie.web.gateway
 
+import ch.jvi.magpie.domain.account.Account
 import ch.jvi.magpie.domain.account.IAccountService
 import ch.jvi.magpie.query.account.AccountDto
 import ch.jvi.magpie.query.account.AccountQueryService
@@ -14,18 +15,17 @@ import java.math.BigDecimal
 @RestController
 @RequestMapping("/api/accounts")
 class AccountController(
-    private val accountService: IAccountService,
-    private val accountQueryService: AccountQueryService
+    private val accountService: IAccountService
 ) {
 
     @GetMapping
-    fun get(): List<AccountDto> {
-        return accountQueryService.findAll()
+    fun get(): List<Account> {
+        return accountService.findAll()
     }
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: String): AccountDto {
-        return accountQueryService.find(id)
+    fun get(@PathVariable id: String): Account {
+        return accountService.find(id)
     }
 
     @PostMapping("/create")
