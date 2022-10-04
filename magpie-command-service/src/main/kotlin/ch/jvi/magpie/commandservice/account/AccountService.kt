@@ -4,12 +4,13 @@ import ch.jvi.magpie.commandservice.EventBus
 import ch.jvi.magpie.commandservice.IAccountCommandStore
 import ch.jvi.magpie.domain.account.Account
 import ch.jvi.magpie.domain.account.AccountCommand
-import ch.jvi.magpie.domain.account.AccountCommand.CreateAccountCommand
-import ch.jvi.magpie.domain.account.AccountCommand.UpdateAccountCommand
+import ch.jvi.magpie.domain.account.AccountCommand.*
 import ch.jvi.magpie.domain.account.AccountEvent
 import ch.jvi.magpie.domain.account.AccountEvent.CreateAccountEvent
+import ch.jvi.magpie.domain.account.AccountEvent.UpdateAccountEvent
 import ch.jvi.magpie.domain.account.IAccountService
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
 
 /**
@@ -18,6 +19,7 @@ import java.math.BigDecimal
  * @author J. Villing
  */
 @Service
+@Transactional(readOnly = true)
 class AccountService(
     private val accountCommandStore: IAccountCommandStore,
     private val eventBus: EventBus
@@ -43,37 +45,48 @@ class AccountService(
         try {
             val commands: List<AccountCommand> = accountCommandStore.findUpdateCommands(account.id)
             account.applyAll(commands)
+            return account
         } catch (e: Exception) {
             throw IllegalStateException("Failed to apply commands for account $account.id")
         }
-        return account
     }
 
     /**
      * Creates and sends a CreateAccountEvent with the given balance and name
      */
+    @Transactional
     override fun createAccount(balance: BigDecimal, name: String) {
         val createAccountCommand = CreateAccountCommand(balance, name)
+        val account = Account(createAccountCommand)
         accountCommandStore.save(createAccountCommand)
 
-        val createAccountEvent = CreateAccountEvent(balance, name)
+        val createAccountEvent = CreateAccountEvent(account.balance, account.name)
         eventBus.send(createAccountEvent)
     }
 
     /**
      * Creates and sends an UpdateAccountEvent with the given id, balance and name.
      */
+    @Transactional
     override fun updateAccount(id: String, balance: BigDecimal, name: String) {
         val updateAccountCommand = UpdateAccountCommand(balance, name, id)
+        val account = find(id);
+        account.apply(updateAccountCommand)
         accountCommandStore.save(updateAccountCommand)
 
-        val updateAccountEvent = AccountEvent.UpdateAccountEvent(id, balance, name)
+        val updateAccountEvent = UpdateAccountEvent(account.id, account.balance, account.name)
         eventBus.send(updateAccountEvent)
     }
 
+    @Transactional
     override fun updateAccountBalance(id: String, balanceChange: BigDecimal) {
-        val updateCommand = AccountCommand.AdjustAccountBalanceCommand(balanceChange, id)
-        accountCommandStore.save(updateCommand)
+        val adjustAccountBalanceCommand = AdjustAccountBalanceCommand(balanceChange, id)
+        val account = find(id);
+        account.apply(adjustAccountBalanceCommand)
+        accountCommandStore.save(adjustAccountBalanceCommand)
+
+        val updateAccountEvent = UpdateAccountEvent(account.id, account.balance, account.name)
+        eventBus.send(updateAccountEvent)
     }
 
 }

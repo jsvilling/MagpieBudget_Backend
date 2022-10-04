@@ -4,7 +4,6 @@ import ch.jvi.magpie.domain.account.IAccountService
 import ch.jvi.magpie.query.transfer.TransferQueryService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-
 @Service
 class AccountQueryService(
     private val accountService: IAccountService
@@ -20,10 +19,11 @@ class AccountQueryService(
     }
 
     fun findAll(): List<AccountDto> {
-        val allAccounts = accountService.findAll()
-        return allAccounts.map {
-            AccountDto(it.id, it.name, it.balance, transferQueryService.findAllForAccount(it.id))
-        }.toList()
+        return accountService
+                .findAll()
+                .map {
+                    AccountDto(it.id, it.name, it.balance, transferQueryService.findAllForAccount(it.id))
+                }
     }
 
     fun findAccountName(entityId: String): String {

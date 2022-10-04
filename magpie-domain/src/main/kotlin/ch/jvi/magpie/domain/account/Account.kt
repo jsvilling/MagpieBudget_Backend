@@ -30,7 +30,7 @@ class Account(private val creationCommand: CreateAccountCommand) : DomainEntity<
         is CreateAccountCommand -> apply(command)
         is UpdateAccountCommand -> apply(command)
         is AdjustAccountBalanceCommand -> apply(command)
-    }
+    } // TODO: Validate applied commands are valid and lead to valid state
 
     private fun apply(command: CreateAccountCommand): Nothing =
         throw IllegalArgumentException("Creation commands cannot be applied to existing account")
