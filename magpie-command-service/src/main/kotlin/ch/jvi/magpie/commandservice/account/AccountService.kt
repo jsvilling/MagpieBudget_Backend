@@ -44,7 +44,7 @@ class AccountService(
             val commands: List<AccountCommand> = accountCommandStore.findUpdateCommands(account.id)
             account.applyAll(commands)
         } catch (e: Exception) {
-
+            throw IllegalStateException("Failed to apply commands for account $account.id")
         }
         return account
     }
