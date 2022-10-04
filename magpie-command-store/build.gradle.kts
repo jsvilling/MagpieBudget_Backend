@@ -1,12 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.asciidoctor.convert")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     kotlin("jvm")
     kotlin("plugin.spring")
 }
+
 
 group = "ch.jvi.magpie"
 version = "0.0.1-SNAPSHOT"

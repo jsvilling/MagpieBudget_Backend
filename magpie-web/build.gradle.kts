@@ -1,7 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.asciidoctor.convert")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     kotlin("jvm")
@@ -30,6 +29,7 @@ dependencies {
 
     implementation(project(":magpie-domain"))
     implementation(project(":magpie-query-service"))
+    implementation(project(":magpie-command-service"))
 }
 
 tasks.withType<KotlinCompile> {
