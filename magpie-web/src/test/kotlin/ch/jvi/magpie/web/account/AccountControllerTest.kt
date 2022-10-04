@@ -24,8 +24,6 @@ internal class AccountControllerTest {
         )
     )
 
-    val accountQueryService = mock(AccountQueryService::class.java)
-
     val accountController = AccountController(accountService)
 
     @Test
@@ -39,7 +37,7 @@ internal class AccountControllerTest {
         accountController.get(id)
 
         // Then
-        verify(accountQueryService, times(1)).find(id)
+        verify(accountService, times(1)).find(id)
     }
 
     @Test
