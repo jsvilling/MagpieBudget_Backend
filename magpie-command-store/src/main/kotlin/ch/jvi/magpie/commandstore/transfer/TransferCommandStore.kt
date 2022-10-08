@@ -1,6 +1,6 @@
 package ch.jvi.magpie.commandstore.transfer
 
-import ch.jvi.magpie.commandservice.ITransferCommandStore
+import ch.jvi.magpie.domain.transfer.ITransferCommandStore
 import ch.jvi.magpie.domain.transfer.TransferCommand
 import ch.jvi.magpie.domain.transfer.TransferCommand.CreateTransferCommand
 import ch.jvi.magpie.domain.transfer.TransferCommand.UpdateTransferCommand

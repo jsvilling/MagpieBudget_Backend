@@ -1,11 +1,10 @@
 package ch.jvi.magpie.commandservice.account
 
 import ch.jvi.magpie.commandservice.EventBus
-import ch.jvi.magpie.commandservice.IAccountCommandStore
+import ch.jvi.magpie.domain.account.IAccountCommandStore
 import ch.jvi.magpie.domain.account.Account
 import ch.jvi.magpie.domain.account.AccountCommand
 import ch.jvi.magpie.domain.account.AccountCommand.*
-import ch.jvi.magpie.domain.account.AccountEvent
 import ch.jvi.magpie.domain.account.AccountEvent.CreateAccountEvent
 import ch.jvi.magpie.domain.account.AccountEvent.UpdateAccountEvent
 import ch.jvi.magpie.domain.account.IAccountService

@@ -1,4 +1,4 @@
-package ch.jvi.magpie.commandservice
+package ch.jvi.magpie.domain
 
 /**
  * A CommandStore is used to persist and retrieve commands.

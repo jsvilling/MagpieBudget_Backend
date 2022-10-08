@@ -1,6 +1,6 @@
 package ch.jvi.magpie.commandstore.account.persistance.store
 
-import ch.jvi.magpie.commandservice.IAccountCommandStore
+import ch.jvi.magpie.domain.account.IAccountCommandStore
 import ch.jvi.magpie.commandstore.account.persistance.repository.AccountCreationCommandRepository
 import ch.jvi.magpie.commandstore.account.persistance.repository.AdjustAccountBalanceCommandRepository
 import ch.jvi.magpie.commandstore.account.persistance.repository.UpdateAccountCommandRepository

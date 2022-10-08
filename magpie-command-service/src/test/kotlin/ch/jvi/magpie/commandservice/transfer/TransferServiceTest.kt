@@ -1,7 +1,7 @@
 package ch.jvi.magpie.commandservice.transfer
 
 import ch.jvi.magpie.commandservice.EventBus
-import ch.jvi.magpie.commandservice.ITransferCommandStore
+import ch.jvi.magpie.domain.transfer.ITransferCommandStore
 import ch.jvi.magpie.domain.transfer.TransferCommand
 import ch.jvi.magpie.domain.transfer.TransferEvent
 import org.assertj.core.api.Assertions.assertThat
