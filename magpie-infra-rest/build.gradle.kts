@@ -7,7 +7,6 @@ plugins {
     kotlin("plugin.spring")
 }
 
-
 group = "ch.jvi.magpie"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
@@ -28,7 +27,8 @@ dependencies {
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
 
-    implementation(project(":magpie-domain"))
+    implementation(project(":magpie-core"))
+    implementation(project(":magpie-service"))
 }
 
 tasks.withType<KotlinCompile> {

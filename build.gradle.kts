@@ -28,10 +28,10 @@ dependencies {
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
 
     implementation(project(":magpie-app"))
-    implementation(project(":magpie-domain"))
-    implementation(project(":magpie-web"))
-    implementation(project(":magpie-command-service"))
-    implementation(project(":magpie-command-store"))
+    implementation(project(":magpie-core"))
+    implementation(project(":magpie-infra-rest"))
+    implementation(project(":magpie-service"))
+    implementation(project(":magpie-infra-jpa"))
 
 }
 
