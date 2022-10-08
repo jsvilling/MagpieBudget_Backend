@@ -1,9 +1,9 @@
 package ch.jvi.magpie.command.domain.transfer
 
-import ch.jvi.magpie.domain.DomainEntity
-import ch.jvi.magpie.domain.transfer.TransferCommand
-import ch.jvi.magpie.domain.transfer.TransferCommand.CreateTransferCommand
-import ch.jvi.magpie.domain.transfer.TransferCommand.UpdateTransferCommand
+import ch.jvi.magpie.domain.api.DomainEntity
+import ch.jvi.magpie.domain.domain.transfer.TransferCommand
+import ch.jvi.magpie.domain.domain.transfer.TransferCommand.CreateTransferCommand
+import ch.jvi.magpie.domain.domain.transfer.TransferCommand.UpdateTransferCommand
 
 
 /**

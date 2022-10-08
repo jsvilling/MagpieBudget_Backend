@@ -1,6 +1,7 @@
 package ch.jvi.magpie.domain.transfer
 
 import ch.jvi.magpie.command.domain.transfer.Transfer
+import ch.jvi.magpie.domain.domain.transfer.TransferCommand
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal.TEN

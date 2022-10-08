@@ -1,6 +1,6 @@
 package ch.jvi.magpie.commandservice
 
-import ch.jvi.magpie.domain.Event
+import ch.jvi.magpie.domain.api.Event
 
 /**
  * Interface for a EventeBus implementation

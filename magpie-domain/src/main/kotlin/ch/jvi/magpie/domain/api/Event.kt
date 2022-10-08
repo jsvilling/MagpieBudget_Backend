@@ -1,4 +1,4 @@
-package ch.jvi.magpie.domain
+package ch.jvi.magpie.domain.api
 
 /**
  * Marker interface for Events to be sent over a EventBus

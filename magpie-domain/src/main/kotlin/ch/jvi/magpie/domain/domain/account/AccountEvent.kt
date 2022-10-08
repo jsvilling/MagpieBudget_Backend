@@ -1,6 +1,6 @@
-package ch.jvi.magpie.domain.account
+package ch.jvi.magpie.domain.domain.account
 
-import ch.jvi.magpie.domain.Event
+import ch.jvi.magpie.domain.api.Event
 import java.math.BigDecimal
 
 sealed class AccountEvent : Event {

@@ -2,13 +2,13 @@ package ch.jvi.magpie.commandservice.transfer
 
 import ch.jvi.magpie.command.domain.transfer.Transfer
 import ch.jvi.magpie.commandservice.EventBus
-import ch.jvi.magpie.domain.transfer.ITransferCommandStore
-import ch.jvi.magpie.domain.transfer.ITransferService
-import ch.jvi.magpie.domain.transfer.TransferCommand
-import ch.jvi.magpie.domain.transfer.TransferCommand.CreateTransferCommand
-import ch.jvi.magpie.domain.transfer.TransferCommand.UpdateTransferCommand
-import ch.jvi.magpie.domain.transfer.TransferEvent.CreateTransferEvent
-import ch.jvi.magpie.domain.transfer.TransferEvent.UpdateTransferEvent
+import ch.jvi.magpie.domain.domain.transfer.ITransferCommandStore
+import ch.jvi.magpie.domain.domain.transfer.ITransferService
+import ch.jvi.magpie.domain.domain.transfer.TransferCommand
+import ch.jvi.magpie.domain.domain.transfer.TransferCommand.CreateTransferCommand
+import ch.jvi.magpie.domain.domain.transfer.TransferCommand.UpdateTransferCommand
+import ch.jvi.magpie.domain.domain.transfer.TransferEvent.CreateTransferEvent
+import ch.jvi.magpie.domain.domain.transfer.TransferEvent.UpdateTransferEvent
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 

@@ -1,9 +1,9 @@
 package ch.jvi.magpie.commandstore.transfer
 
-import ch.jvi.magpie.domain.transfer.ITransferCommandStore
-import ch.jvi.magpie.domain.transfer.TransferCommand
-import ch.jvi.magpie.domain.transfer.TransferCommand.CreateTransferCommand
-import ch.jvi.magpie.domain.transfer.TransferCommand.UpdateTransferCommand
+import ch.jvi.magpie.domain.domain.transfer.ITransferCommandStore
+import ch.jvi.magpie.domain.domain.transfer.TransferCommand
+import ch.jvi.magpie.domain.domain.transfer.TransferCommand.CreateTransferCommand
+import ch.jvi.magpie.domain.domain.transfer.TransferCommand.UpdateTransferCommand
 import org.springframework.stereotype.Service
 
 @Service

@@ -1,7 +1,7 @@
 package ch.jvi.magpie.commandservice.account
 
-import ch.jvi.magpie.domain.IDProvider
-import ch.jvi.magpie.domain.account.AccountEvent
+import ch.jvi.magpie.domain.api.IDProvider
+import ch.jvi.magpie.domain.domain.account.AccountEvent
 import jdk.nashorn.internal.ir.annotations.Ignore
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test

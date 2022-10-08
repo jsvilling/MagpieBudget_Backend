@@ -1,6 +1,6 @@
 package ch.jvi.magpie.commandstore.account.persistance.repository
 
-import ch.jvi.magpie.domain.account.AccountCommand.CreateAccountCommand
+import ch.jvi.magpie.domain.domain.account.AccountCommand.CreateAccountCommand
 import org.springframework.data.mongodb.repository.MongoRepository
 
 /**

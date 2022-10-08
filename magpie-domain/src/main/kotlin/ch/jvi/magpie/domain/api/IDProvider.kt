@@ -1,4 +1,4 @@
-package ch.jvi.magpie.domain
+package ch.jvi.magpie.domain.api
 
 import java.util.*
 

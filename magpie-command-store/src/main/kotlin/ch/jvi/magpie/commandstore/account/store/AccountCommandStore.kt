@@ -1,11 +1,11 @@
 package ch.jvi.magpie.commandstore.account.persistance.store
 
-import ch.jvi.magpie.domain.account.IAccountCommandStore
+import ch.jvi.magpie.domain.domain.account.IAccountCommandStore
 import ch.jvi.magpie.commandstore.account.persistance.repository.AccountCreationCommandRepository
 import ch.jvi.magpie.commandstore.account.persistance.repository.AdjustAccountBalanceCommandRepository
 import ch.jvi.magpie.commandstore.account.persistance.repository.UpdateAccountCommandRepository
-import ch.jvi.magpie.domain.account.AccountCommand
-import ch.jvi.magpie.domain.account.AccountCommand.CreateAccountCommand
+import ch.jvi.magpie.domain.domain.account.AccountCommand
+import ch.jvi.magpie.domain.domain.account.AccountCommand.CreateAccountCommand
 import org.springframework.stereotype.Service
 
 @Service

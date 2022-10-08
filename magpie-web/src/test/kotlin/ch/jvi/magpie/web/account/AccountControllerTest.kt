@@ -1,9 +1,9 @@
 package ch.jvi.magpie.web.account
 
 import ch.jvi.magpie.commandservice.EventBus
-import ch.jvi.magpie.domain.account.IAccountCommandStore
+import ch.jvi.magpie.domain.domain.account.IAccountCommandStore
 import ch.jvi.magpie.commandservice.account.AccountService
-import ch.jvi.magpie.domain.account.AccountCommand
+import ch.jvi.magpie.domain.domain.account.AccountCommand
 import ch.jvi.magpie.web.gateway.AccountController
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*

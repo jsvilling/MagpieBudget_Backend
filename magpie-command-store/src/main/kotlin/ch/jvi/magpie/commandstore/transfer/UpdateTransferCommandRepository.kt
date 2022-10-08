@@ -1,6 +1,6 @@
 package ch.jvi.magpie.commandstore.transfer
 
-import ch.jvi.magpie.domain.transfer.TransferCommand.UpdateTransferCommand
+import ch.jvi.magpie.domain.domain.transfer.TransferCommand.UpdateTransferCommand
 import org.springframework.data.mongodb.repository.MongoRepository
 
 /**

@@ -1,6 +1,6 @@
 package ch.jvi.magpie.commandservice.transfer
 
-import ch.jvi.magpie.domain.transfer.TransferEvent
+import ch.jvi.magpie.domain.domain.transfer.TransferEvent
 import jdk.nashorn.internal.ir.annotations.Ignore
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test

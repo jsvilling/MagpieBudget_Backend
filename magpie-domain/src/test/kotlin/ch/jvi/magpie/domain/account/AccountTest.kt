@@ -1,5 +1,7 @@
 package ch.jvi.magpie.domain.account
 
+import ch.jvi.magpie.domain.domain.account.Account
+import ch.jvi.magpie.domain.domain.account.AccountCommand
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal

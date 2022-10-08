@@ -1,7 +1,7 @@
 package ch.jvi.magpie.web.gateway
 
-import ch.jvi.magpie.domain.account.Account
-import ch.jvi.magpie.domain.account.IAccountService
+import ch.jvi.magpie.domain.domain.account.Account
+import ch.jvi.magpie.domain.domain.account.IAccountService
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
 

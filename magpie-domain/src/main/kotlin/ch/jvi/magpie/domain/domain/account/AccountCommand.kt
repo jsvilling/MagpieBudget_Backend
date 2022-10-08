@@ -1,7 +1,7 @@
-package ch.jvi.magpie.domain.account
+package ch.jvi.magpie.domain.domain.account
 
-import ch.jvi.magpie.domain.Command
-import ch.jvi.magpie.domain.IDProvider
+import ch.jvi.magpie.domain.api.Command
+import ch.jvi.magpie.domain.api.IDProvider
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.math.BigDecimal

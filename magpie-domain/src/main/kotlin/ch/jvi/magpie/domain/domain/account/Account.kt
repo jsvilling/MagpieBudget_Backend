@@ -1,7 +1,7 @@
-package ch.jvi.magpie.domain.account
+package ch.jvi.magpie.domain.domain.account
 
-import ch.jvi.magpie.domain.DomainEntity
-import ch.jvi.magpie.domain.account.AccountCommand.*
+import ch.jvi.magpie.domain.api.DomainEntity
+import ch.jvi.magpie.domain.domain.account.AccountCommand.*
 import java.math.BigDecimal
 
 /**

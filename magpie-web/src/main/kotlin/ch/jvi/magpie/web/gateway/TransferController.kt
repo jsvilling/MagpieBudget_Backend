@@ -1,8 +1,8 @@
 package ch.jvi.magpie.web.gateway
 
 import ch.jvi.magpie.command.domain.transfer.Transfer
-import ch.jvi.magpie.domain.transfer.ITransferService
-import ch.jvi.magpie.domain.transfer.TransferEvent
+import ch.jvi.magpie.domain.domain.transfer.ITransferService
+import ch.jvi.magpie.domain.domain.transfer.TransferEvent
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
 

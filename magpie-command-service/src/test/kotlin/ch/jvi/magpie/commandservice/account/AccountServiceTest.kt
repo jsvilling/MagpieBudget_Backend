@@ -1,10 +1,10 @@
 package ch.jvi.magpie.commandservice.account
 
 import ch.jvi.magpie.commandservice.EventBus
-import ch.jvi.magpie.domain.account.IAccountCommandStore
-import ch.jvi.magpie.domain.account.Account
-import ch.jvi.magpie.domain.account.AccountCommand
-import ch.jvi.magpie.domain.account.AccountEvent
+import ch.jvi.magpie.domain.domain.account.IAccountCommandStore
+import ch.jvi.magpie.domain.domain.account.Account
+import ch.jvi.magpie.domain.domain.account.AccountCommand
+import ch.jvi.magpie.domain.domain.account.AccountEvent
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*

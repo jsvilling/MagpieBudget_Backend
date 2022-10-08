@@ -1,6 +1,6 @@
-package ch.jvi.magpie.domain.transfer
+package ch.jvi.magpie.domain.domain.transfer
 
-import ch.jvi.magpie.domain.CommandStore
+import ch.jvi.magpie.domain.api.CommandStore
 
 /**
  * @author J. Villing
