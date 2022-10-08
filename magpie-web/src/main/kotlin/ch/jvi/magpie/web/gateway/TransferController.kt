@@ -39,11 +39,11 @@ class TransferController(
         @RequestParam recipientId: String,
         @RequestParam amount: BigDecimal
     ) {
-        transferService.createTransfer(senderId, name, recipientId, amount)
+        transferService.create(senderId, name, recipientId, amount)
     }
 
     @PutMapping("/{id}/update")
     fun update(@RequestBody updateTransferEvent: TransferEvent.UpdateTransferEvent) {
-        transferService.updateTransfer(updateTransferEvent)
+        transferService.update(updateTransferEvent)
     }
 }

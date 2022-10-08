@@ -48,7 +48,7 @@ class TransferService(
     /**
      * Creates and sends a CreateTransferEvent with the given data.
      */
-    override fun createTransfer(senderId: String, name: String, recipientId: String, amount: BigDecimal) {
+    override fun create(senderId: String, name: String, recipientId: String, amount: BigDecimal) {
         val creationCommand = CreateTransferCommand(recipientId, name, senderId, amount)
         transferCommandStore.save(creationCommand)
 
@@ -59,7 +59,7 @@ class TransferService(
     /**
      * Sends an UpdateTransferEvent with the given Data.
      */
-    override fun updateTransfer(updateTransferEvent: UpdateTransferEvent) {
+    override fun update(updateTransferEvent: UpdateTransferEvent) {
         val updateTransferCommand = UpdateTransferCommand(
             entityId = updateTransferEvent.transferId,
             recipientId = updateTransferEvent.newRecipientId,

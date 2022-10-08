@@ -10,9 +10,9 @@ import java.math.BigDecimal
  */
 interface IAccountService : EntityService<Account> {
 
-    fun createAccount(balance: BigDecimal, name: String)
+    fun create(balance: BigDecimal, name: String)
 
-    fun updateAccount(id: String, balance: BigDecimal, name: String)
+    fun update(id: String, balance: BigDecimal, name: String)
 
     fun updateAccountBalance(id: String, balanceChange: BigDecimal)
 

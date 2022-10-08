@@ -49,7 +49,7 @@ internal class AccountControllerTest {
         accountController.create(balance, name)
 
         // Then
-        verify(accountService, times(1)).createAccount(balance, name)
+        verify(accountService, times(1)).create(balance, name)
     }
 
     @Test
@@ -63,6 +63,6 @@ internal class AccountControllerTest {
         accountController.update(id, balance, name)
 
         // Then
-        verify(accountService, times(1)).updateAccount(id, balance, name)
+        verify(accountService, times(1)).update(id, balance, name)
     }
 }

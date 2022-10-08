@@ -28,11 +28,11 @@ class AccountController(
 
     @PostMapping("/create")
     fun create(@RequestParam balance: BigDecimal, @RequestParam name: String) {
-        accountService.createAccount(balance, name)
+        accountService.create(balance, name)
     }
 
     @PutMapping("/{id}/update")
     fun update(@PathVariable id: String, @RequestParam balance: BigDecimal, @RequestParam name: String) {
-        accountService.updateAccount(id, balance, name)
+        accountService.update(id, balance, name)
     }
 }

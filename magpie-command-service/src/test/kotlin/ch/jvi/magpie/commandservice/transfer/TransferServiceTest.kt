@@ -42,7 +42,7 @@ internal class TransferServiceTest {
         val creationCommand = TransferEvent.CreateTransferEvent("name", recipientId, senderId, amount)
 
         // When
-        transferService.createTransfer(senderId, "name", recipientId, amount)
+        transferService.create(senderId, "name", recipientId, amount)
 
         // Then
         verify(eventBus, times(1)).send(creationCommand)
@@ -59,7 +59,7 @@ internal class TransferServiceTest {
             TransferEvent.UpdateTransferEvent(id, "", "", ZERO, recipientId, senderId, amount, senderId)
 
         // When
-        transferService.updateTransfer(updateTransferEvent)
+        transferService.update(updateTransferEvent)
 
         // Then
         verify(eventBus, times(1)).send(updateTransferEvent)

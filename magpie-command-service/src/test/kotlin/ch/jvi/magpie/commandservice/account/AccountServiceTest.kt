@@ -62,7 +62,7 @@ internal class AccountServiceTest {
         val creationEvent = AccountEvent.CreateAccountEvent(balance, name)
 
         // When
-        accountService.createAccount(balance, name)
+        accountService.create(balance, name)
 
         // Then
         verify(eventBus, times(1)).send(creationEvent)

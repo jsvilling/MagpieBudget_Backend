@@ -54,7 +54,7 @@ class AccountService(
      * Creates and sends a CreateAccountEvent with the given balance and name
      */
     @Transactional
-    override fun createAccount(balance: BigDecimal, name: String) {
+    override fun create(balance: BigDecimal, name: String) {
         val createAccountCommand = CreateAccountCommand(balance, name)
         val account = Account(createAccountCommand)
         accountCommandStore.save(createAccountCommand)
@@ -67,7 +67,7 @@ class AccountService(
      * Creates and sends an UpdateAccountEvent with the given id, balance and name.
      */
     @Transactional
-    override fun updateAccount(id: String, balance: BigDecimal, name: String) {
+    override fun update(id: String, balance: BigDecimal, name: String) {
         val updateAccountCommand = UpdateAccountCommand(balance, name, id)
         val account = find(id);
         account.apply(updateAccountCommand)

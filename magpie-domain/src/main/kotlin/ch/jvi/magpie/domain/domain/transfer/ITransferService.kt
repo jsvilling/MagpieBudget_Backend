@@ -6,9 +6,9 @@ import java.math.BigDecimal
 
 interface ITransferService : EntityService<Transfer> {
 
-    fun createTransfer(senderId: String, name: String, recipientId: String, amount: BigDecimal)
+    fun create(senderId: String, name: String, recipientId: String, amount: BigDecimal)
 
-    fun updateTransfer(updateTransferEvent: TransferEvent.UpdateTransferEvent)
+    fun update(updateTransferEvent: TransferEvent.UpdateTransferEvent)
 
     fun findAllForAccount(accountId: String): List<Transfer>
 

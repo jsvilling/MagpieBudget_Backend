@@ -3,7 +3,7 @@ package ch.jvi.magpie.commandservice
 import ch.jvi.magpie.domain.api.Event
 
 /**
- * Interface for a EventeBus implementation
+ * Interface for a EventBus implementation
  *
  * Implementations of this interface are expected to implement a mechanism to send the received event to all
  * interested listeners. Listeners should be configured using the @EventListener annotation.
