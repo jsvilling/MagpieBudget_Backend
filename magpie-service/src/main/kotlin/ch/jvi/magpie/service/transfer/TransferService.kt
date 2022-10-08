@@ -54,19 +54,7 @@ class TransferService(
     @Transactional
     override fun update(command: UpdateTransferCommand) {
         val transfer = find(command.entityId)
-
-        val updateEvent = UpdateTransferEvent(
-            transferId = command.entityId,
-            newRecipientId = command.recipientId,
-            oldRecipientId = transfer.recipientId,
-            newSenderId = command.senderId,
-            oldSenderId = transfer.senderId,
-            newAmount = command.amount,
-            oldAmount = transfer.amount,
-            newName = command.name
-        )
-
-        transfer.apply(command)
+        val updateEvent = transfer.apply(command)
         transferCommandStore.save(command)
         eventBus.send(updateEvent)
     }

@@ -4,6 +4,7 @@ import ch.jvi.magpie.core.api.DomainEntity
 import ch.jvi.magpie.core.domain.transfer.TransferCommand
 import ch.jvi.magpie.core.domain.transfer.TransferCommand.CreateTransferCommand
 import ch.jvi.magpie.core.domain.transfer.TransferCommand.UpdateTransferCommand
+import ch.jvi.magpie.core.domain.transfer.TransferEvent
 
 
 /**
@@ -35,10 +36,23 @@ class Transfer(creationCommand: CreateTransferCommand) : DomainEntity<TransferCo
     private fun apply(command: CreateTransferCommand): Nothing =
         throw IllegalArgumentException("Creation commands cannot be applied to existing account")
 
-    private fun apply(command: UpdateTransferCommand) {
+    private fun apply(command: UpdateTransferCommand): TransferEvent {
+        val updateEvent = TransferEvent.UpdateTransferEvent(
+            transferId = command.entityId,
+            newRecipientId = command.recipientId,
+            oldRecipientId = recipientId,
+            newSenderId = command.senderId,
+            oldSenderId = senderId,
+            newAmount = command.amount,
+            oldAmount = amount,
+            newName = command.name
+        )
+
         name = command.name
         recipientId = command.recipientId
         senderId = command.senderId
         amount = command.amount
+
+        return updateEvent
     }
 }

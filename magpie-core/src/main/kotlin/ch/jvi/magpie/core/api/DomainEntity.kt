@@ -1,6 +1,7 @@
 package ch.jvi.magpie.core.api
 
 import ch.jvi.magpie.core.domain.account.AccountEvent
+import ch.jvi.magpie.core.domain.transfer.TransferEvent
 
 /**
  * Interface for all domain entities
@@ -19,5 +20,5 @@ interface DomainEntity<T : Command> {
     /**
      * This applies the given command to the domain entity and updates all value fields accordingly.
      */
-    fun apply(command: T): AccountEvent
+    fun apply(command: T): TransferEvent
 }
