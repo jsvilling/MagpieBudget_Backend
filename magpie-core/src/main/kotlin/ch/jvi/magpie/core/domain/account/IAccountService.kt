@@ -1,0 +1,19 @@
+package ch.jvi.magpie.core.domain.account
+
+import ch.jvi.magpie.core.api.EntityService
+import java.math.BigDecimal
+
+/**
+ * This service is used to validate input ralted to accounts and to create and send the corresponding Events.
+ *
+ * @author J. Villing
+ */
+interface IAccountService : EntityService<Account> {
+
+    fun create(balance: BigDecimal, name: String)
+
+    fun update(id: String, balance: BigDecimal, name: String)
+
+    fun updateAccountBalance(id: String, balanceChange: BigDecimal)
+
+}

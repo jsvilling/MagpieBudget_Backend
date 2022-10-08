@@ -1,10 +1,10 @@
 package ch.jvi.magpie.web.account
 
-import ch.jvi.magpie.commandservice.EventBus
-import ch.jvi.magpie.domain.domain.account.IAccountCommandStore
-import ch.jvi.magpie.commandservice.account.AccountService
-import ch.jvi.magpie.domain.domain.account.AccountCommand
-import ch.jvi.magpie.web.gateway.AccountController
+import ch.jvi.magpie.service.EventBus
+import ch.jvi.magpie.core.domain.account.IAccountCommandStore
+import ch.jvi.magpie.service.account.AccountService
+import ch.jvi.magpie.core.domain.account.AccountCommand
+import ch.jvi.magpie.infra.rest.account.AccountController
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
 import java.math.BigDecimal
