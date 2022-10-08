@@ -8,7 +8,7 @@ interface ITransferService : EntityService<Transfer> {
 
     fun create(senderId: String, name: String, recipientId: String, amount: BigDecimal)
 
-    fun update(updateTransferEvent: TransferEvent.UpdateTransferEvent)
+    fun update(command: TransferCommand.UpdateTransferCommand)
 
     fun findAllForAccount(accountId: String): List<Transfer>
 

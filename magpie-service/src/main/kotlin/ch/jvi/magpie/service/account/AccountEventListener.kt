@@ -16,16 +16,6 @@ class AccountEventListener(
     private val accountService: IAccountService
 ) {
 
-    @EventListener
-    fun handle(createAccountEvent: AccountEvent.CreateAccountEvent) {
-        print("Received CreateAccountEvent $createAccountEvent")
-    }
-
-    @EventListener
-    fun handle(updateAccountEvent: AccountEvent.UpdateAccountEvent) {
-        print("Received UpdateAccountEvent $updateAccountEvent")
-    }
-
     @TransactionalEventListener
     fun handle(createTransferEvent: CreateTransferEvent) {
         accountService.updateAccountBalance(createTransferEvent.recipientId, createTransferEvent.amount)

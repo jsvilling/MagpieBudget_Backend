@@ -45,7 +45,7 @@ class TransferController(
     }
 
     @PutMapping("/{id}")
-    fun update(@RequestBody updateTransferEvent: TransferEvent.UpdateTransferEvent) {
-        transferService.update(updateTransferEvent)
+    fun update(@RequestBody updateTransferCommand: TransferCommand.UpdateTransferCommand) {
+        transferService.update(updateTransferCommand)
     }
 }

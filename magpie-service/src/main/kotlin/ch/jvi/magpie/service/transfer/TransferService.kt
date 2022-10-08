@@ -10,9 +10,11 @@ import ch.jvi.magpie.core.domain.transfer.TransferCommand.UpdateTransferCommand
 import ch.jvi.magpie.core.domain.transfer.TransferEvent.CreateTransferEvent
 import ch.jvi.magpie.core.domain.transfer.TransferEvent.UpdateTransferEvent
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
 
 @Service
+@Transactional(readOnly = true)
 class TransferService(
     private val eventBus: EventBus,
     private val transferCommandStore: ITransferCommandStore
@@ -40,10 +42,7 @@ class TransferService(
         transfer.applyAll(commands)
         return transfer
     }
-
-    /**
-     * Creates and sends a CreateTransferEvent with the given data.
-     */
+    @Transactional
     override fun create(senderId: String, name: String, recipientId: String, amount: BigDecimal) {
         val creationCommand = CreateTransferCommand(recipientId, name, senderId, amount)
         transferCommandStore.save(creationCommand)
@@ -52,22 +51,24 @@ class TransferService(
         eventBus.send(createTransferEvent)
     }
 
-    /**
-     * Sends an UpdateTransferEvent with the given Data.
-     */
-    override fun update(updateTransferEvent: UpdateTransferEvent) {
-        val updateTransferCommand = UpdateTransferCommand(
-            entityId = updateTransferEvent.transferId,
-            recipientId = updateTransferEvent.newRecipientId,
-            senderId = updateTransferEvent.newSenderId,
-            amount = updateTransferEvent.newAmount,
-            name = updateTransferEvent.newName
+    @Transactional
+    override fun update(command: UpdateTransferCommand) {
+        val transfer = find(command.entityId)
+
+        val updateEvent = UpdateTransferEvent(
+            transferId = command.entityId,
+            newRecipientId = command.recipientId,
+            oldRecipientId = transfer.recipientId,
+            newSenderId = command.senderId,
+            oldSenderId = transfer.senderId,
+            newAmount = command.amount,
+            oldAmount = transfer.amount,
+            newName = command.name
         )
-        transferCommandStore.save(updateTransferCommand)
 
-        // TODO: Update should happen here
-
-        eventBus.send(updateTransferEvent)
+        transfer.apply(command)
+        transferCommandStore.save(command)
+        eventBus.send(updateEvent)
     }
 
 }
