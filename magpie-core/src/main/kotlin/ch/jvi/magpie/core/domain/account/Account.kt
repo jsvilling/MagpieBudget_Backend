@@ -2,6 +2,7 @@ package ch.jvi.magpie.core.domain.account
 
 import ch.jvi.magpie.core.api.DomainEntity
 import ch.jvi.magpie.core.domain.account.AccountCommand.*
+import ch.jvi.magpie.core.domain.account.AccountEvent.UpdateAccountEvent
 import java.math.BigDecimal
 
 /**
@@ -35,12 +36,14 @@ class Account(creationCommand: CreateAccountCommand) : DomainEntity<AccountComma
     private fun apply(command: CreateAccountCommand): Nothing =
         throw IllegalArgumentException("Creation commands cannot be applied to existing account")
 
-    private fun apply(command: UpdateAccountCommand) {
+    private fun apply(command: UpdateAccountCommand): AccountEvent {
         this.balance = command.balance
         this.name = command.name
+        return UpdateAccountEvent(id, balance, name)
     }
 
-    private fun apply(command: AdjustAccountBalanceCommand) {
-        this.balance = balance.add(command.balanceChange);
+    private fun apply(command: AdjustAccountBalanceCommand): AccountEvent {
+        this.balance = balance.add(command.balanceChange)
+        return UpdateAccountEvent(id, balance, name)
     }
 }
