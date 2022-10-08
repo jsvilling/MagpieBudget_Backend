@@ -28,7 +28,6 @@ dependencies {
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
 
     implementation(project(":magpie-domain"))
-    implementation(project(":magpie-query-service"))
     implementation(project(":magpie-command-service"))
 }
 
