@@ -18,10 +18,6 @@ class TransferService(
     private val transferCommandStore: ITransferCommandStore
 ) : ITransferService {
 
-    /**
-     * @return The transfer with the requested ID
-     * @throws IllegalArgumentException if no Entity with the given ID is found.
-     */
     override fun find(entityId: String): Transfer {
         val createTransferCommand: CreateTransferCommand = transferCommandStore.findCreationCommand(entityId)
         val transfer = Transfer(createTransferCommand)
@@ -68,6 +64,9 @@ class TransferService(
             name = updateTransferEvent.newName
         )
         transferCommandStore.save(updateTransferCommand)
+
+        // TODO: Update should happen here
+
         eventBus.send(updateTransferEvent)
     }
 
