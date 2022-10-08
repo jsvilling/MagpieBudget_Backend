@@ -34,6 +34,7 @@ class AccountEventListener(
 
     @TransactionalEventListener
     fun handle(updateTransferEvent: TransferEvent.UpdateTransferEvent) {
+        // TODO: Rethink - This is not efficient
         // Update Old Recipient
         accountService.updateAccountBalance(
             updateTransferEvent.oldRecipientId,
