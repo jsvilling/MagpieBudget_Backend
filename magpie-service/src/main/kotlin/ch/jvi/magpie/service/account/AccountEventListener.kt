@@ -6,29 +6,33 @@ import ch.jvi.magpie.core.domain.account.IAccountService
 import ch.jvi.magpie.core.domain.transfer.TransferEvent
 import ch.jvi.magpie.core.domain.transfer.TransferEvent.CreateTransferEvent
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
+import org.springframework.transaction.event.TransactionalEventListener
 
 @Component
+@Transactional(propagation = Propagation.MANDATORY)
 class AccountEventListener(
     private val accountService: IAccountService
 ) {
 
     @EventListener
     fun handle(createAccountEvent: AccountEvent.CreateAccountEvent) {
-        // TODO: Use in query model to update query model
+        print("Received CreateAccountEvent $createAccountEvent")
     }
 
     @EventListener
     fun handle(updateAccountEvent: AccountEvent.UpdateAccountEvent) {
-        // TODO: Use in query model to update query model
+        print("Received UpdateAccountEvent $updateAccountEvent")
     }
 
-    @EventListener
+    @TransactionalEventListener
     fun handle(createTransferEvent: CreateTransferEvent) {
         accountService.updateAccountBalance(createTransferEvent.recipientId, createTransferEvent.amount)
         accountService.updateAccountBalance(createTransferEvent.senderId, createTransferEvent.amount.negate())
     }
 
-    @EventListener
+    @TransactionalEventListener
     fun handle(updateTransferEvent: TransferEvent.UpdateTransferEvent) {
         // Update Old Recipient
         accountService.updateAccountBalance(
