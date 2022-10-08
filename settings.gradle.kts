@@ -3,7 +3,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-rootProject.name = "magpie"
+rootProject.name = "MagpieBudget_Backend"
 include("magpie-app")
 include("magpie-core")
 include("magpie-infra-rest")
