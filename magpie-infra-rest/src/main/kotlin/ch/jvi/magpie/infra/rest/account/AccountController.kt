@@ -1,6 +1,9 @@
 package ch.jvi.magpie.infra.rest.account
 
 import ch.jvi.magpie.core.domain.account.Account
+import ch.jvi.magpie.core.domain.account.AccountCommand
+import ch.jvi.magpie.core.domain.account.AccountCommand.CreateAccountCommand
+import ch.jvi.magpie.core.domain.account.AccountCommand.UpdateAccountCommand
 import ch.jvi.magpie.core.domain.account.IAccountService
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
@@ -27,12 +30,12 @@ class AccountController(
     }
 
     @PostMapping
-    fun create(@RequestParam balance: BigDecimal, @RequestParam name: String) {
-        accountService.create(balance, name)
+    fun create(createAccountCommand: CreateAccountCommand) {
+        accountService.create(createAccountCommand)
     }
 
     @PutMapping("/{id}")
-    fun update(@PathVariable id: String, @RequestParam balance: BigDecimal, @RequestParam name: String) {
-        accountService.update(id, balance, name)
+    fun update(updateAccountCommand: UpdateAccountCommand) {
+        accountService.update(updateAccountCommand)
     }
 }

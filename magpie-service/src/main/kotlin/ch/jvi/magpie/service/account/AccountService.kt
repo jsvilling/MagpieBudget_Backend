@@ -51,8 +51,7 @@ class AccountService(
     }
 
     @Transactional
-    override fun create(balance: BigDecimal, name: String) {
-        val createAccountCommand = CreateAccountCommand(balance, name)
+    override fun create(createAccountCommand: CreateAccountCommand) {
         val account = Account(createAccountCommand)
         val createAccountEvent = CreateAccountEvent(account.balance, account.name)
         accountCommandStore.save(createAccountCommand)
@@ -60,15 +59,15 @@ class AccountService(
     }
 
     @Transactional
-    override fun update(id: String, balance: BigDecimal, name: String) {
-        val updateAccountCommand = UpdateAccountCommand(balance, name, id)
-        val updateAccountEvent = find(id).apply(updateAccountCommand)
+    override fun update(updateAccountCommand: UpdateAccountCommand) {
+        val updateAccountEvent = find(updateAccountCommand.entityId).apply(updateAccountCommand)
         accountCommandStore.save(updateAccountCommand)
         eventBus.send(updateAccountEvent)
     }
 
     @Transactional
     override fun updateAccountBalance(id: String, balanceChange: BigDecimal) {
+        // TODO: Receive Command instead of params
         val adjustAccountBalanceCommand = AdjustAccountBalanceCommand(balanceChange, id)
         val updateAccountEvent = find(id).apply(adjustAccountBalanceCommand)
         accountCommandStore.save(adjustAccountBalanceCommand)

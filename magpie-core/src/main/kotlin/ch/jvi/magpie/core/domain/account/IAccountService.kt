@@ -1,6 +1,7 @@
 package ch.jvi.magpie.core.domain.account
 
 import ch.jvi.magpie.core.api.EntityService
+import ch.jvi.magpie.core.domain.account.AccountCommand.CreateAccountCommand
 import java.math.BigDecimal
 
 /**
@@ -10,9 +11,9 @@ import java.math.BigDecimal
  */
 interface IAccountService : EntityService<Account> {
 
-    fun create(balance: BigDecimal, name: String)
+    fun create(createAccountCommand: CreateAccountCommand)
 
-    fun update(id: String, balance: BigDecimal, name: String)
+    fun update(updateAccountCommand: AccountCommand.UpdateAccountCommand)
 
     fun updateAccountBalance(id: String, balanceChange: BigDecimal)
 
