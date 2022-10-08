@@ -4,7 +4,6 @@ import ch.jvi.magpie.commandservice.EventBus
 import ch.jvi.magpie.commandservice.IAccountCommandStore
 import ch.jvi.magpie.commandservice.account.AccountService
 import ch.jvi.magpie.domain.account.AccountCommand
-import ch.jvi.magpie.query.account.AccountQueryService
 import ch.jvi.magpie.web.gateway.AccountController
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*

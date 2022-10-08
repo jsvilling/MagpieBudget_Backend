@@ -2,8 +2,6 @@ package ch.jvi.magpie.web.gateway
 
 import ch.jvi.magpie.domain.account.Account
 import ch.jvi.magpie.domain.account.IAccountService
-import ch.jvi.magpie.query.account.AccountDto
-import ch.jvi.magpie.query.account.AccountQueryService
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
 

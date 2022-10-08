@@ -1,15 +1,15 @@
-package ch.jvi.magpie.query.account
+package ch.jvi.magpie.queryservice.account
 
 import ch.jvi.magpie.domain.account.IAccountService
-import ch.jvi.magpie.query.transfer.TransferQueryService
+import ch.jvi.magpie.query.account.AccountDto
+import ch.jvi.magpie.queryservice.transfer.TransferQueryService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 @Service
+@Deprecated("This is just a loose draft for testing out some things, do not use it")
 class AccountQueryService(
     private val accountService: IAccountService
 ) {
-
-    // TODO: Revise - This is just a loose draft for testing out some things
 
     @Autowired
     lateinit var transferQueryService: TransferQueryService

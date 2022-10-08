@@ -1,11 +1,13 @@
-package ch.jvi.magpie.query.transfer
+package ch.jvi.magpie.queryservice.transfer
 
 import ch.jvi.magpie.domain.transfer.ITransferService
-import ch.jvi.magpie.query.account.AccountQueryService
+import ch.jvi.magpie.queryservice.account.AccountQueryService
+import ch.jvi.magpie.query.transfer.TransferDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
+@Deprecated("This is just a loose draft for testing out some things, do not use it")
 class TransferQueryService(
     private val transferService: ITransferService
 ) {
